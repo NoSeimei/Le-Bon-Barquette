@@ -1,0 +1,134 @@
+<?php
+
+class Menus{
+
+private $Image;
+private $Description;
+private $Quantiee;
+private $Id_Entree;
+private $Id_Plats;
+private $Id_Dessert;
+
+
+/**
+ * Get the value of Image
+ */ 
+public function getImage()
+{
+return $this->Image;
+}
+
+/**
+ * Set the value of Image
+ *
+ * @return  self
+ */ 
+public function setImage($Image)
+{
+$this->Image = $Image;
+
+return $this;
+}
+
+/**
+ * Get the value of Description
+ */ 
+public function getDescription()
+{
+return $this->Description;
+}
+
+/**
+ * Set the value of Description
+ *
+ * @return  self
+ */ 
+public function setDescription($Description)
+{
+$this->Description = $Description;
+
+return $this;
+}
+
+/**
+ * Get the value of Quantiee
+ */ 
+public function getQuantiee()
+{
+return $this->Quantiee;
+}
+
+/**
+ * Set the value of Quantiee
+ *
+ * @return  self
+ */ 
+public function setQuantiee($Quantiee)
+{
+$this->Quantiee = $Quantiee;
+
+return $this;
+}
+
+/**
+ * Get the value of Id_Entree
+ */ 
+public function getId_Entree()
+{
+return $this->Id_Entree;
+}
+
+/**
+ * Set the value of Id_Entree
+ *
+ * @return  self
+ */ 
+public function setId_Entree($Id_Entree)
+{
+$this->Id_Entree = $Id_Entree;
+
+return $this;
+}
+
+/**
+ * Get the value of Id_Plats
+ */ 
+public function getId_Plats()
+{
+return $this->Id_Plats;
+}
+
+/**
+ * Set the value of Id_Plats
+ *
+ * @return  self
+ */ 
+public function setId_Plats($Id_Plats)
+{
+$this->Id_Plats = $Id_Plats;
+
+return $this;
+}
+
+/**
+ * Get the value of Id_Dessert
+ */ 
+public function getId_Dessert()
+{
+return $this->Id_Dessert;
+}
+
+/**
+ * Set the value of Id_Dessert
+ *
+ * @return  self
+ */ 
+public function setId_Dessert($Id_Dessert)
+{
+$this->Id_Dessert = $Id_Dessert;
+
+return $this;
+}
+}
+
+?>

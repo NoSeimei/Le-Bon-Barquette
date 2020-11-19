@@ -58,6 +58,9 @@
 								<li>
 									<a href="reservation.php">Reservation</a>
 								</li>
+								<li>
+									<a href="formulaire_connexion.php">Connexion</a>
+								</li>
 							</ul>
 						</nav>
 					</div>

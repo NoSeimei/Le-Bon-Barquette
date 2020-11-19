@@ -1,22 +1,24 @@
 <?php
 include("connexion.php");
+include("Class/Clients.php");
+include("Class/Function.php");
 
-if(isset($_POST["lastname"]))
+if(isset($_POST["nom"]))
 {
-    $lastname = $_POST["lastname"];
-    $firstname = $_POST["firstname"];
-    $tel = $_POST["phone"];
-    $mail = $_POST["mail"];
-    $user =  $_POST["user"];
-    $pass =  $_POST["password"];
+  
+    $client = new Clients();
 
-    $request = $db->prepare("INSERT INTO Client 
-    VALUES (:nom, :prenom, :tel, :date, :portefeuille, :ville");
-   $request->execute(array(':id' => $id,':nom' => $nom, ':prenom' => $prenom, ':tel' => $tel, ':date' => $date, ':portefeuille' => $portefeuille, ':ville' => $ville));
+    $client->setNom($_POST["nom"]);
+    $client->setPrenom($_POST["prenom"]);
+    $client->setTelephone($_POST["telephone"]);
+    $client->setEmail($_POST["email"]);
+    $client->setIdentifiant($_POST["identifiant"]);
+    $client->setMotDePasse($_POST["password"]);
+
+   $request = $db->prepare("INSERT INTO clients (Nom,Prenom,Telephone,Email,Identifiant,MotDePasse) VALUES (:nom, :prenom, :telephone, :email, :identifiant, :motdepasse)");
+   $request->execute(dismount($client));
 
 }
-
-
 ?>
 
 <!doctype html>
@@ -38,18 +40,18 @@ if(isset($_POST["lastname"]))
                 <h1 class="only">Formulaire d'inscription</h1><br>
                 <form action="formulaire_connexion.php" method="POST">
                     <label for="">Nom</label>
-                    <input type="text" class="form-control" name="lastname" id="lastname" aria-describedby="helpId" placeholder="">
+                    <input type="text" class="form-control" required="required" name="nom" id="nom" aria-describedby="helpId" placeholder="">
                     <label for="">Prénom</label>
-                    <input type="text" class="form-control" name="firstname" id="firstname" aria-describedby="helpId" placeholder="" value="">
+                    <input type="text" class="form-control"  required="required" name="prenom" id="prenom" aria-describedby="helpId" placeholder="" value="">
                     <label for="">Téléphone</label>
-                    <input type="number" class="form-control" name="phone" id="phone" aria-describedby="helpId" placeholder="069">
+                    <input type="number" class="form-control"  required="required" name="telephone" id="telephone" aria-describedby="helpId" placeholder="069">
                     <label for="">Email</label>
-                    <input type="mail" class="form-control" name="mail" id="mail" aria-describedby="helpId" placeholder="" value="">
+                    <input type="mail" class="form-control"  required="required" name="email" id="email" aria-describedby="helpId" placeholder="" value="">
                     <div class="block">
                     <label for="">Identifiant</label>
-                    <input type="text" class="form-control" name="user" id="user" aria-describedby="helpId" placeholder="" value="">
+                    <input type="text" class="form-control" required="required" name="identifiant" id="identifiant" aria-describedby="helpId" placeholder="" value="">
                     <label for="">Mot de passe</label>
-                    <input type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder="" value=""><br>
+                    <input type="password" class="form-control" required="required" name="motdepasse" id="motdepasse" aria-describedby="helpId" placeholder="" value=""><br>
                     </div>
                     <input type="submit" class="btn btn-primary" id="center" value="Envoyer">
                 </form>

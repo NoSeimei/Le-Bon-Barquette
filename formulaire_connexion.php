@@ -11,9 +11,9 @@ if(isset($_POST["lastname"]))
     $pass =  $_POST["password"];
 
     $request = $db->prepare("INSERT INTO Client 
-    VALUES (:id, :nom, :prenom, :tel, :date, :portefeuille, :ville");
+    VALUES (:nom, :prenom, :tel, :date, :portefeuille, :ville");
    $request->execute(array(':id' => $id,':nom' => $nom, ':prenom' => $prenom, ':tel' => $tel, ':date' => $date, ':portefeuille' => $portefeuille, ':ville' => $ville));
-   
+
 }
 
 

@@ -7,7 +7,7 @@ private $Prenom;
 private $Telephone;
 private $Email;
 private $Identifiant;
-private $Password;
+private $MotDePasse;
 
 
 
@@ -114,9 +114,9 @@ return $this;
 /**
  * Get the value of Password
  */ 
-public function getPassword()
+public function getMotDePasse()
 {
-return $this->Password;
+return $this->MotDePasse;
 }
 
 /**
@@ -124,9 +124,9 @@ return $this->Password;
  *
  * @return  self
  */ 
-public function setPassword($Password)
+public function setMotDePasse($MotDePasse)
 {
-$this->Password = $Password;
+$this->Password = $MotDePasse;
 
 return $this;
 }

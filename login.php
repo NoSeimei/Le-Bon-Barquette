@@ -3,21 +3,23 @@ include("connexion.php");
 include("Class/Clients.php");
 include("Function/Function.php");
 
-if(isset($_POST["nom"]))
+if(isset($_POST["identifiant"]) && isset($_POST["motdepasse"]) )
 {
   try{ 
-    $client = new Clients();
+    $user = $_POST["identifiant"];
+    $pass = $_POST["motdepasse"];
 
-    $client->setNom($_POST["nom"]);
-    $client->setPrenom($_POST["prenom"]);
-    $client->setTelephone($_POST["telephone"]);
-    $client->setEmail($_POST["email"]);
-    $client->setIdentifiant($_POST["identifiant"]);
-    $client->setMotDePasse($_POST["motdepasse"]);
+    $request = $db->prepare("SELECT * FROM admin WHERE userAdmin = :userAdmin AND pass = :pass");
+    $request->execute(array(':userAdmin' => $user, ':pass' => $pass));
+    $resultat = $request->fetch();
 
-   $request = $db->prepare("INSERT INTO clients 
-   VALUES (:Nom,:Prenom,:Telephone,:Email,:Identifiant,:MotDePasse)");
-   $request->execute(dismount($client));
+    if(!$resultat){
+
+        echo "Mauvais identifiant ou Mot de passe";
+    }else{
+
+        header("Location : admin.php");
+    }
 
   }catch(Exception $ex){
 
@@ -44,21 +46,13 @@ echo $ex;
   <div class="middle">
         <div class="container">
             <div class="form-group">
-                <h1 class="only">Formulaire d'inscription</h1><br>
-                <form action="formulaire_connexion.php" method="POST">
-                    <label for="">Nom</label>
-                    <input type="text" class="form-control" required="required" name="nom" id="nom" aria-describedby="helpId" placeholder="">
-                    <label for="">Prénom</label>
-                    <input type="text" class="form-control"  required="required" name="prenom" id="prenom" aria-describedby="helpId" placeholder="" value="">
-                    <label for="">Téléphone</label>
-                    <input type="number" class="form-control"  required="required" name="telephone" id="telephone" aria-describedby="helpId" placeholder="069">
-                    <label for="">Email</label>
-                    <input type="mail" class="form-control"  required="required" name="email" id="email" aria-describedby="helpId" placeholder="" value="">
-                    <div class="block">
+                <h1 class="only">Conexion</h1><br>
+                <form action="login.php" method="POST">
                     <label for="">Identifiant</label>
                     <input type="text" class="form-control" required="required" name="identifiant" id="identifiant" aria-describedby="helpId" placeholder="" value="">
                     <label for="">Mot de passe</label>
                     <input type="password" class="form-control" required="required" name="motdepasse" id="motdepasse" aria-describedby="helpId" placeholder="" value=""><br>
+                    <a href="formulaire_connexion.php">Pas encore de compte ?</a>
                     </div>
                     <input type="submit" class="btn btn-primary" id="center" value="Envoyer">
                 </form>

@@ -59,7 +59,7 @@
 									<a href="reservation.php">Reservation</a>
 								</li>
 								<li>
-									<a href="formulaire_connexion.php">Se connecter</a>
+									<a href="login.php">Se connecter</a>
 								</li>
 							</ul>
 						</nav>

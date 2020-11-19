@@ -1,0 +1,44 @@
+body {
+    background: rgb(161, 92, 92);
+    background: radial-gradient(circle, rgb(255, 139, 139) 0%, rgb(86, 100, 117) 100%);
+}
+
+.middle {
+    display: table;
+    margin: auto;
+    padding-top: 5%;
+}
+
+.container {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid rgb(204, 204, 204);
+}
+
+#center {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(179, 0, 0);
+    border: rgb(179, 0, 0);
+}
+
+#center:hover {
+    background-color: rgb(187, 124, 124);
+}
+
+.block {
+    border: 1px solid rgb(204, 204, 204);
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 2%;
+}
+
+h1 {
+    color: white;
+}
+
+label {
+    color: white;
+}

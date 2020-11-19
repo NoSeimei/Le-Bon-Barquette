@@ -131,6 +131,7 @@ DROP TABLE IF EXISTS `passer_commande`;
 CREATE TABLE IF NOT EXISTS `passer_commande` (
   `Id_Commande` int(11) NOT NULL,
   `Id_Menu` int(11) NOT NULL,
+  `Quantitee` int(11) DEFAULT NULL,
   PRIMARY KEY (`Id_Commande`,`Id_Menu`),
   KEY `Id_Menu` (`Id_Menu`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

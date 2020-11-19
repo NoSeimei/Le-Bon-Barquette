@@ -58,6 +58,9 @@
 								<li>
 									<a href="reservation.php">Reservation</a>
 								</li>
+								<li>
+									<a href="formulaire_connexion.php">Se connecter</a>
+								</li>
 							</ul>
 						</nav>
 					</div>
@@ -90,7 +93,7 @@
 
 		<br>	<li class="t-center">
 				<!-- Button3 -->
-				<a href="connexion.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
+				<a href="formulaire_connexion.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
 					Se connecter
 				</a>
 			</li>
@@ -882,21 +885,7 @@
 
 	<!-- Sign up -->
 	<div class="section-signup bg1-pattern p-t-85 p-b-85">
-		<form class="flex-c-m flex-w flex-col-c-m-lg p-l-5 p-r-5">
-			<span class="txt5 m-10">
-				Specials Sign up
-			</span>
 
-			<div class="wrap-input-signup size17 bo2 bo-rad-10 bgwhite pos-relative txt10 m-10">
-				<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="email-address" placeholder="Email Adrress">
-				<i class="fa fa-envelope ab-r-m m-r-18" aria-hidden="true"></i>
-			</div>
-
-			<!-- Button3 -->
-			<button type="submit" class="btn3 flex-c-m size18 txt11 trans-0-4 m-10">
-				Sign-up
-			</button>
-		</form>
 	</div>
 
 
@@ -910,7 +899,7 @@
 				<div class="flex-sb-m flex-w p-t-22 p-b-22">
 
 					<div class="txt17 p-r-20 p-t-5 p-b-5">
-						Copyright &copy; 2018 All rights reserved  |  This template is made with <i class="fa fa-heart"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+						Copyright &copy; </a>
 					</div>
 				</div>
 			</div>

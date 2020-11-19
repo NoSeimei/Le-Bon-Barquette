@@ -3,6 +3,7 @@
 class Menus{
 
 private $Image;
+private $Nom;
 private $Description;
 private $Quantiee;
 private $Id_Entree;
@@ -26,6 +27,26 @@ return $this->Image;
 public function setImage($Image)
 {
 $this->Image = $Image;
+
+return $this;
+}
+
+/**
+ * Get the value of Nom
+ */ 
+public function getNom()
+{
+return $this->Nom;
+}
+
+/**
+ * Set the value of Nom
+ *
+ * @return  self
+ */ 
+public function setNom($Nom)
+{
+$this->Nom = $Nom;
 
 return $this;
 }

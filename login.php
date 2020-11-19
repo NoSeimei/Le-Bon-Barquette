@@ -13,7 +13,7 @@ if(isset($_POST["identifiant"]) && isset($_POST["motdepasse"]) )
     $request->execute(array(':userAdmin' => $user, ':pass' => $pass));
     $resultat = $request->fetch();
 
-    if($resultat == null){
+    if(!$resultat){
 
         echo "Mauvais identifiant ou Mot de passe";
     }else{

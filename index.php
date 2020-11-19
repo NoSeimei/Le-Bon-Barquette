@@ -55,17 +55,13 @@
 								<li>
 									<a href="index.php">Accueil</a>
 								</li>
-
 								<li>
-									<a href="reservation.html">Reservation</a>
+									<a href="reservation.php">Reservation</a>
 								</li>
-
-
 							</ul>
 						</nav>
 					</div>
 
-					<!-- Social -->
 					<div class="social flex-w flex-l-m p-r-20">
 						<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
 					</div>
@@ -912,11 +908,6 @@
 		<div class="end-footer bg2">
 			<div class="container">
 				<div class="flex-sb-m flex-w p-t-22 p-b-22">
-					<div class="p-t-5 p-b-5">
-						<a href="#" class="fs-15 c-white"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a>
-						<a href="#" class="fs-15 c-white"><i class="fa fa-facebook m-l-18" aria-hidden="true"></i></a>
-						<a href="#" class="fs-15 c-white"><i class="fa fa-twitter m-l-18" aria-hidden="true"></i></a>
-					</div>
 
 					<div class="txt17 p-r-20 p-t-5 p-b-5">
 						Copyright &copy; 2018 All rights reserved  |  This template is made with <i class="fa fa-heart"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>

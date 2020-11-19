@@ -1,18 +1,13 @@
 <?php
 session_start();
-?>
 
-
-<?php
-
-include('../Le-Bon-Barquette/Class/Clients.php');
-include('../Le-Bon-Barquette/Class/Commandes.php');
-include('../Le-Bon-Barquette/Class/Dessert.php');
-include('../Le-Bon-Barquette/Class/Entree.php');
-include('../Le-Bon-Barquette/Class/Menus.php');
-include('../Le-Bon-Barquette/Class/Plats.php');
-
-$db =new PDO("mysql:host=localhost;dbname=bonbarquette","root","",array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
+include('Class/Clients.php');
+include('Class/Commandes.php');
+include('Class/Dessert.php');
+include('Class/Entree.php');
+include('Class/Menus.php');
+include('Class/Plats.php');
+include('connexion.php');
 
 	$requete = $db->prepare("select * from menus");
 	$requete->execute();

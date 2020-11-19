@@ -2,7 +2,6 @@
 session_start();
 ?>
 
-
 <?php
 
 include('../Le-Bon-Barquette/Class/Clients.php');

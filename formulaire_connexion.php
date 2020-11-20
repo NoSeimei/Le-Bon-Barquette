@@ -15,7 +15,7 @@ if(isset($_POST["nom"]))
     $client->setIdentifiant($_POST["identifiant"]);
     $client->setMotDePasse($_POST["motdepasse"]);
 
-   $request = $db->prepare("INSERT INTO clients 
+   $request = $db->prepare("INSERT INTO clients (Nom,Prenom,Telephone,Email,Identifiant,MotDePasse)
    VALUES (:Nom,:Prenom,:Telephone,:Email,:Identifiant,:MotDePasse)");
    $request->execute(dismount($client));
 

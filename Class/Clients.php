@@ -126,7 +126,7 @@ return $this->MotDePasse;
  */ 
 public function setMotDePasse($MotDePasse)
 {
-$this->Password = $MotDePasse;
+$this->MotDePasse = $MotDePasse;
 
 return $this;
 }

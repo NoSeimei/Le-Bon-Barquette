@@ -1,4 +1,12 @@
 <?php
+session_start();
+if(isset($_SESSION['login'])){
+  $nom= "";
+}
+else{
+  $_SESSION['login']= 
+}
+echo $_SESSION['login'];
 include("connexion.php");
 include("Class/Clients.php");
 include("Class/Admin.php");
@@ -62,7 +70,7 @@ if(isset($_POST["identifiant"]) && isset($_POST["motdepasse"]) )
                 <h1 class="only">Connexion</h1><br>
                 <form action="login.php" method="POST">
                     <label for="">Identifiant</label>
-                    <input type="text" class="form-control" required="required" name="identifiant" id="identifiant" aria-describedby="helpId" placeholder="" value="">
+                    <input type="text" class="form-control" required="required" name="identifiant" id="identifiant" aria-describedby="helpId" placeholder="" value="<?php echo $_SESSION['login'];?>">
                     <label for="">Mot de passe</label>
                     <input type="password" class="form-control" required="required" name="motdepasse" id="motdepasse" aria-describedby="helpId" placeholder="" value=""><br>
                     <a href="formulaire_connexion.php">Pas encore de compte ?</a>

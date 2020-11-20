@@ -18,13 +18,17 @@ if(isset($_POST["nom"]))
    $request = $db->prepare("INSERT INTO clients (Nom,Prenom,Telephone,Email,Identifiant,MotDePasse)
    VALUES (:Nom,:Prenom,:Telephone,:Email,:Identifiant,:MotDePasse)");
    $request->execute(dismount($client));
-
+   if (!isset($ex)){
+    header("location: login.php");
+    $_SESSION['login']= $client->getIdentifiant();
+ 
+  }
   }catch(Exception $ex){
 
       echo $ex;
 
   }
-
+ 
 } 
 ?>
 

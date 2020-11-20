@@ -9,12 +9,10 @@ include('Class/Menus.php');
 include('Class/Plats.php');
 include('connexion.php');
 
-	$requete = $db->prepare("select * from menus");
-	$requete->execute();
-
+	$requete = $db->query("select * from menus");
 	$requete->setFetchMode(PDO::FETCH_CLASS,'Menus');
-
 	$utilisateurs=$requete->fetchAll();
+
 	//var_dump($utilisateurs); 
 	?>
 

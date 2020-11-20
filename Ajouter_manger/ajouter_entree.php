@@ -1,34 +1,38 @@
 <?php
-include("connexion.php");
-include("Class/Clients.php");
-include("Class/Admin.php");
-include("Function/Function.php");
+include("../connexion.php");
+include("../Class/Clients.php");
+include("../Class/Entree.php");
+include("../Class/Plats.php");
+include("../Class/Dessert.php");
+include("../Class/Admin.php");
+include("../Function/Function.php");
 
 if(isset($_POST["image"]))
 {
-    
-    $image = $_POST["image"];
-    $nom = $_POST["nom"];
-    $description = $_POST["description"];
-    $prix = $_POST["prix"];
+    $entree = new Entree();
 
-    $request = $db->prepare("INSERT INTO entree
-    VALUES (:image, :nom, :description, :prix)");
+    $entree->setImage($_POST["image"]);
+    $entree->setNom($_POST["nom"]);
+    $entree->setDescription($_POST["description"]);
+    $entree->setPrix_Entree($_POST["prix"]);
+
+    $request = $db->prepare("INSERT INTO entree (Image, Nom, Description, Prix_Entree)
+    VALUES (:Image, :Nom, :Description, :Prix_Entree)");
+    $request->execute(dismount($entree));
 
 }
-
 ?>
 
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Title</title>
+    <title>Ajout d'un entrer</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
@@ -36,7 +40,7 @@ if(isset($_POST["image"]))
         <div class="container">
             <div class="form-group">
                 <h1 class="only">Ajout d'un entrer</h1><br>
-                <form action="ajouter_manger.php" method="POST">
+                <form action="ajouter_entree.php" method="POST">
                     <label for="">Image</label>
                     <input type="text" class="form-control" required="required" name="image" id="image" aria-describedby="helpId" placeholder="">
                     <label for="">Nom</label>
@@ -44,8 +48,8 @@ if(isset($_POST["image"]))
                     <label for="">Description</label>
                     <input type="textarea" class="form-control"  required="required" name="description" id="description" aria-describedby="helpId" placeholder="">
                     <label for="">Prix</label>
-                    <input type="number" class="form-control"  required="required" name="prix" id="prix" aria-describedby="helpId" placeholder="" value="">
-                    <input type="submit" class="btn btn-primary" id="center" value="Envoyer">
+                    <input type="decimal" class="form-control"  required="required" name="prix" id="prix" aria-describedby="helpId" placeholder="" value="" step="any" ><br>
+                    <input type="submit" class="btn btn-primary" id="center" value="Ajouter">
                 </form>
             </div>
         </div>

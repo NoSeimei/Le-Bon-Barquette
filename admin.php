@@ -16,7 +16,9 @@ include("Function/Function.php");
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
-  <a name="entrer" id="entrer" class="btn btn-primary" href="#" role="button">Ajouter un entrer</a>
+ <a name="" id="" class="btn btn-primary" href="Ajouter_manger/ajouter_entree.php" role="button">Ajouter une Entrée</a>
+ <a name="" id="" class="btn btn-primary" href="Ajouter_manger/ajouter_entree.php" role="button">Ajouter un Plat</a>
+ <a name="" id="" class="btn btn-primary" href="Ajouter_manger/ajouter_entree.php" role="button">Ajouter un Dessert</a>
 
     <table class="table table-striped table-inverse table-responsive">
         <thead class="thead-inverse">

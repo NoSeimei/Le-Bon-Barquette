@@ -3,6 +3,20 @@ include("connexion.php");
 include("Class/Clients.php");
 include("Class/Admin.php");
 include("Function/Function.php");
+
+if(isset($_POST["image"]))
+{
+    
+    $image = $_POST["image"];
+    $nom = $_POST["nom"];
+    $description = $_POST["description"];
+    $prix = $_POST["prix"];
+
+    $request = $db->prepare("INSERT INTO entree
+    VALUES (:image, :nom, :description, :prix)");
+
+}
+
 ?>
 
 <!doctype html>

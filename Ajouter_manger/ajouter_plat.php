@@ -18,9 +18,11 @@ if(isset($_POST["image"]))
 
     try{
 
-    $request = $db->prepare("INSERT INTO entree (Image, Nom, Description, Prix_Plat)
+    $request = $db->prepare("INSERT INTO plats (Image, Nom, Description, Prix_Plat)
     VALUES (:Image, :Nom, :Description, :Prix_Plat)");
     $request->execute(dismount($plat));
+
+    header("Location: ..\admin.php");
 
     }catch(Exception $ex)
     {
@@ -47,8 +49,8 @@ if(isset($_POST["image"]))
   <div class="middle">
         <div class="container">
             <div class="form-group">
-                <h1 class="only">Ajout d'un entrer</h1><br>
-                <form action="ajouter_entree.php" method="POST">
+                <h1 class="only">Ajout d'un plat</h1><br>
+                <form action="ajouter_plat.php" method="POST">
                     <label for="">Image</label>
                     <input type="text" class="form-control" required="required" name="image" id="image" aria-describedby="helpId" placeholder="">
                     <label for="">Nom</label>

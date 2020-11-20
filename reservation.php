@@ -9,6 +9,8 @@ include('Class/Menus.php');
 include('Class/Plats.php');
 include('connexion.php');
 
+
+
 	$requete = $db->prepare("select * from menus");
 	$requete->execute();
 
@@ -119,7 +121,7 @@ include('connexion.php');
 				</a>
 			</li>
 
-		</ul>
+		</ul>::
 
 		<!-- - -->
 	</aside>
@@ -146,6 +148,13 @@ include('connexion.php');
 						<h3 class="tit3 t-center m-b-35 m-t-2">
 							Menu
 						</h3>
+						<img
+    					src="images/photo-gallery-thumb-03" 
+    					alt="imMenu"
+    					height="150px" 
+    					width="200px" 
+						/>
+</br>
 					</div>
 
 					<form class="wrap-form-reservation size22 m-l-r-auto" method="POST" action="reservation.php">

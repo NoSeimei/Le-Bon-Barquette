@@ -123,7 +123,7 @@ $db =new PDO("mysql:host=localhost;dbname=bonbarquette","root","",array(PDO::MYS
 				</a>
 			</li>
 
-		</ul>
+		</ul>::
 
 		<!-- - -->
 	</aside>
@@ -150,6 +150,13 @@ $db =new PDO("mysql:host=localhost;dbname=bonbarquette","root","",array(PDO::MYS
 						<h3 class="tit3 t-center m-b-35 m-t-2">
 							Menu
 						</h3>
+						<img
+    					src="images/photo-gallery-thumb-03" 
+    					alt="imMenu"
+    					height="150px" 
+    					width="200px" 
+						/>
+</br>
 					</div>
 
 					<form class="wrap-form-reservation size22 m-l-r-auto" method="POST" action="reservation.php">

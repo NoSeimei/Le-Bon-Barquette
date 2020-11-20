@@ -3,6 +3,16 @@
     margin-left: auto;
     margin-right: auto;
     padding-top: 5%;
+    width: auto;
+    height: auto;
+}
+
+.subContainer{
+    display: inline-flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1600px;
+    height: auto;
 }
 
 .container-button {
@@ -15,3 +25,11 @@
 #btn {
     margin-right: 10px;
 }
+
+.left {
+    float: left;
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 30px;
+}
+

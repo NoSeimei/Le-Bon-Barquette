@@ -1,29 +1,41 @@
 <?php
 include("connexion.php");
 include("Class/Clients.php");
+include("Class/Admin.php");
 include("Function/Function.php");
 
 if(isset($_POST["identifiant"]) && isset($_POST["motdepasse"]) )
 {
-  try{ 
+  
     $user = $_POST["identifiant"];
     $pass = $_POST["motdepasse"];
 
-    $request = $db->prepare("SELECT * FROM admin WHERE userAdmin = :userAdmin AND pass = :pass");
+    /*$request = $db->prepare("SELECT * FROM admin WHERE userAdmin = :userAdmin AND pass = :pass");
     $request->execute(array(':userAdmin' => $user, ':pass' => $pass));
-    $resultat = $request->fetch();
+    $resultat = $request->fetch();*/
+    try{ 
+        $requete = $db->query("SELECT * FROM admin");
+	      $requete->setFetchMode(PDO::FETCH_CLASS,'Admin');
+	      $admin = $requete->fetchAll();
 
-    if(!$resultat){
+    foreach($admin as $theAdmin){
 
+      if($theAdmin->getUserAdmin() === $user && $theAdmin->getPass() === $pass){
+
+        header("Location: admin.php");
+        break;
+
+      }else{
         echo "Mauvais identifiant ou Mot de passe";
-    }else{
+       
+        }
 
-        header("Location : admin.php");
     }
 
+   
   }catch(Exception $ex){
 
-echo $ex;
+      echo $ex;
 
   }
 

@@ -1,9 +1,15 @@
 <?php
 include("connexion.php");
 include("Class/Clients.php");
+include("Class/Entree.php");
 include("Class/Admin.php");
 include("Function/Function.php");
+
+$request = $db->query("SELECT * FROM entree");
+$request->setFetchMode(PDO::FETCH_CLASS,'Entree');
+$lesEntree = $request->fetchAll();
 ?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -13,34 +19,46 @@ include("Function/Function.php");
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
- <a name="" id="" class="btn btn-primary" href="Ajouter_manger/ajouter_entree.php" role="button">Ajouter une Entrée</a>
- <a name="" id="" class="btn btn-primary" href="Ajouter_manger/ajouter_entree.php" role="button">Ajouter un Plat</a>
- <a name="" id="" class="btn btn-primary" href="Ajouter_manger/ajouter_entree.php" role="button">Ajouter un Dessert</a>
 
-    <table class="table table-striped table-inverse table-responsive">
-        <thead class="thead-inverse">
-            <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td scope="row"></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td scope="row"></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-    </table>
+  
+ <div class="container-admin">
+  <table class="table">
+  <thead class="thead-dark">
+    <tr>    
+      <th scope="col">Image</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Description</th>
+      <th scope="col">Prix</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php foreach($lesEntree as $entree)
+        {   ?>
+    <tr>
+      <th scope="row"><?php echo $entree->getImage();?></th>
+      <td><?php echo $entree->getNom();?></td>
+      <td><?php echo $entree->getDescription();?></td>
+      <td><?php echo $entree->getPrix_Entree();?></td>
+    </tr>
+    <?php
+        }
+      ?>
+  </tbody>
+</table>
+</div>
+
+<div class="container-button">
+ <a name="" id="btn" class="btn btn-primary" href="Ajouter_manger/ajouter_entree.php" role="button">Ajouter une Entrée</a>
+ <a name="" id="btn" class="btn btn-primary" href="Ajouter_manger/ajouter_entree.php" role="button">Ajouter un Plat</a>
+ <a name="" id="btn" class="btn btn-primary" href="Ajouter_manger/ajouter_entree.php" role="button">Ajouter un Dessert</a>
+ </div>
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

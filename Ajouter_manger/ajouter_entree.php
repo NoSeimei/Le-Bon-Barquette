@@ -15,10 +15,16 @@ if(isset($_POST["image"]))
     $entree->setNom($_POST["nom"]);
     $entree->setDescription($_POST["description"]);
     $entree->setPrix_Entree($_POST["prix"]);
+    try{
 
     $request = $db->prepare("INSERT INTO entree (Image, Nom, Description, Prix_Entree)
     VALUES (:Image, :Nom, :Description, :Prix_Entree)");
     $request->execute(dismount($entree));
+
+    }catch(Exception $ex)
+    {
+      echo $ex;
+    }
 
 }
 ?>
@@ -35,7 +41,7 @@ if(isset($_POST["image"]))
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
-  <body>
+  <body class="back">
   <div class="middle">
         <div class="container">
             <div class="form-group">

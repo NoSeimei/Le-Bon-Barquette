@@ -18,6 +18,7 @@ if(isset($_POST["nom"]))
    $request = $db->prepare("INSERT INTO clients (Nom,Prenom,Telephone,Email,Identifiant,MotDePasse)
    VALUES (:Nom,:Prenom,:Telephone,:Email,:Identifiant,:MotDePasse)");
    $request->execute(dismount($client));
+   
    if (!isset($ex)){
     header("location: login.php");
     $_SESSION['login']= $client->getIdentifiant();
@@ -57,7 +58,7 @@ if(isset($_POST["nom"]))
                     <label for="">Téléphone</label>
                     <input type="number" class="form-control"  required="required" name="telephone" id="telephone" aria-describedby="helpId" placeholder="069">
                     <label for="">Email</label>
-                    <input type="mail" class="form-control"  required="required" name="email" id="email" aria-describedby="helpId" placeholder="" value="">
+                    <input type="email" class="form-control"  required="required" name="email" id="email" aria-describedby="helpId" placeholder="" value="">
                     <div class="block">
                     <label for="">Identifiant</label>
                     <input type="text" class="form-control" required="required" name="identifiant" id="identifiant" aria-describedby="helpId" placeholder="" value="">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 23 nov. 2020 à 07:22
+-- Généré le :  lun. 23 nov. 2020 à 07:34
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.1.29
 
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 
 INSERT INTO `admin` (`Id_Admin`, `userAdmin`, `pass`) VALUES
 (1, 'admin', 'admin'),
-(2, 'user', '34819d7beeabb9260a5c854bc85b3e44');
+(2, 'admin', '21232f297a57a5a743894a0e4a801fc3');
 
 -- --------------------------------------------------------
 
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
 --
 
 INSERT INTO `clients` (`Id_Client`, `Nom`, `Prenom`, `Telephone`, `Email`, `Identifiant`, `Password`) VALUES
-(1, 'nom', 'prenom', '692345678', 'email', 'identifiant', '34819d7beeabb9260a5c854bc85b3e44');
+(1, 'payet', 'monsieur', '0692345678', 'monsieur.payet@barquette.re', 'mPayet', 'df91f42cda8b1946a1dfaafdd2207c8b');
 
 -- --------------------------------------------------------
 

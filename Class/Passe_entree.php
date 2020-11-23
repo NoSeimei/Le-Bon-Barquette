@@ -1,6 +1,6 @@
 <?php
 
-class PasserCommandes{
+class Passe_entree{
 
 private $quantité;
 
@@ -25,5 +25,3 @@ $this->quantité = $quantité;
 return $this;
 }
 }
-
-?>

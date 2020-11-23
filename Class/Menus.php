@@ -5,7 +5,6 @@ class Menus{
 private $Image;
 private $Nom;
 private $Description;
-private $Quantiee;
 private $Id_Entree;
 private $Id_Plats;
 private $Id_Dessert;
@@ -71,25 +70,7 @@ $this->Description = $Description;
 return $this;
 }
 
-/**
- * Get the value of Quantiee
- */ 
-public function getQuantiee()
-{
-return $this->Quantiee;
-}
 
-/**
- * Set the value of Quantiee
- *
- * @return  self
- */ 
-public function setQuantiee($Quantiee)
-{
-$this->Quantiee = $Quantiee;
-
-return $this;
-}
 
 /**
  * Get the value of Id_Entree
@@ -150,6 +131,7 @@ $this->Id_Dessert = $Id_Dessert;
 
 return $this;
 }
+
 }
 
 ?>

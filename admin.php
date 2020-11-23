@@ -109,7 +109,7 @@ try {
                                 <td><?php echo $plat->getNom(); ?></td>
                                 <td><?php echo $plat->getDescription(); ?></td>
                                 <td><?php echo $plat->getPrix_Plat(); ?></td>
-                                <td><a href="Modification/modification.php?<?php $plat->getId_Plat() ?>" class="far fa-edit"></a> <a href="Modification/modification.php?<?php $plat->getId_Plat() ?>" style="color:red" class="far fa-trash-alt"></a></td>
+                                <td><a href="Modification/modification.php?$plat->getId_Plat()" class="far fa-edit"></a> <a href="Modification/modification.php?$plat->getId_Plat()" style="color:red" class="far fa-trash-alt"></a></td>
                             </tr>
                         <?php
                         }

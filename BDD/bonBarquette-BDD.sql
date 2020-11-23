@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 19 nov. 2020 à 10:29
+-- Généré le :  lun. 23 nov. 2020 à 05:02
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -41,6 +41,22 @@ CREATE TABLE IF NOT EXISTS `admin` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `boisson`
+--
+
+DROP TABLE IF EXISTS `boisson`;
+CREATE TABLE IF NOT EXISTS `boisson` (
+  `Id_Boisson` int(11) NOT NULL AUTO_INCREMENT,
+  `Image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Prix_Boisson` decimal(15,2) DEFAULT NULL,
+  PRIMARY KEY (`Id_Boisson`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `clients`
 --
 
@@ -52,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `Telephone` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Identifiant` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `MotDePasse` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`Id_Client`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -117,8 +133,63 @@ CREATE TABLE IF NOT EXISTS `menus` (
   `Nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Prix` decimal(15,2) DEFAULT NULL,
-  `Quantitee` int(11) DEFAULT NULL,
   PRIMARY KEY (`Id_Menu`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `menu_boisson`
+--
+
+DROP TABLE IF EXISTS `menu_boisson`;
+CREATE TABLE IF NOT EXISTS `menu_boisson` (
+  `Id_Menu` int(11) NOT NULL,
+  `Id_Boisson` int(11) NOT NULL,
+  PRIMARY KEY (`Id_Menu`,`Id_Boisson`),
+  KEY `Id_Boisson` (`Id_Boisson`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `menu_dessert`
+--
+
+DROP TABLE IF EXISTS `menu_dessert`;
+CREATE TABLE IF NOT EXISTS `menu_dessert` (
+  `Id_Menu` int(11) NOT NULL,
+  `Id_Dessert` int(11) NOT NULL,
+  PRIMARY KEY (`Id_Menu`,`Id_Dessert`),
+  KEY `Id_Dessert` (`Id_Dessert`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `menu_entree`
+--
+
+DROP TABLE IF EXISTS `menu_entree`;
+CREATE TABLE IF NOT EXISTS `menu_entree` (
+  `Id_Entree` int(11) NOT NULL,
+  `Id_Menu` int(11) NOT NULL,
+  PRIMARY KEY (`Id_Entree`,`Id_Menu`),
+  KEY `Id_Menu` (`Id_Menu`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `menu_plat`
+--
+
+DROP TABLE IF EXISTS `menu_plat`;
+CREATE TABLE IF NOT EXISTS `menu_plat` (
+  `Id_Menu` int(11) NOT NULL,
+  `Id_Plat` int(11) NOT NULL,
+  PRIMARY KEY (`Id_Menu`,`Id_Plat`),
+  KEY `Id_Plat` (`Id_Plat`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -139,6 +210,21 @@ CREATE TABLE IF NOT EXISTS `passer_commande` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `passe_boisson`
+--
+
+DROP TABLE IF EXISTS `passe_boisson`;
+CREATE TABLE IF NOT EXISTS `passe_boisson` (
+  `Id_Commande` int(11) NOT NULL,
+  `Id_Boisson` int(11) NOT NULL,
+  `Quantitee` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`Id_Commande`,`Id_Boisson`),
+  KEY `Id_Boisson` (`Id_Boisson`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `passe_dessert`
 --
 
@@ -146,6 +232,7 @@ DROP TABLE IF EXISTS `passe_dessert`;
 CREATE TABLE IF NOT EXISTS `passe_dessert` (
   `Id_Commande` int(11) NOT NULL,
   `Id_Dessert` int(11) NOT NULL,
+  `Quantitee` int(11) DEFAULT NULL,
   PRIMARY KEY (`Id_Commande`,`Id_Dessert`),
   KEY `Id_Dessert` (`Id_Dessert`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -160,6 +247,7 @@ DROP TABLE IF EXISTS `passe_entree`;
 CREATE TABLE IF NOT EXISTS `passe_entree` (
   `Id_Entree` int(11) NOT NULL,
   `Id_Commande` int(11) NOT NULL,
+  `Quantitee` int(11) DEFAULT NULL,
   PRIMARY KEY (`Id_Entree`,`Id_Commande`),
   KEY `Id_Commande` (`Id_Commande`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -174,6 +262,7 @@ DROP TABLE IF EXISTS `passe_plat`;
 CREATE TABLE IF NOT EXISTS `passe_plat` (
   `Id_Commande` int(11) NOT NULL,
   `Id_Plat` int(11) NOT NULL,
+  `Quantitee` int(11) DEFAULT NULL,
   PRIMARY KEY (`Id_Commande`,`Id_Plat`),
   KEY `Id_Plat` (`Id_Plat`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

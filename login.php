@@ -1,5 +1,9 @@
 <?php
+
+
 include("connexion.php");
+
+
 include("Class/Clients.php");
 include("Class/Admin.php");
 include("Function/Function.php");
@@ -8,6 +12,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["motdepasse"])) {
 
   $user = $_POST["identifiant"];
   $pass = $_POST["motdepasse"];
+  
 
   /*$request = $db->prepare("SELECT * FROM admin WHERE userAdmin = :userAdmin AND pass = :pass");
     $request->execute(array(':userAdmin' => $user, ':pass' => $pass));
@@ -24,7 +29,18 @@ if (isset($_POST["identifiant"]) && isset($_POST["motdepasse"])) {
         header("Location: admin.php");
         break;
       } else {
-        echo "sdfsd";
+
+      echo  " <script>
+              window.onload = function() 
+                {
+                  mafonction();
+                }; 
+              </script>";
+        
+        
+            
+          
+       
         break;
       }
     }
@@ -56,7 +72,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["motdepasse"])) {
         <h1 class="only">Connexion</h1><br>
         <form action="login.php" method="POST">
           <label for="">Identifiant</label>
-          <input type="text" class="form-control" required="required" name="identifiant" id="identifiant" aria-describedby="helpId" placeholder="" value="">
+          <input type="text" class="form-control" required="required" name="identifiant" id="identifiant" aria-describedby="helpId" placeholder="" value="<?php echo $_SESSION['login']; ?>">
           <label for="">Mot de passe</label>
           <input type="password" class="form-control" required="required" name="motdepasse" id="motdepasse" aria-describedby="helpId" placeholder="" value=""><br>
           <a href="formulaire_connexion.php">Pas encore de compte ?</a>
@@ -74,7 +90,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["motdepasse"])) {
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script src="js/sweet.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </body>
 
 </html>

@@ -12,4 +12,5 @@ $db = new PDO("mysql:host=$host;dbname=$dbname",$user,$pass,array(PDO::MYSQL_ATT
 {
     echo $ex;
 }
-?>
+
+session_start();

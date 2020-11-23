@@ -2,6 +2,7 @@
 
 class Menus{
 
+private $Id_Menu;
 private $Image;
 private $Nom;
 private $Description;
@@ -132,6 +133,14 @@ $this->Id_Dessert = $Id_Dessert;
 return $this;
 }
 
+
+/**
+ * Get the value of Id_Menu
+ */ 
+public function getId_Menu()
+{
+return $this->Id_Menu;
+}
 }
 
 ?>

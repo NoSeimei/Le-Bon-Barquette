@@ -2,6 +2,7 @@
 
 class Clients{
 
+private $Id_Client;  
 private $Nom;
 private $Prenom;
 private $Telephone;
@@ -129,6 +130,14 @@ public function setMotDePasse($MotDePasse)
 $this->$MotDePasse = $MotDePasse;
 
 return $this;
+}
+
+/**
+ * Get the value of Id_Client
+ */ 
+public function getId_Client()
+{
+return $this->Id_Client;
 }
 }
 

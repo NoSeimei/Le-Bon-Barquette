@@ -2,6 +2,7 @@
 
 class Dessert{
 
+private $Id_Dessert;
 private $Image;
 private $Nom;
 private $Description;
@@ -86,6 +87,14 @@ public function setPrix_Dessert($Prix_Dessert)
 $this->Prix_Dessert = $Prix_Dessert;
 
 return $this;
+}
+
+/**
+ * Get the value of Id_Dessert
+ */ 
+public function getId_Dessert()
+{
+return $this->Id_Dessert;
 }
 }
 ?>

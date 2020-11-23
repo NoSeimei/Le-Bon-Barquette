@@ -61,26 +61,7 @@ try {
 </head>
 
 <body>
-    <!--<div class="container table">-->
-    <h1 style="color:black; text-align:center; margin-top:2%;">Dashboard Admin</h1><br>
-
-    <div class="container button">
-        <div class="row button">
-            <div class="col-sm">
-                <a name="" id="btn" class="btn btn-primary" href="Ajouter_manger/ajouter_entree.php" role="button">Ajouter un Entrer</a>
-            </div>
-            <div class="col-sm">
-                <a name="" id="btn" class="btn btn-primary" href="Ajouter_manger/ajouter_plat.php" role="button">Ajouter un Plat</a>
-            </div>
-            <div class="col-sm">
-                <a name="" id="btn" class="btn btn-primary" href="Ajouter_manger/ajouter_dessert.php" role="button">Ajouter un Dessert</a>
-            </div>
-            <div class="col-sm">
-                <a name="" id="btn" class="btn btn-primary" href="Ajouter_manger/ajouter_boisson.php" role="button">Ajouter une boisson</a>
-            </div>
-        </div>
-    </div>
-
+   <?php include("admin-navbar.php");?>
 
     <div class="container-fluid">
         <div class="row">
@@ -190,6 +171,8 @@ try {
             </div>
         </div>
     </div>
+
+    <?php include("admin-footer.php");?>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

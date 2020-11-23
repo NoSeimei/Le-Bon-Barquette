@@ -13,6 +13,11 @@
     height: auto;
 }
 
+.container-fluid{
+    margin-top: 5%;
+}
+
+
 .container.button {
     margin-left: auto;
     margin-right: auto;

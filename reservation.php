@@ -85,7 +85,7 @@ include('connexion.php');
 					</div>
 
 					<div class="social flex-w flex-l-m p-r-20">
-						<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+							<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
 					</div>
 				</div>
 			</div>

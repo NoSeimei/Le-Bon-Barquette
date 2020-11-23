@@ -20,7 +20,7 @@ if(isset($_POST["image"]))
     $request = $db->prepare("INSERT INTO entree (Image, Nom, Description, Prix_Entree)
     VALUES (:Image, :Nom, :Description, :Prix_Entree)");
     $request->execute(dismount($entree));
-
+    header("Location: ..\admin.php");
     }catch(Exception $ex)
     {
       echo $ex;

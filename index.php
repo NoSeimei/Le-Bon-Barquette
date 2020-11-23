@@ -4,6 +4,7 @@
 	<title>Accueil</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="fontawesome-free-5.15.1-web/css/all.css" rel="stylesheet">
 <!--===============================================================================================-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
 <!--===============================================================================================-->
@@ -60,6 +61,9 @@
 								</li>
 								<li>
 									<a href="login.php">Se connecter</a>
+								</li>
+								<li>
+									<a href="panier.php"> <i class="fas fa-shopping-cart fa-2x"></i></a>
 								</li>
 							</ul>
 						</nav>
@@ -211,7 +215,7 @@
 			Nos Menus
 		</h2>
 	</section>
-
+	
 
 	<!-- Main menu -->
 	<section class="section-mainmenu p-t-110 p-b-70 bg1-pattern">

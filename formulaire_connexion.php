@@ -42,7 +42,7 @@ if(isset($_POST["nom"]))
   </head>
   <body class="back">
   <div class="middle">
-        <div class="container">
+        <div class="container form">
             <div class="form-group">
                 <h1 class="only">Formulaire d'inscription</h1><br>
                 <form action="formulaire_connexion.php" method="POST">

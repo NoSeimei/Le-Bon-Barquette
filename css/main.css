@@ -1731,7 +1731,7 @@ body {
     padding-top: 5%;
 }
 
-.container {
+.container.form {
     display: table;
     margin-left: auto;
     margin-right: auto;

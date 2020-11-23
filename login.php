@@ -27,7 +27,6 @@ if (isset($_POST["identifiant"]) && isset($_POST["motdepasse"])) {
                   mafonction();
                 }
               </script>";
-              
         break;
       }
     }

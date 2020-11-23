@@ -127,7 +127,7 @@ return $this->MotDePasse;
  */ 
 public function setMotDePasse($MotDePasse)
 {
-$this->$MotDePasse = $MotDePasse;
+$this->MotDePasse = $MotDePasse;
 
 return $this;
 }

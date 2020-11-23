@@ -237,7 +237,7 @@
 						<div class="wrap-btn-booking flex-c-m m-t-6">
 							<!-- Button3 -->
 							<button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
-								S'inscrire
+								Se connecter
 							</button>
 						</div>
 					</form>

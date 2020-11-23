@@ -129,12 +129,12 @@ try {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($lesPlats as $plat) {   ?>
+                        <?php foreach ($lesDesserts as $dessert) {   ?>
                             <tr>
-                                <th scope="row"><?php echo $plat->getImage(); ?></th>
-                                <td><?php echo $plat->getNom(); ?></td>
-                                <td><?php echo $plat->getDescription(); ?></td>
-                                <td><?php echo $plat->getPrix_Plat(); ?></td>
+                                <th scope="row"><?php echo $dessert->getImage(); ?></th>
+                                <td><?php echo $dessert->getNom(); ?></td>
+                                <td><?php echo $dessert->getDescription(); ?></td>
+                                <td><?php echo $dessert->getPrix_Dessert(); ?></td>
                                 <td><a href="" class="far fa-edit"></a> <a href="" style="color:red" class="far fa-trash-alt"></a></td>
                             </tr>
                         <?php

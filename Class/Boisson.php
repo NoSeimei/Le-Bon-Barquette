@@ -1,6 +1,7 @@
 <?php
 class Boisson{
 
+private $Id_Boisson;
 private $Image;
 private $Nom;
 private $Description;
@@ -88,6 +89,26 @@ $this->Prix_Boisson = $Prix_Boisson;
 return $this;
 }
 
+/**
+ * Get the value of Id_Boisson
+ */ 
+public function getId_Boisson()
+{
+return $this->Id_Boisson;
+}
+
+
+/**
+ * Set the value of Id_Boisson
+ *
+ * @return  self
+ */ 
+public function setId_Boisson($Id_Boisson)
+{
+$this->Id_Boisson = $Id_Boisson;
+
+return $this;
+}
 }
 
 

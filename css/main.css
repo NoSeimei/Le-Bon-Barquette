@@ -1517,7 +1517,7 @@ body {
 
 .bg-title-page {
     width: 100%;
-    min-height: 545px;
+    /*min-height: 545px;*/
     padding-left: 15px;
     padding-right: 15px;
     background-repeat: no-repeat;

@@ -13,11 +13,12 @@ if(isset($_POST["image"]))
     $boisson->setNom($_POST["nom"]);
     $boisson->setDescription($_POST["description"]);
     $boisson->setPrix_Boisson($_POST["prix"]);
+    $boisson->setDeleted(0);
 
     try{
 
-    $request = $db->prepare("INSERT INTO boisson (Image, Nom, Description, Prix_Boisson)
-    VALUES (:Image, :Nom, :Description, :Prix_Boisson)");
+    $request = $db->prepare("INSERT INTO boisson (Image, Nom, Description, Prix_Boisson, Deleted)
+    VALUES (:Image, :Nom, :Description, :Prix_Boisson, :Deleted)");
     $request->execute(dismount($boisson));
 
     header("Location: ..\admin.php");

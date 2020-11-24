@@ -15,10 +15,11 @@ if(isset($_POST["image"]))
     $dessert->setNom($_POST["nom"]);
     $dessert->setDescription($_POST["description"]);
     $dessert->setPrix_Dessert($_POST["prix"]);
+    $dessert->setDeleted(0);
     try{
 
-    $request = $db->prepare("INSERT INTO dessert (Image, Nom, Description, Prix_Dessert)
-    VALUES (:Image, :Nom, :Description, :Prix_Dessert)");
+    $request = $db->prepare("INSERT INTO dessert (Image, Nom, Description, Prix_Dessert, Deleted)
+    VALUES (:Image, :Nom, :Description, :Prix_Dessert, :Deleted)");
     $request->execute(dismount($dessert));
     header("Location: ..\admin.php");
 

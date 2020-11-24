@@ -15,11 +15,12 @@ if(isset($_POST["image"]))
     $plat->setNom($_POST["nom"]);
     $plat->setDescription($_POST["description"]);
     $plat->setPrix_Plat($_POST["prix"]);
+    $plat->setDeleted(0);
 
     try{
 
-    $request = $db->prepare("INSERT INTO plats (Image, Nom, Description, Prix_Plat)
-    VALUES (:Image, :Nom, :Description, :Prix_Plat)");
+    $request = $db->prepare("INSERT INTO plats (Image, Nom, Description, Prix_Plat, Deleted)
+    VALUES (:Image, :Nom, :Description, :Prix_Plat, :Deleted)");
     $request->execute(dismount($plat));
 
     header("Location: ..\admin.php");

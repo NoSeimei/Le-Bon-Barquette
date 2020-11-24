@@ -9,6 +9,7 @@ private $Telephone;
 private $Email;
 private $Identifiant;
 private $MotDePasse;
+private $Deleted;
 
 
 
@@ -138,6 +139,26 @@ return $this;
 public function getId_Client()
 {
 return $this->Id_Client;
+}
+
+/**
+ * Get the value of Deleted
+ */ 
+public function getDeleted()
+{
+return $this->Deleted;
+}
+
+/**
+ * Set the value of Deleted
+ *
+ * @return  self
+ */ 
+public function setDeleted($Deleted)
+{
+$this->Deleted = $Deleted;
+
+return $this;
 }
 }
 

@@ -7,6 +7,7 @@ private $Image;
 private $Nom;
 private $Description;
 private $Prix_Dessert;
+private $Deleted;
 
 
 /**
@@ -95,6 +96,26 @@ return $this;
 public function getId_Dessert()
 {
 return $this->Id_Dessert;
+}
+
+/**
+ * Get the value of Deleted
+ */ 
+public function getDeleted()
+{
+return $this->Deleted;
+}
+
+/**
+ * Set the value of Deleted
+ *
+ * @return  self
+ */ 
+public function setDeleted($Deleted)
+{
+$this->Deleted = $Deleted;
+
+return $this;
 }
 }
 ?>

@@ -150,7 +150,6 @@ include('connexion.php');
     					height="150px" 
     					width="200px" 
 						/>
-</br>
 					</div>
 
 					<form class="wrap-form-reservation size22 m-l-r-auto" method="POST" action="reservation.php">

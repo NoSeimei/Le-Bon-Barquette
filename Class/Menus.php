@@ -9,6 +9,7 @@ private $Description;
 private $Id_Entree;
 private $Id_Plats;
 private $Id_Dessert;
+private $Deleted;
 
 
 /**
@@ -140,6 +141,26 @@ return $this;
 public function getId_Menu()
 {
 return $this->Id_Menu;
+}
+
+/**
+ * Get the value of Deleted
+ */ 
+public function getDeleted()
+{
+return $this->Deleted;
+}
+
+/**
+ * Set the value of Deleted
+ *
+ * @return  self
+ */ 
+public function setDeleted($Deleted)
+{
+$this->Deleted = $Deleted;
+
+return $this;
 }
 }
 

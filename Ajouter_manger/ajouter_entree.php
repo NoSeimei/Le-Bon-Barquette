@@ -15,10 +15,11 @@ if(isset($_POST["image"]))
     $entree->setNom($_POST["nom"]);
     $entree->setDescription($_POST["description"]);
     $entree->setPrix_Entree($_POST["prix"]);
+    $entree->setDeleted(0);
     try{
 
-    $request = $db->prepare("INSERT INTO entree (Image, Nom, Description, Prix_Entree)
-    VALUES (:Image, :Nom, :Description, :Prix_Entree)");
+    $request = $db->prepare("INSERT INTO entree (Image, Nom, Description, Prix_Entree, Deleted)
+    VALUES (:Image, :Nom, :Description, :Prix_Entree, :Deleted)");
     $request->execute(dismount($entree));
     header("Location: ..\admin.php");
     }catch(Exception $ex)

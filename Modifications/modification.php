@@ -189,10 +189,8 @@ if (isset($_POST["Image"]) && isset($_POST["idEntree"])) {
 		}
 }
 // ---------------------------------------------------------------
-
-
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

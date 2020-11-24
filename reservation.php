@@ -55,6 +55,33 @@ include("Function/Function.php");
 	
 		echo $exB;
 	}
+	try{ 
+
+		$lesmenus = $_POST["menu"];
+	
+	   $test = $db->prepare("SELECT prix FROM menus where nom = $lesmenus");
+	   $test->execute(dismount($lesmenus));
+	
+	  }catch(Exception $ex){
+	
+		  echo $ex;
+	
+	  }
+
+	  try{ 
+
+		$lesentree = $_POST["entree"];
+	
+	   $test1 = $db->prepare("SELECT prix FROM menus where nom = $lesentree");
+	   $test1->execute(dismount($lesentree));
+	
+	  }catch(Exception $exle){
+	
+		  echo $exle;
+	
+	  }
+	
+	 
 	?>
 
 
@@ -174,7 +201,7 @@ include("Function/Function.php");
 
 	<!-- Reservation -->
 	<section class="section-reservation bg1-pattern p-t-100 p-b-113">
-		<div class="container">
+		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-12 p-b-30">
 					<div class="t-center">
@@ -216,7 +243,7 @@ include("Function/Function.php");
 								<div class="wrap-inputtime size12 bo2 bo-rad-10 m-t-3 m-b-23">
 									<!-- Select2 -->							
 								
-								<select class="selection-1" name="time">
+								<select class="selection-1" name="menu">
 								<?php foreach($lesmenus as $menu) { ?>	<option> <?php echo $menu->getNom() ?></option> <?php } ?> 
 								</select>							
 
@@ -236,11 +263,15 @@ include("Function/Function.php");
 							</div>
 							</div>
 							<div class="wrap-btn-booking flex-c-m m-t-6">
+							<span class="txt5">
+	Prix <?php foreach($test as $prix) { ?><?php echo" : ". $prix?> <?php } ?> 
+									<button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
+								    commander
+									</button>				
+							</span>
 							<!-- Button3 -->
-							<button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
-								commander
-							</button>
-						</div>
+
+						    </div>
 						</div>
 
 
@@ -277,7 +308,7 @@ include("Function/Function.php");
 								
 								<select class="selection-1" name="entree">
 								<?php foreach($lesEntree as $entree) { ?>	<option> <?php echo $entree->getNom() ?></option> <?php } ?> 
-								</select>							
+							</select>							
 
 								</div>
 							</div>
@@ -294,11 +325,15 @@ include("Function/Function.php");
 							</div>
 							
 							<div class="wrap-btn-booking flex-c-m m-t-6">
+							<span class="txt5">
+							Prix <?php foreach($test as $prix) { ?><?php echo" : ". $prix?> <?php } ?> 
+									<button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
+								    commander
+									</button>				
+							</span>
 							<!-- Button3 -->
-							<button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
-								commander
-							</button>
-						</div>
+
+						    </div>
 
 						<div class="col-md-4">
 								<!-- Date -->
@@ -327,11 +362,15 @@ include("Function/Function.php");
 							</div>
 							
 							<div class="wrap-btn-booking flex-c-m m-t-6">
+							<span class="txt5">
+							Prix <?php foreach($test as $prix) { ?><?php echo" : ". $prix?> <?php } ?> 
+									<button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
+								    commander
+									</button>				
+							</span>
 							<!-- Button3 -->
-							<button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
-								commander
-							</button>
-						</div>
+
+						    </div>
 
 						<div class="col-md-4">
 								<!-- Date -->
@@ -342,7 +381,7 @@ include("Function/Function.php");
 									<!-- Select2 -->							
 								
 								<select class="selection-1" name="Dessert">
-								<?php foreach($lesDesserts as $dessert) { ?>	<option> <?php echo $dessert->getNom() ?></option> <?php } ?> 
+							<?php foreach($lesDesserts as $dessert) { ?>	<option> <?php echo $dessert->getNom() ?></option> <?php } ?> 
 								</select>							
 
 								</div>
@@ -360,11 +399,15 @@ include("Function/Function.php");
 							</div>
 							
 							<div class="wrap-btn-booking flex-c-m m-t-6">
+							<span class="txt5">
+							Prix <?php foreach($test as $prix) { ?><?php echo" : ". $prix?> <?php } ?>  
+									<button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
+								    commander
+									</button>				
+							</span>
 							<!-- Button3 -->
-							<button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
-								commander
-							</button>
-						</div>
+
+						    </div>
 
 						<div class="col-md-4">
 								<!-- Date -->
@@ -389,15 +432,23 @@ include("Function/Function.php");
 
 								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
 									<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="quantitéboisson" placeholder="Quantité">
-								</div>
+									</div>
 							</div>
 							
 							<div class="wrap-btn-booking flex-c-m m-t-6">
+							<span class="txt5">
+							Prix <?php foreach($test as $prix) { ?><?php echo" : ". $prix?> <?php } ?>  
+									<button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
+								    commander
+									</button>				
+							</span>
 							<!-- Button3 -->
-							<button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
-								commander
-							</button>
-						</div>
+
+						    </div>
+
+
+							</div>
+							
 
 						</div>
 

@@ -14,10 +14,10 @@
           Ajouter
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="Ajouter_manger/ajouter_entree.php">Ajouter une entrée</a>
-          <a class="dropdown-item" href="Ajouter_manger/ajouter_plat.php">Ajouter un plat</a>
-          <a class="dropdown-item" href="Ajouter_manger/ajouter_dessert.php">Ajouter un dessert</a>
-          <a class="dropdown-item" href="Ajouter_manger/ajouter_boisson.php">Ajouter une boisson</a>
+          <a class="dropdown-item" href="Ajouter_manger/ajouter.php?idEntree=1">Ajouter une entrée</a>
+          <a class="dropdown-item" href="Ajouter_manger/ajouter.php?idPlat=2">Ajouter un plat</a>
+          <a class="dropdown-item" href="Ajouter_manger/ajouter.php?idDessert=3">Ajouter un dessert</a>
+          <a class="dropdown-item" href="Ajouter_manger/ajouter.php?idBoisson=4">Ajouter une boisson</a>
         </div>
       </li>
     </ul>

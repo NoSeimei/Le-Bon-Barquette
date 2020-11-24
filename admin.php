@@ -12,7 +12,6 @@ try {
     $request->setFetchMode(PDO::FETCH_CLASS, 'Entree');
     $lesEntree = $request->fetchAll();
 } catch (Exception $exE) {
-
     echo $exE;
 }
 
@@ -21,7 +20,6 @@ try {
     $request2->setFetchMode(PDO::FETCH_CLASS, 'Plats');
     $lesPlats = $request2->fetchAll();
 } catch (Exception $exP) {
-
     echo $exP;
 }
 
@@ -30,7 +28,6 @@ try {
     $request3->setFetchMode(PDO::FETCH_CLASS, 'Dessert');
     $lesDesserts = $request3->fetchAll();
 } catch (Exception $exD) {
-
     echo $exD;
 }
 
@@ -39,7 +36,6 @@ try {
     $request4->setFetchMode(PDO::FETCH_CLASS, 'Boisson');
     $lesBoissons = $request4->fetchAll();
 } catch (Exception $exB) {
-
     echo $exB;
 }
 ?>

@@ -5,15 +5,56 @@ include('Class/Clients.php');
 include('Class/Commandes.php');
 include('Class/Dessert.php');
 include('Class/Entree.php');
+include('Class/Boisson.php');
 include('Class/Menus.php');
 include('Class/Plats.php');
 include('connexion.php');
+include("Function/Function.php");
 
-	$requete = $db->query("select * from menus");
+	try {
+	$requete = $db->query("SELECT * from menus");
 	$requete->setFetchMode(PDO::FETCH_CLASS,'Menus');
-	$utilisateurs=$requete->fetchAll();
+	$lesmenus=$requete->fetchAll();
+	} catch (Exception $exM) {
+	
+		echo $exM;
+	}
+	//var_dump($lesmenus);
+	try {
+		$requete1 = $db->query("SELECT * FROM entree");
+		$requete1->setFetchMode(PDO::FETCH_CLASS, 'Entree');
+		$lesEntree = $requete1->fetchAll();
+	} catch (Exception $exE) {
+	
+		echo $exE;
+	}
+	
+	try {
+		$requete2 = $db->query("SELECT * FROM plats");
+		$requete2->setFetchMode(PDO::FETCH_CLASS, 'Plats');
+		$lesPlats = $requete2->fetchAll();
+	} catch (Exception $exP) {
+	
+		echo $exP;
+	}
+	
+	try {
+		$requete3 = $db->query("SELECT * FROM dessert");
+		$requete3->setFetchMode(PDO::FETCH_CLASS, 'Dessert');
+		$lesDesserts = $requete3->fetchAll();
+	} catch (Exception $exD) {
+	
+		echo $exD;
+	}
 
-	//var_dump($utilisateurs); 
+	try {
+		$requete4 = $db->query("SELECT * FROM boisson");
+		$requete4->setFetchMode(PDO::FETCH_CLASS, 'Boisson');
+		$lesBoissons = $requete4->fetchAll();
+	} catch (Exception $exB) {
+	
+		echo $exB;
+	}
 	?>
 
 
@@ -176,7 +217,7 @@ include('connexion.php');
 									<!-- Select2 -->							
 								
 								<select class="selection-1" name="time">
-								<?php foreach($utilisateurs as $menu) { ?>	<option> <?php echo $menu->getNom() ?></option> <?php } ?> 
+								<?php foreach($lesmenus as $menu) { ?>	<option> <?php echo $menu->getNom() ?></option> <?php } ?> 
 								</select>							
 
 								</div>
@@ -187,7 +228,7 @@ include('connexion.php');
 								<span class="txt9">
 									Quantité 
 								</span>
-								</span>
+								
 
 								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
 									<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="quantité" placeholder="Quantité">
@@ -229,81 +270,135 @@ include('connexion.php');
 							<div class="col-md-4">
 								<!-- Date -->
 								<span class="txt9">
-									Date
-								</span>
-
-								<div class="wrap-inputdate pos-relative txt10 size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<input class="my-calendar bo-rad-10 sizefull txt10 p-l-20" type="text" name="date">
-									<i class="btn-calendar fa fa-calendar ab-r-m hov-pointer m-r-18" aria-hidden="true"></i>
-								</div>
-							</div>
-							
-							<div class="col-md-4">
-								<!-- Time -->
-								<span class="txt9">
 									Entree
 								</span>
 								<div class="wrap-inputtime size12 bo2 bo-rad-10 m-t-3 m-b-23">
 									<!-- Select2 -->							
 								
-								<select class="selection-1" name="time">
-								<?php foreach($utilisateurs as $menu) { ?>	<option> <?php echo $menu->getNom() ?></option> <?php } ?> 
+								<select class="selection-1" name="entree">
+								<?php foreach($lesEntree as $entree) { ?>	<option> <?php echo $entree->getNom() ?></option> <?php } ?> 
 								</select>							
 
 								</div>
 							</div>
 							
 							<div class="col-md-4">
-								<!-- Time -->
-								<span class="txt9">
-									Plat 
+							<span class="txt9">
+									Quantité 
 								</span>
-								<div class="wrap-inputtime size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<!-- Select2 -->							
 								
-								<select class="selection-1" name="time">
-								<?php foreach($utilisateurs as $menu) { ?>	<option> <?php echo $menu->getNom() ?></option> <?php } ?> 
-								</select>							
 
+								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
+									<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="quantitéentree" placeholder="Quantité">
 								</div>
 							</div>
-
-							<div class="col-md-4">
-								<!-- Time -->
-								<span class="txt9">
-									Dessert
-								</span>
-								<div class="wrap-inputtime size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<!-- Select2 -->							
-								
-								<select class="selection-1" name="time">
-								<?php foreach($utilisateurs as $menu) { ?>	<option> <?php echo $menu->getNom() ?></option> <?php } ?> 
-								</select>							
-
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<!-- Time -->
-								<span class="txt9">
-									Boisson
-								</span>
-								<div class="wrap-inputtime size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<!-- Select2 -->							
-								
-								<select class="selection-1" name="time">
-								<?php foreach($utilisateurs as $menu) { ?>	<option> <?php echo $menu->getNom() ?></option> <?php } ?> 
-								</select>							
-
-								</div>
-							</div>
-							</div>
+							
 							<div class="wrap-btn-booking flex-c-m m-t-6">
 							<!-- Button3 -->
 							<button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
 								commander
 							</button>
 						</div>
+
+						<div class="col-md-4">
+								<!-- Date -->
+								<span class="txt9">
+									Plats
+								</span>
+								<div class="wrap-inputtime size12 bo2 bo-rad-10 m-t-3 m-b-23">
+									<!-- Select2 -->							
+								
+								<select class="selection-1" name="plat">
+								<?php foreach($lesPlats as $plat) { ?>	<option> <?php echo $plat->getNom() ?></option> <?php } ?> 
+								</select>							
+
+								</div>
+							</div>
+							
+							<div class="col-md-4">
+							<span class="txt9">
+									Quantité 
+								</span>
+								
+
+								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
+									<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="quantitéplat" placeholder="Quantité">
+								</div>
+							</div>
+							
+							<div class="wrap-btn-booking flex-c-m m-t-6">
+							<!-- Button3 -->
+							<button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
+								commander
+							</button>
+						</div>
+
+						<div class="col-md-4">
+								<!-- Date -->
+								<span class="txt9">
+									Dessert
+								</span>
+								<div class="wrap-inputtime size12 bo2 bo-rad-10 m-t-3 m-b-23">
+									<!-- Select2 -->							
+								
+								<select class="selection-1" name="Dessert">
+								<?php foreach($lesDesserts as $dessert) { ?>	<option> <?php echo $dessert->getNom() ?></option> <?php } ?> 
+								</select>							
+
+								</div>
+							</div>
+							
+							<div class="col-md-4">
+							<span class="txt9">
+									Quantité 
+								</span>
+								
+
+								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
+									<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="quantitédessert" placeholder="Quantité">
+								</div>
+							</div>
+							
+							<div class="wrap-btn-booking flex-c-m m-t-6">
+							<!-- Button3 -->
+							<button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
+								commander
+							</button>
+						</div>
+
+						<div class="col-md-4">
+								<!-- Date -->
+								<span class="txt9">
+									Boisson
+								</span>
+								<div class="wrap-inputtime size12 bo2 bo-rad-10 m-t-3 m-b-23">
+									<!-- Select2 -->							
+								
+								<select class="selection-1" name="boissons">
+								<?php foreach($lesBoissons as $boisson) { ?>	<option> <?php echo $boisson->getNom() ?></option> <?php } ?> 
+								</select>							
+
+								</div>
+							</div>
+							
+							<div class="col-md-4">
+							<span class="txt9">
+									Quantité 
+								</span>
+								
+
+								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
+									<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="quantitéboisson" placeholder="Quantité">
+								</div>
+							</div>
+							
+							<div class="wrap-btn-booking flex-c-m m-t-6">
+							<!-- Button3 -->
+							<button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
+								commander
+							</button>
+						</div>
+
 						</div>
 
 

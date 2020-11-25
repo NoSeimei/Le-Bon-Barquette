@@ -6,6 +6,7 @@ private $Id_Menu;
 private $Image;
 private $Nom;
 private $Description;
+private $Prix;
 private $Id_Entree;
 private $Id_Plats;
 private $Id_Dessert;
@@ -159,7 +160,21 @@ return $this->Deleted;
 public function setDeleted($Deleted)
 {
 $this->Deleted = $Deleted;
+}
 
+public function getPrix()
+{
+return $this->Prix;
+}
+
+/**
+ * Set the value of Prix
+ *
+ * @return  self
+ */ 
+public function setPrix($Prix)
+{
+$this->Prix = $Prix;
 return $this;
 }
 }

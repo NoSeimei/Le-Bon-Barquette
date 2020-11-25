@@ -1,10 +1,68 @@
+<?php
+session_start();
+
+include('Class/Clients.php');
+include('Class/Commandes.php');
+include('Class/Dessert.php');
+include('Class/Entree.php');
+include('Class/Boisson.php');
+include('Class/Menus.php');
+include('Class/Plats.php');
+include('connexion.php');
+include("Function/Function.php");
+
+
+	try {
+	$requete = $db->query("SELECT * from menus");
+	$requete->setFetchMode(PDO::FETCH_CLASS,'Menus');
+	$lesmenus=$requete->fetchAll();
+	} catch (Exception $exM) {
+	
+		echo $exM;
+	}
+	//var_dump($lesmenus);
+	try {
+		$requete1 = $db->query("SELECT * FROM entree");
+		$requete1->setFetchMode(PDO::FETCH_CLASS, 'Entree');
+		$lesEntree = $requete1->fetchAll();
+	} catch (Exception $exE) {
+	
+		echo $exE;
+	}
+	
+	try {
+		$requete2 = $db->query("SELECT * FROM plats");
+		$requete2->setFetchMode(PDO::FETCH_CLASS, 'Plats');
+		$lesPlats = $requete2->fetchAll();
+	} catch (Exception $exP) {
+	
+		echo $exP;
+	}
+	
+	try {
+		$requete3 = $db->query("SELECT * FROM dessert");
+		$requete3->setFetchMode(PDO::FETCH_CLASS, 'Dessert');
+		$lesDesserts = $requete3->fetchAll();
+	} catch (Exception $exD) {
+	
+		echo $exD;
+	}
+
+	try {
+		$requete4 = $db->query("SELECT * FROM boisson");
+		$requete4->setFetchMode(PDO::FETCH_CLASS, 'Boisson');
+		$lesBoissons = $requete4->fetchAll();
+	} catch (Exception $exB) {
+	
+		echo $exB;
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<title>Accueil</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="fontawesome-free-5.15.1-web/css/all.css" rel="stylesheet">
 <!--===============================================================================================-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
 <!--===============================================================================================-->
@@ -35,12 +93,7 @@
 <!--===============================================================================================-->
 </head>
 <body class="animsition">
-<?php
-require 'Dessert.php';
-require 'Entree.php';
-require 'Plats.php';
-require 'connexion.php';
-?>
+
 	<!-- Header -->
 	<header>
 		<!-- Header desktop -->
@@ -66,9 +119,6 @@ require 'connexion.php';
 								</li>
 								<li>
 									<a href="login.php">Se connecter</a>
-								</li>
-								<li>
-									<a href="panier.php"> <i class="fas fa-shopping-cart fa-2x"></i></a>
 								</li>
 							</ul>
 						</nav>
@@ -194,11 +244,10 @@ require 'connexion.php';
 						</h3>
 
 						<p class="t-center m-b-22 size3 m-l-r-auto">
-							Donec quis lorem nulla. Nunc eu odio mi. Morbi nec lobortis est. Sed fringilla, nunc sed imperdiet lacinia, nisl ante egestas mi, ac facilisis ligula sem id neque.
-						</p>
+						Le bon barquette, Un restaurant traditionnel qui vous propose une cuisine conviviale et familiale à base de produits en général, locaux et régionaux. Ce dernier vous permet de déguster les meilleurs mets issus de la gastronomie traditionnelle afin de retrouver les saveurs d'antan. Le tout avec un service irréprochable.						</p>
 
 						<a href="about.html" class="txt4">
-							Our Story
+							En savoir davantage
 							<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
 						</a>
 					</div>
@@ -217,10 +266,10 @@ require 'connexion.php';
 	<!-- Title Page -->
 	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url(images/bg-title-page-01.jpg);">
 		<h2 class="tit6 t-center">
-			Notre carte
+			Nos Menus
 		</h2>
 	</section>
-	
+
 
 	<!-- Main menu -->
 	<section class="section-mainmenu p-t-110 p-b-70 bg1-pattern">
@@ -229,31 +278,33 @@ require 'connexion.php';
 				<div class="col-md-10 col-lg-6 p-r-35 p-r-15-lg m-l-r-auto">
 					<div class="wrap-item-mainmenu p-b-22">
 						<h3 class="tit-mainmenu tit10 p-b-25">
-							Entrée 
+							ENTREE
 						</h3>
 
 						<!-- Item mainmenu -->
+						<?php foreach($lesEntree as $entree) { ?>
 						<div class="item-mainmenu m-b-36">
 							<div class="flex-w flex-b m-b-3">
+								
 								<a href="#" class="name-item-mainmenu txt21">
-									Pine nut sbrisalona
+								<?php echo $entree->getNom() ?>
 								</a>
 
 								<div class="line-item-mainmenu bg3-pattern"></div>
 
 								<div class="price-item-mainmenu txt22">
-									$29.79
+								<?php echo $entree->getPrix_entree() ?>
+								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:80px; height:30px"> </img></a>
 								</div>
 							</div>
 
 							<span class="info-item-mainmenu txt23">
-								Sed fermentum eros vitae eros
+							<?php echo $entree->getdescription() ?>
 							</span>
 						</div>
+						<?php } ?>
 
-	
-
-					
+					</div>
 
 					<div class="wrap-item-mainmenu p-b-22">
 						<h3 class="tit-mainmenu tit10 p-b-25">
@@ -261,75 +312,84 @@ require 'connexion.php';
 						</h3>
 
 						<!-- Item mainmenu -->
+						<?php foreach($lesBoissons as $boisson) { ?>
 						<div class="item-mainmenu m-b-36">
-							<div class="flex-w flex-b m-b-3">
+							<div class="flex-w flex-b m-b-3">	
 								<a href="#" class="name-item-mainmenu txt21">
-									Vivamus pretium
+								<?php echo $boisson->getnom() ?> 
 								</a>
 
 								<div class="line-item-mainmenu bg3-pattern"></div>
 
 								<div class="price-item-mainmenu txt22">
-									$29.79
+								<?php echo $boisson->getprix_boisson() ?>
+								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:80px; height:30px"> </img></a>
 								</div>
 							</div>
 
 							<span class="info-item-mainmenu txt23">
-								Sed fermentum eros vitae eros
+							<?php echo $boisson->getdescription() ?>
 							</span>
 						</div>
-
-						
+						<?php } ?>
+					</div>
+				</div>
 
 				<div class="col-md-10 col-lg-6 p-l-35 p-l-15-lg m-l-r-auto">
 					<div class="wrap-item-mainmenu p-b-22">
 						<h3 class="tit-mainmenu tit10 p-b-25">
-							Plats
+							PLAT PRINCIPALE
 						</h3>
 
 						<!-- Item mainmenu -->
+						<?php foreach($lesPlats as $plat) { ?>
 						<div class="item-mainmenu m-b-36">
 							<div class="flex-w flex-b m-b-3">
 								<a href="#" class="name-item-mainmenu txt21">
-									Duis sed aliquet
+								<?php echo $plat->getNom() ?>
 								</a>
 
 								<div class="line-item-mainmenu bg3-pattern"></div>
 
 								<div class="price-item-mainmenu txt22">
-									$31.18
+								<?php echo $plat->getprix_plat() ?>
+								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:80px; height:30px"> </img></a>
 								</div>
 							</div>
 
 							<span class="info-item-mainmenu txt23">
-								Proin lacinia nisl ut ultricies posuere nulla
+							<?php echo $plat->getdescription() ?>
 							</span>
 						</div>
+						<?php } ?>
+					</div>
 
-						
 					<div class="wrap-item-mainmenu p-b-22">
 						<h3 class="tit-mainmenu tit10 p-b-25">
 							Dessert
 						</h3>
 
 						<!-- Item mainmenu -->
+						<?php foreach($lesDesserts as $dessert) { ?>
 						<div class="item-mainmenu m-b-36">
 							<div class="flex-w flex-b m-b-3">
 								<a href="#" class="name-item-mainmenu txt21">
-									tempus aliquet
+								<?php echo $dessert->getnom() ?>
 								</a>
 
 								<div class="line-item-mainmenu bg3-pattern"></div>
 
 								<div class="price-item-mainmenu txt22">
-									$9.79
+								<?php echo $dessert->getPrix_dessert() ?>
+								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:80px; height:30px"> </img></a>
 								</div>
 							</div>
 
 							<span class="info-item-mainmenu txt23">
-								Proin lacinia nisl ut ultricies posuere nulla
+							<?php echo $dessert->getdescription() ?>
 							</span>
 						</div>
+						<?php } ?>
 					</div>
 				</div>
 			</div>
@@ -342,7 +402,7 @@ require 'connexion.php';
 		<div class="header-lunch parallax0 parallax100" style="background-image: url(images/header-menu-01.jpg);">
 			<div class="bg1-overlay t-center p-t-170 p-b-165">
 				<h2 class="tit4 t-center">
-					Lunch
+					MENU DU JOUR
 				</h2>
 			</div>
 		</div>
@@ -351,132 +411,27 @@ require 'connexion.php';
 			<div class="row p-t-108 p-b-70">
 				<div class="col-md-8 col-lg-6 m-l-r-auto">
 					<!-- Block3 -->
+					<?php foreach($lesmenus as $menu) { ?>
 					<div class="blo3 flex-w flex-col-l-sm m-b-30">
 						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/lunch-01.jpg" alt="IMG-MENU"></a>
+							<a href="#"><img src=<?php"images/".$menu->getImage().".jpg" ?> alt="IMG-MENU"></a>
 						</div>
 
 						<div class="text-blo3 size21 flex-col-l-m">
 							<a href="#" class="txt21 m-b-3">
-								Sed varius
+								<?php $menu->getNom() ?>
 							</a>
 
 							<span class="txt23">
-								Aenean pharetra tortor dui in pellentesque
+							<?php $menu->getdescription() ?>
 							</span>
 
 							<span class="txt22 m-t-20">
-								$29.79
+							<?php $menu->getprix() ?>
 							</span>
 						</div>
 					</div>
-
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/lunch-03.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								tempus aliquet
-							</a>
-
-							<span class="txt23">
-								Aenean condimentum ante erat
-							</span>
-
-							<span class="txt22 m-t-20">
-								$45.09
-							</span>
-						</div>
-					</div>
-
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/lunch-05.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Duis massa
-							</a>
-
-							<span class="txt23">
-								Proin lacinia nisl ut ultricies posuere nulla
-							</span>
-
-							<span class="txt22 m-t-20">
-								$12.75
-							</span>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-8 col-lg-6 m-l-r-auto">
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/lunch-02.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								sbrisalona
-							</a>
-
-							<span class="txt23">
-								Proin lacinia nisl ut ultricies posuere nulla
-							</span>
-
-							<span class="txt22 m-t-20">
-								$29.79
-							</span>
-						</div>
-					</div>
-
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/lunch-04.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Cras eget magna
-							</a>
-
-							<span class="txt23">
-								Sed fermentum eros vitae eros
-							</span>
-
-							<span class="txt22 m-t-20">
-								$45.09
-							</span>
-						</div>
-					</div>
-
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/lunch-06.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Nullam maximus
-							</a>
-
-							<span class="txt23">
-								Duis massa nibh porttitor nec imperdiet eget
-							</span>
-
-							<span class="txt22 m-t-20">
-								$12.75
-							</span>
-						</div>
-					</div>
+					<?php } ?>
 				</div>
 			</div>
 		</div>

@@ -11,6 +11,7 @@ include('Class/Plats.php');
 include('connexion.php');
 include("Function/Function.php");
 
+
 	try {
 	$requete = $db->query("SELECT * from menus");
 	$requete->setFetchMode(PDO::FETCH_CLASS,'Menus');

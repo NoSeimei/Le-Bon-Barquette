@@ -142,7 +142,21 @@ return $this->Deleted;
 public function setDeleted($Deleted)
 {
 $this->Deleted = $Deleted;
+}
 
+public function getPrix()
+{
+return $this->Prix;
+}
+
+/**
+ * Set the value of Prix
+ *
+ * @return  self
+ */ 
+public function setPrix($Prix)
+{
+$this->Prix = $Prix;
 return $this;
 }
 

@@ -62,6 +62,7 @@ include("Function/Function.php");
 	<title>Accueil</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="fontawesome-free-5.15.1-web/css/all.css" rel="stylesheet">
 <!--===============================================================================================-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
 <!--===============================================================================================-->
@@ -118,6 +119,9 @@ include("Function/Function.php");
 								</li>
 								<li>
 									<a href="login.php">Se connecter</a>
+								</li>
+								<li>
+									<a href="panier.php"> <i class="fas fa-shopping-cart fa-2x"></i></a>
 								</li>
 							</ul>
 						</nav>

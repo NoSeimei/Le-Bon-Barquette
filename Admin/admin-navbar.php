@@ -14,8 +14,8 @@
           Menu
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="../Ajouter_manger/ajouter.php?idEntree=1">Voir les menus</a>
-          <a class="dropdown-item" href="../Ajouter_manger/ajouter.php?idPlat=2">Créer un menu</a>
+          <a class="dropdown-item" href="admin_menu.php">Voir les menus</a>
+          <a class="dropdown-item" href="../Ajouter_manger/ajouter_menu.php">Créer un menu</a>
         </div>
       </li>
       <li class="nav-item dropdown">

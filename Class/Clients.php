@@ -7,7 +7,7 @@ private $Prenom;
 private $Telephone;
 private $Email;
 private $Identifiant;
-private $MotDePasse;
+private $Passwords;
 
 
 
@@ -116,7 +116,7 @@ return $this;
  */ 
 public function getMotDePasse()
 {
-return $this->MotDePasse;
+return $this->Password;
 }
 
 /**

@@ -7,6 +7,11 @@ include("connexion.php");
 include("Class/Clients.php");
 include("Class/Admin.php");
 include("Function/Function.php");
+if(!isset($_SESSION['ident'])){
+
+	$_SESSION['ident']="";
+
+}
 
 if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 
@@ -18,41 +23,71 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
     $request->execute(array(':userAdmin' => $user, ':pass' => $pass));
     $resultat = $request->fetch();*/
     
-  try {
-    $requete = $db->query("SELECT * FROM admin");
-    $requete->setFetchMode(PDO::FETCH_CLASS, 'Admin');
-    $admin = $requete->fetchAll();
-
-    foreach ($admin as $theAdmin) {
-
-      if ($theAdmin->getUserAdmin() === $user && $theAdmin->getPass() === $pass) {
-
-        header("Location: admin.php");
-        break;
-      } 
-      
-      else {
-
-      echo  " <script>
-                window.onload = function() 
-                  {
-                    mafonction();
-                  }; 
-              </script>";
-        
-        
-            
-          
-       
-      }
-    }
-  } catch (Exception $ex) {
-
-    echo $ex;
-  }
+	try {
+		$requete = $db->query("SELECT * FROM `clients`");
+		$requete->setFetchMode(PDO::FETCH_CLASS, 'Clients');
+		$client = $requete->fetchAll();
+	
+		foreach ($client as $theClient) {
+			echo $theClient->getIdentifiant()	;
+			echo $theClient->getMotDePasse()."<br>"; 
+		  if ($theClient->getIdentifiant() === $user && $theClient->getMotDePasse() === $pass) {
+			
+			header("Location: index.php");
+			break;
+		  } 
+		  
+		  else {
+			  echo "<br>";
+			echo $user;
+			echo $pass;
+			echo "<br>";
+		  echo  " <script>
+					window.onload = function() 
+					  {
+						mafonction();
+					  }; 
+				  </script>";
+		  }
+		}
+	  } catch (Exception $ex) {
+	
+		echo $ex;
+	  }
+	}
+	elseif(isset($_POST["nom"]))
+	{
+		try{ 
+		  $client = new Clients();
+	  
+		  $client->setNom($_POST["nom"]);
+		  $client->setPrenom($_POST["prenom"]);
+		  $client->setTelephone($_POST["phone"]);
+		  $client->setEmail($_POST["email"]);
+		  $client->setIdentifiant($_POST["ident"]);
+		  $client->setMotDePasse($_POST["pass"]);
+	  
+		 $request = $db->prepare("INSERT INTO clients (Nom,Prenom,Telephone,Email,Identifiant,MotDePasse)
+		 VALUES (:Nom,:Prenom,:Telephone,:Email,:Identifiant,:MotDePasse)");
+		 $request->execute(dismount($client));
+		 
+		 if (!isset($ex)){
+		  header("location: Inscription.php");
+		  $_SESSION['ident']= $client->getIdentifiant();
+	   
+		}
+		}catch(Exception $ex){
+	  
+			echo $ex;
+	  
+		}
+	   
+	}   
+	else{
+		echo "erreur";
+	}
   
-  
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -92,41 +127,6 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 </head>
 <body class="animsition">
 
-<<<<<<< Updated upstream
-<body class="back">
-  <div class="middle">
-    <div class="container">
-      <div class="form-group">
-        <h1 class="only">Connexion</h1><br>
-        <form action="login.php" method="POST">
-          <label for="">Identifiant</label>
-          <input type="text" class="form-control" required="required" name="identifiant" id="identifiant" aria-describedby="helpId" placeholder="" value="<?php echo $_SESSION['login']; ?>">
-          <label for="">Mot de passe</label>
-          <input type="password" class="form-control" required="required" name="motdepasse" id="motdepasse" aria-describedby="helpId" placeholder="" value=""><br>
-          <a href="formulaire_connexion.php">Pas encore de compte ?</a>
-      </div>
-      <input type="submit" class="btn btn-primary" id="center" value="Envoyer">
-      </form>
-    </div>
-  </div>
-  </div>
-
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  
-  <script>
-
-   
-  </script>
-  <script src="jquery-3.3.1.min.js"></script>
-  <script src="sweetalert2.all.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  <script src="js/sweet.js"></script>
-</body>
-=======
 	<!-- Header -->
 	<header>
 		<!-- Header desktop -->
@@ -197,7 +197,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
     <!-- Booking -->
 </br></br>
 	<section class="section-booking bg1-pattern p-t-100 p-b-110">
-	<form nom="conn" action="login.php" method="post">
+	<form nom="conn" action="Inscription.php" method="post">
 	<div class="container">
 			<div class="row">
 				<div class="col-lg-6 p-b-30">
@@ -210,7 +210,6 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 							Clients
 						</h3>
 					</div>
->>>>>>> Stashed changes
 
 					<form class="wrap-form-booking">
 						<div class="row">
@@ -221,7 +220,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 								</span>
 
 								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<input required="required" class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="identifiant" placeholder="identifiant">
+									<input required="required" class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="identifiant" placeholder="identifiant" value="<?php echo  $_SESSION['ident']; ?>">
 								</div>
 							</div>
 
@@ -245,12 +244,108 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 						</div>
 					</form>
 				</div>
-        <div class="col-lg-6 p-b-30 p-t-18">
+
+				<div class="col-lg-6 p-b-30 p-t-18">
+					<div class="wrap-pic-booking size2 bo-rad-10 hov-img-zoom m-l-r-auto">
+						<img src="images/event-01.jpg" alt="IMG-OUR">
+					</div>
+				</div>
+			</div>
+		</div>
+		</form>
+		<form nom="insc" action="Inscription.php" method="post">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 p-b-30">
+					<div class="t-center">
+						<span class="tit2 t-center">
+							Inscription
+						</span>
+
+						<h3 class="tit3 t-center m-b-35 m-t-2">
+							Clients
+						</h3>
+					</div>
+
+					<form class="wrap-form-booking">
+						<div class="row">
+							<div class="col-md-6">
+
+								<span class="txt9">
+									Nom
+								</span>
+
+								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
+									<input required="required" class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="nom" placeholder="Nom">
+								</div>
+
+								<span class="txt9">
+									téléphone
+								</span>
+
+								<div class="wrap-inputphone size12 bo2 bo-rad-10 m-t-3 m-b-23">
+									<input required="required" class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="phone" placeholder="Téléphone">
+								</div>
+
+								<span class="txt9">
+									identifiant
+								</span>
+
+								<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
+									<input required="required" class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="ident" placeholder="identifiant">
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<!-- Name -->
+								<span class="txt9">
+									Prenom
+								</span>
+
+								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
+									<input required="required" class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="prenom" placeholder="Prenom">
+								</div>
+
+								<!-- Email -->
+								<span class="txt9">
+									Email
+								</span>
+
+								<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
+									<input required="required" class="bo-rad-10 sizefull txt10 p-l-20" type="mail" name="email" placeholder="Email">
+								</div>
+
+								<!-- Email -->
+								<span class="txt9">
+									Mot de passe 
+								</span>
+
+								<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
+									<input required="required" class="bo-rad-10 sizefull txt10 p-l-20" type="password" name="pass" placeholder="Mot de passe">
+								</div>
+
+							</div>
+						</div>
+
+						<div class="wrap-btn-booking flex-c-m m-t-6">
+							<!-- Button3 -->
+							<button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
+								S'inscrire
+							</button>
+						</div>
+					</form>
+				</div>
+
+				<div class="col-lg-6 p-b-30 p-t-18">
 					<div class="wrap-pic-booking size2 bo-rad-10 hov-img-zoom m-l-r-auto">
 						<img src="images/booking-01.jpg" alt="IMG-OUR">
 					</div>
 				</div>
-        </section>
+			</div>
+		</div>
+  		</form>
+		
+    </section>
 	<!-- Footer -->
 	<footer class="bg1">
 
@@ -310,3 +405,4 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 
 </body>
 </html>
+	

@@ -274,19 +274,19 @@ INSERT INTO `entree` (`Id_Entree`, `Image`, `Nom`, `Description`, `Prix_Entree`,
 DROP TABLE IF EXISTS `menus`;
 CREATE TABLE IF NOT EXISTS `menus` (
   `Id_Menu` int(11) NOT NULL AUTO_INCREMENT,
-  `Image` VARCHAR(255)COLLATE utf8_unicode_ci DEFAULT NULL,
   `Nom` VARCHAR(255)COLLATE utf8_unicode_ci DEFAULT NULL,
   `Description` VARCHAR(255)COLLATE utf8_unicode_ci DEFAULT NULL,
   `Prix` DECIMAL(15,2)DEFAULT NULL,
-  `Id_Boisson` INT NOT NULL,
-  `Id_Dessert` INT NOT NULL,
-  `Id_Plat` INT NOT NULL,
+  `Deleted` tinyint(1) NOT NULL,
   `Id_Entree` INT NOT NULL,
+  `Id_Plat` INT NOT NULL,
+  `Id_Dessert` INT NOT NULL,
+  `Id_Boisson` INT NOT NULL,
    PRIMARY KEY(Id_Menu),
-   FOREIGN KEY(Id_Boisson) REFERENCES Boisson(Id_Boisson),
-   FOREIGN KEY(Id_Dessert) REFERENCES Dessert(Id_Dessert),
+   FOREIGN KEY(Id_Entree) REFERENCES Entree(Id_Entree),
    FOREIGN KEY(Id_Plat) REFERENCES Plats(Id_Plat),
-   FOREIGN KEY(Id_Entree) REFERENCES Entree(Id_Entree)
+   FOREIGN KEY(Id_Dessert) REFERENCES Dessert(Id_Dessert),
+   FOREIGN KEY(Id_Boisson) REFERENCES Boisson(Id_Boisson)
 
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

@@ -1,5 +1,5 @@
 <?php
-
+include('connexion.php');
 include('Class/Clients.php');
 include('Class/Commandes.php');
 include('Class/Dessert.php');
@@ -7,9 +7,7 @@ include('Class/Entree.php');
 include('Class/Boisson.php');
 include('Class/Menus.php');
 include('Class/Plats.php');
-include('connexion.php');
 include("Function/Function.php");
-
 
 	try {
 	$requete = $db->query("SELECT * from menus");
@@ -298,7 +296,7 @@ include("Function/Function.php");
 							</div>
 
 							<span class="info-item-mainmenu txt23">
-							<?php echo $entree->getdescription() ?>
+							<?php echo $entree->getDescription() ?>
 							</span>
 						</div>
 						<?php } ?>
@@ -315,19 +313,19 @@ include("Function/Function.php");
 						<div class="item-mainmenu m-b-36">
 							<div class="flex-w flex-b m-b-3">	
 								<a href="#" class="name-item-mainmenu txt21">
-								<?php echo $boisson->getnom() ?> 
+								<?php echo $boisson->getNom() ?> 
 								</a>
 
 								<div class="line-item-mainmenu bg3-pattern"></div>
 
 								<div class="price-item-mainmenu txt22">
-								<?php echo $boisson->getprix_boisson() ?> €
+								<?php echo $boisson->getPrix_Boisson() ?> €
 								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 
 							<span class="info-item-mainmenu txt23">
-							<?php echo $boisson->getdescription() ?>
+							<?php echo $boisson->getDescription() ?>
 							</span>
 						</div>
 						<?php } ?>
@@ -351,13 +349,13 @@ include("Function/Function.php");
 								<div class="line-item-mainmenu bg3-pattern"></div>
 
 								<div class="price-item-mainmenu txt22">
-								<?php echo $plat->getprix_plat() ?> €
-								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<?php echo $plat->getPrix_Plat() ?>
+								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:80px; height:30px"> </img></a>
 								</div>
 							</div>
 
 							<span class="info-item-mainmenu txt23">
-							<?php echo $plat->getdescription() ?>
+							<?php echo $plat->getDescription() ?>
 							</span>
 						</div>
 						<?php } ?>
@@ -373,7 +371,7 @@ include("Function/Function.php");
 						<div class="item-mainmenu m-b-36">
 							<div class="flex-w flex-b m-b-3">
 								<a href="#" class="name-item-mainmenu txt21">
-								<?php echo $dessert->getnom() ?>
+								<?php echo $dessert->getNom() ?>
 								</a>
 
 								<div class="line-item-mainmenu bg3-pattern"></div>
@@ -385,7 +383,7 @@ include("Function/Function.php");
 							</div>
 
 							<span class="info-item-mainmenu txt23">
-							<?php echo $dessert->getdescription() ?>
+							<?php echo $dessert->getDescription() ?>
 							</span>
 						</div>
 						<?php } ?>
@@ -412,21 +410,18 @@ include("Function/Function.php");
 					<!-- Block3 -->
 					<?php foreach($lesmenus as $menu) { ?>
 					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src=<?php"images/".$menu->getImage().".jpg" ?> alt="IMG-MENU"></a>
-						</div>
 
 						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								<?php $menu->getNom() ?>
-							</a>
+							<span class="txt21 m-b-3">
+								<?php echo $menu->getNom() ?>
+							</span>
 
 							<span class="txt23">
-							<?php $menu->getdescription() ?>
+							<?php echo $menu->getDescription() ?>
 							</span>
 
 							<span class="txt22 m-t-20">
-							<?php $menu->getprix() ?>
+							<?php echo $menu->getPrix() ?>€
 							</span>
 						</div>
 					</div>

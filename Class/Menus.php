@@ -3,35 +3,17 @@
 class Menus{
 
 private $Id_Menu;
-private $Image;
 private $Nom;
 private $Description;
 private $Prix;
-private $Id_Entree;
-private $Id_Plats;
-private $Id_Dessert;
 private $Deleted;
+private $Id_Entree;
+private $Id_Plat;
+private $Id_Dessert;
+private $Id_Boisson;
 
 
-/**
- * Get the value of Image
- */ 
-public function getImage()
-{
-return $this->Image;
-}
 
-/**
- * Set the value of Image
- *
- * @return  self
- */ 
-public function setImage($Image)
-{
-$this->Image = $Image;
-
-return $this;
-}
 
 /**
  * Get the value of Nom
@@ -98,9 +80,9 @@ return $this;
 /**
  * Get the value of Id_Plats
  */ 
-public function getId_Plats()
+public function getId_Plat()
 {
-return $this->Id_Plats;
+return $this->Id_Plat;
 }
 
 /**
@@ -108,9 +90,9 @@ return $this->Id_Plats;
  *
  * @return  self
  */ 
-public function setId_Plats($Id_Plats)
+public function setId_Plat($Id_Plat)
 {
-$this->Id_Plats = $Id_Plats;
+$this->Id_Plat = $Id_Plat;
 
 return $this;
 }
@@ -177,6 +159,27 @@ public function setPrix($Prix)
 $this->Prix = $Prix;
 return $this;
 }
+
+/**
+ * Get the value of Id_Boisson
+ */ 
+public function getId_Boisson()
+{
+return $this->Id_Boisson;
+}
+
+/**
+ * Set the value of Id_Boisson
+ *
+ * @return  self
+ */ 
+public function setId_Boisson($Id_Boisson)
+{
+$this->Id_Boisson = $Id_Boisson;
+
+return $this;
+}
+
 }
 
 ?>

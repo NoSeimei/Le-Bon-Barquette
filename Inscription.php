@@ -7,10 +7,17 @@ include("connexion.php");
 include("Class/Clients.php");
 include("Class/Admin.php");
 include("Function/Function.php");
-if(!isset($_SESSION['ident'])){
+if(!isset($_SESSION['ident'])&&  !isset($_SESSION['ident'])&& !isset($_SESSION['nom']) && !isset($_SESSION['prenom']) && !isset($_SESSION['tel']) && !isset($_SESSION['mail']) && !isset($_SESSION['mdp']) && !isset($_SESSION['del']) ){
 
 	$_SESSION['ident']="";
 
+	
+$_SESSION['nom']   = "";
+$_SESSION['prenom']="";
+$_SESSION['tel']   = "";
+$_SESSION['mail']  = "";
+$_SESSION['mdp']   = "";
+$_SESSION['del']   = "";
 }
 
 if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
@@ -55,8 +62,9 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 		echo $ex;
 	  }
 	}
-	elseif(isset($_POST["nom"]))
+	else
 	{
+		if (isset($_POST["nom"])) {
 		try{ 
 		  $client = new Clients();
 	  
@@ -66,26 +74,35 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 		  $client->setEmail($_POST["email"]);
 		  $client->setIdentifiant($_POST["ident"]);
 		  $client->setMotDePasse($_POST["pass"]);
+		  $client->setDeleted(0);
 	  
-		 $request = $db->prepare("INSERT INTO clients (Nom,Prenom,Telephone,Email,Identifiant,MotDePasse)
-		 VALUES (:Nom,:Prenom,:Telephone,:Email,:Identifiant,:MotDePasse)");
+		 $request = $db->prepare("INSERT INTO clients (Nom,Prenom,Telephone,Email,Identifiant,Password, Deleted)
+		 VALUES (:Nom,:Prenom,:Telephone,:Email,:Identifiant,:Password, :Deleted)");
 		 $request->execute(dismount($client));
 		 
 		 if (!isset($ex)){
 		  header("location: Inscription.php");
 		  $_SESSION['ident']= $client->getIdentifiant();
-	   
+		  $_SESSION['nom']= $client->getNom();
+		  $_SESSION['prenom']= $client->getPrenom();
+		  $_SESSION['tel']= $client->getTelephone();
+		  $_SESSION['mail']= $client->getEmail();
+		  $_SESSION['mdp']= $client->getMotDePasse();
+		  $_SESSION['del']= $client->getDeleted();
+		  
+			echo $client->getIdentifiant();
 		}
 		}catch(Exception $ex){
 	  
 			echo $ex;
 	  
 		}
-	   
+		 }
+		else{
+			echo "erreur";
+		}
 	}   
-	else{
-		echo "erreur";
-	}
+	
   
 
 ?>
@@ -228,6 +245,18 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 								<!-- Name -->
 								<span class="txt9">
 									Mot de passe
+
+									<?php
+									echo $_SESSION['ident'];
+									echo $_SESSION['nom']   ;
+									echo $_SESSION['prenom'];
+									echo $_SESSION['tel']   ;
+									echo"<br>";
+									echo $_SESSION['mail']  ;
+									echo $_SESSION['mdp']   ;
+									echo $_SESSION['del']   ;
+;
+									?>
 								</span>
 
 								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
@@ -276,7 +305,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 								</span>
 
 								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<input required="required" class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="nom" placeholder="Nom">
+									<input required="required" class="bo-rad-10 sizefull txt10 p-l-20" type="text" id="nom" name="nom" placeholder="Nom">
 								</div>
 
 								<span class="txt9">
@@ -329,7 +358,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 
 						<div class="wrap-btn-booking flex-c-m m-t-6">
 							<!-- Button3 -->
-							<button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
+							<button type="submit" name="insc" class="btn3 flex-c-m size13 txt11 trans-0-4">
 								S'inscrire
 							</button>
 						</div>

@@ -2,6 +2,7 @@
 
 class Admin{
 
+private $Id_Admin;
 private $userAdmin;
 private $pass;
 
@@ -20,6 +21,14 @@ return $this->userAdmin;
 public function getPass()
 {
 return $this->pass;
+}
+
+/**
+ * Get the value of Id_Admin
+ */ 
+public function getId_Admin()
+{
+return $this->Id_Admin;
 }
 }
 

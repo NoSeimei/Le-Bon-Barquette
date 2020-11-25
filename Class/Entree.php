@@ -2,6 +2,7 @@
 
 class Entree{
 
+private $Id_Entree;
 private $Image;
 private $Nom;
 private $Description;
@@ -88,6 +89,14 @@ public function setPrix_Entree($Prix_Entree)
 $this->Prix_Entree = $Prix_Entree;
 
 return $this;
+}
+
+/**
+ * Get the value of Id_Entree
+ */ 
+public function getId_Entree()
+{
+return $this->Id_Entree;
 }
 }
 

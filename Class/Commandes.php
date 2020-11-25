@@ -2,6 +2,7 @@
 
 class Commandes{
 
+private $Id_Commande;    
 private $dateCommande;
 private $PrixCommande;
 private $Id_Client;
@@ -86,6 +87,14 @@ public function setId_Menu($Id_Menu)
 $this->Id_Menu = $Id_Menu;
 
 return $this;
+}
+
+/**
+ * Get the value of Id_Commande
+ */ 
+public function getId_Commande()
+{
+return $this->Id_Commande;
 }
 }
 

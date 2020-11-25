@@ -95,7 +95,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 <<<<<<< Updated upstream
 <body class="back">
   <div class="middle">
-    <div class="container">
+    <div class="container-form">
       <div class="form-group">
         <h1 class="only">Connexion</h1><br>
         <form action="login.php" method="POST">

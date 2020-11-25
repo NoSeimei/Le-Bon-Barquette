@@ -9,5 +9,4 @@ class panier{
             $_SESSION['panier'] = array();
         }
     }
-
 }

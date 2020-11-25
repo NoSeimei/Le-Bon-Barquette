@@ -9,15 +9,18 @@
       <li class="nav-item active">
         <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Créer un menu</a>
+      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Ajouter
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="Ajouter_manger/ajouter.php?idEntree=1">Ajouter une entrée</a>
-          <a class="dropdown-item" href="Ajouter_manger/ajouter.php?idPlat=2">Ajouter un plat</a>
-          <a class="dropdown-item" href="Ajouter_manger/ajouter.php?idDessert=3">Ajouter un dessert</a>
-          <a class="dropdown-item" href="Ajouter_manger/ajouter.php?idBoisson=4">Ajouter une boisson</a>
+          <a class="dropdown-item" href="../Ajouter_manger/ajouter.php?idEntree=1">Ajouter une entrée</a>
+          <a class="dropdown-item" href="../Ajouter_manger/ajouter.php?idPlat=2">Ajouter un plat</a>
+          <a class="dropdown-item" href="../Ajouter_manger/ajouter.php?idDessert=3">Ajouter un dessert</a>
+          <a class="dropdown-item" href="../Ajouter_manger/ajouter.php?idBoisson=4">Ajouter une boisson</a>
         </div>
       </li>
     </ul>

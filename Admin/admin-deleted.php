@@ -1,39 +1,40 @@
 <?php
 include("connexion.php");
 include("Class/Clients.php");
-include("Class/Entree.php");
-include("Class/Plats.php");
-include("Class/Dessert.php");
-include("Class/Boisson.php");
+include("Class/Deleted_entree.php");
+include("Class/Deleted_plats.php");
+include("Class/Deleted_dessert.php");
+include("Class/Deleted_boisson.php");
+include("Class/Deleted_menus.php");
 include("Class/Admin.php");
 include("Function/Function.php");
 try {
-    $request = $db->query("SELECT * FROM entree");
-    $request->setFetchMode(PDO::FETCH_CLASS, 'Entree');
+    $request = $db->query("SELECT * FROM Deleted_entree");
+    $request->setFetchMode(PDO::FETCH_CLASS, 'Deleted_entree');
     $lesEntree = $request->fetchAll();
 } catch (Exception $exE) {
     echo $exE;
 }
 
 try {
-    $request2 = $db->query("SELECT * FROM plats");
-    $request2->setFetchMode(PDO::FETCH_CLASS, 'Plats');
+    $request2 = $db->query("SELECT * FROM Deleted_plats");
+    $request2->setFetchMode(PDO::FETCH_CLASS, 'Deleted_plats');
     $lesPlats = $request2->fetchAll();
 } catch (Exception $exP) {
     echo $exP;
 }
 
 try {
-    $request3 = $db->query("SELECT * FROM dessert");
-    $request3->setFetchMode(PDO::FETCH_CLASS, 'Dessert');
+    $request3 = $db->query("SELECT * FROM Deleted_dessert");
+    $request3->setFetchMode(PDO::FETCH_CLASS, 'Deleted_dessert');
     $lesDesserts = $request3->fetchAll();
 } catch (Exception $exD) {
     echo $exD;
 }
 
 try {
-    $request4 = $db->query("SELECT * FROM boisson");
-    $request4->setFetchMode(PDO::FETCH_CLASS, 'Boisson');
+    $request4 = $db->query("SELECT * FROM Deleted_boisson");
+    $request4->setFetchMode(PDO::FETCH_CLASS, 'Deleted_boisson');
     $lesBoissons = $request4->fetchAll();
 } catch (Exception $exB) {
     echo $exB;

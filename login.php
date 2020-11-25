@@ -18,7 +18,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["motdepasse"])) {
 
       if ($theAdmin->getUserAdmin() === $user && $theAdmin->getPass() === $pass) {
 
-        header("Location: admin.php");
+        header("Location: Admin/admin.php");
         break;
 
       } else {

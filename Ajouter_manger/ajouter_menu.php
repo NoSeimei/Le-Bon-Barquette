@@ -42,16 +42,27 @@ try {
 }
 
 if(isset($_POST["Nom"])){
-
     $menu = new Menus;
+
     $menu->setNom($_POST["Nom"]);
     $menu->setDescription($_POST["Description"]);
     $menu->setPrix($_POST["Prix"]);
     $menu->setId_Entree($_POST["entree"]);
+    $menu->setDeleted(0);
     $menu->setId_Plat($_POST["plat"]);
     $menu->setId_Dessert($_POST["dessert"]);
     $menu->setId_Boisson($_POST["boisson"]);
-
+    
+    try{
+        $request = $db->prepare("INSERT INTO menus (Nom, Description, Prix, Deleted, Id_Entree, Id_Plat, Id_Dessert, Id_Boisson)
+        VALUES (:Nom, :Description, :Prix, :Deleted, :Id_Entree, :Id_Plat, :Id_Dessert, :Id_Boisson)");
+        $request->execute(dismountMenu($menu));
+        header("Location: ../Admin/admin.php");
+        }catch(Exception $ex)
+        {
+            echo $ex;
+        }
+        
 }
 
 ?>

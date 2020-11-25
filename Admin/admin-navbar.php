@@ -9,8 +9,14 @@
       <li class="nav-item active">
         <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../Ajouter_manger/ajouter_menu.php">Créer un menu</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Menu
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="../Ajouter_manger/ajouter.php?idEntree=1">Voir les menus</a>
+          <a class="dropdown-item" href="../Ajouter_manger/ajouter.php?idPlat=2">Créer un menu</a>
+        </div>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -6,12 +6,12 @@ private $Id_Menu;
 private $Nom;
 private $Description;
 private $Prix;
-private $Id_Boisson;
+private $Deleted;
 private $Id_Entree;
 private $Id_Plat;
 private $Id_Dessert;
+private $Id_Boisson;
 
-private $Deleted;
 
 
 
@@ -180,25 +180,6 @@ $this->Id_Boisson = $Id_Boisson;
 return $this;
 }
 
-/**
- * Get the value of Prix
- */ 
-public function getPrix()
-{
-return $this->Prix;
-}
-
-/**
- * Set the value of Prix
- *
- * @return  self
- */ 
-public function setPrix($Prix)
-{
-$this->Prix = $Prix;
-
-return $this;
-}
 }
 
 ?>

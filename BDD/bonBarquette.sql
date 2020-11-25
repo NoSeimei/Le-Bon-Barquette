@@ -277,6 +277,7 @@ CREATE TABLE IF NOT EXISTS `menus` (
   `Nom` VARCHAR(255)COLLATE utf8_unicode_ci DEFAULT NULL,
   `Description` VARCHAR(255)COLLATE utf8_unicode_ci DEFAULT NULL,
   `Prix` DECIMAL(15,2)DEFAULT NULL,
+  `Deleted` tinyint(1) NOT NULL,
   `Id_Entree` INT NOT NULL,
   `Id_Plat` INT NOT NULL,
   `Id_Dessert` INT NOT NULL,

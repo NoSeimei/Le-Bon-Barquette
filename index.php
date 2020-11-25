@@ -99,9 +99,9 @@ include("Function/Function.php");
 				<div class="wrap_header trans-0-3">
 					<!-- Logo -->
 					<div class="logo">
-						<a href="index.html">
-							<img src="images/icons/logo.png" alt="IMG-LOGO" data-logofixed="images/icons/logo2.png">
-						</a>
+					<span class="tit2 t-center">
+                            Le Bon Barquette
+                        </span>
 					</div>
 
 					<!-- Menu -->
@@ -290,8 +290,8 @@ include("Function/Function.php");
 								<div class="line-item-mainmenu bg3-pattern"></div>
 
 								<div class="price-item-mainmenu txt22">
-								<?php echo $entree->getPrix_entree() ?> €
-								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<?php echo $entree->getPrix_entree()." €" ?>
+								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:80px; height:30px"> </img></a>
 								</div>
 							</div>
 
@@ -319,8 +319,8 @@ include("Function/Function.php");
 								<div class="line-item-mainmenu bg3-pattern"></div>
 
 								<div class="price-item-mainmenu txt22">
-								<?php echo $boisson->getPrix_Boisson() ?> €
-								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<?php echo $boisson->getprix_boisson()." €" ?>
+								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:80px; height:30px"> </img></a>
 								</div>
 							</div>
 
@@ -349,7 +349,7 @@ include("Function/Function.php");
 								<div class="line-item-mainmenu bg3-pattern"></div>
 
 								<div class="price-item-mainmenu txt22">
-								<?php echo $plat->getPrix_Plat() ?>
+								<?php echo $plat->getprix_plat()." €"  ?>
 								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:80px; height:30px"> </img></a>
 								</div>
 							</div>
@@ -377,8 +377,8 @@ include("Function/Function.php");
 								<div class="line-item-mainmenu bg3-pattern"></div>
 
 								<div class="price-item-mainmenu txt22">
-								<?php echo $dessert->getPrix_dessert()  ?> €	
-								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<?php echo $dessert->getPrix_dessert()." €"  ?>
+								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:80px; height:30px"> </img></a>
 								</div>
 							</div>
 
@@ -421,7 +421,7 @@ include("Function/Function.php");
 							</span>
 
 							<span class="txt22 m-t-20">
-							<?php echo $menu->getPrix() ?>€
+							<?php $menu->getprix()." €"  ?>
 							</span>
 						</div>
 					</div>

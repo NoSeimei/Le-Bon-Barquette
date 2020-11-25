@@ -293,7 +293,7 @@ include("Function/Function.php");
 								<div class="line-item-mainmenu bg3-pattern"></div>
 
 								<div class="price-item-mainmenu txt22">
-								<?php echo $entree->getPrix_entree() ?>
+								<?php echo $entree->getPrix_entree()." €" ?>
 								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:80px; height:30px"> </img></a>
 								</div>
 							</div>
@@ -322,7 +322,7 @@ include("Function/Function.php");
 								<div class="line-item-mainmenu bg3-pattern"></div>
 
 								<div class="price-item-mainmenu txt22">
-								<?php echo $boisson->getprix_boisson() ?>
+								<?php echo $boisson->getprix_boisson()." €" ?>
 								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:80px; height:30px"> </img></a>
 								</div>
 							</div>
@@ -352,7 +352,7 @@ include("Function/Function.php");
 								<div class="line-item-mainmenu bg3-pattern"></div>
 
 								<div class="price-item-mainmenu txt22">
-								<?php echo $plat->getprix_plat() ?>
+								<?php echo $plat->getprix_plat()." €"  ?>
 								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:80px; height:30px"> </img></a>
 								</div>
 							</div>
@@ -380,7 +380,7 @@ include("Function/Function.php");
 								<div class="line-item-mainmenu bg3-pattern"></div>
 
 								<div class="price-item-mainmenu txt22">
-								<?php echo $dessert->getPrix_dessert() ?>
+								<?php echo $dessert->getPrix_dessert()." €"  ?>
 								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:80px; height:30px"> </img></a>
 								</div>
 							</div>
@@ -427,7 +427,7 @@ include("Function/Function.php");
 							</span>
 
 							<span class="txt22 m-t-20">
-							<?php $menu->getprix() ?>
+							<?php $menu->getprix()." €"  ?>
 							</span>
 						</div>
 					</div>

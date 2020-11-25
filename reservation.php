@@ -296,6 +296,7 @@ include('connexion.php');
 
 								</div>
 							</div>
+
 							</div>
 							<div class="wrap-btn-booking flex-c-m m-t-6">
 							<!-- Button3 -->

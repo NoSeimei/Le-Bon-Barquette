@@ -8,7 +8,7 @@ private $Prenom;
 private $Telephone;
 private $Email;
 private $Identifiant;
-private $MotDePasse;
+private $Password;
 private $Deleted;
 
 
@@ -113,25 +113,6 @@ $this->Identifiant = $Identifiant;
 return $this;
 }
 
-/**
- * Get the value of Password
- */ 
-public function getMotDePasse()
-{
-return $this->MotDePasse;
-}
-
-/**
- * Set the value of Password
- *
- * @return  self
- */ 
-public function setMotDePasse($MotDePasse)
-{
-$this->MotDePasse = $MotDePasse;
-
-return $this;
-}
 
 /**
  * Get the value of Id_Client
@@ -157,6 +138,26 @@ return $this->Deleted;
 public function setDeleted($Deleted)
 {
 $this->Deleted = $Deleted;
+
+return $this;
+}
+
+/**
+ * Get the value of Password
+ */ 
+public function getPassword()
+{
+return $this->Password;
+}
+
+/**
+ * Set the value of Password
+ *
+ * @return  self
+ */ 
+public function setPassword($Password)
+{
+$this->Password = $Password;
 
 return $this;
 }

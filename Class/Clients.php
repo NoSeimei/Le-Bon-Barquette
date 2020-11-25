@@ -2,12 +2,14 @@
 
 class Clients{
 
+private $Id_Client;  
 private $Nom;
 private $Prenom;
 private $Telephone;
 private $Email;
 private $Identifiant;
 private $MotDePasse;
+private $Deleted;
 
 
 
@@ -126,7 +128,35 @@ return $this->MotDePasse;
  */ 
 public function setMotDePasse($MotDePasse)
 {
-$this->$MotDePasse = $MotDePasse;
+$this->MotDePasse = $MotDePasse;
+
+return $this;
+}
+
+/**
+ * Get the value of Id_Client
+ */ 
+public function getId_Client()
+{
+return $this->Id_Client;
+}
+
+/**
+ * Get the value of Deleted
+ */ 
+public function getDeleted()
+{
+return $this->Deleted;
+}
+
+/**
+ * Set the value of Deleted
+ *
+ * @return  self
+ */ 
+public function setDeleted($Deleted)
+{
+$this->Deleted = $Deleted;
 
 return $this;
 }

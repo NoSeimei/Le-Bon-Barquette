@@ -2,10 +2,12 @@
 
 class Dessert{
 
+private $Id_Dessert;
 private $Image;
 private $Nom;
 private $Description;
 private $Prix_Dessert;
+private $Deleted;
 
 
 /**
@@ -84,6 +86,34 @@ return $this->Prix_Dessert;
 public function setPrix_Dessert($Prix_Dessert)
 {
 $this->Prix_Dessert = $Prix_Dessert;
+
+return $this;
+}
+
+/**
+ * Get the value of Id_Dessert
+ */ 
+public function getId_Dessert()
+{
+return $this->Id_Dessert;
+}
+
+/**
+ * Get the value of Deleted
+ */ 
+public function getDeleted()
+{
+return $this->Deleted;
+}
+
+/**
+ * Set the value of Deleted
+ *
+ * @return  self
+ */ 
+public function setDeleted($Deleted)
+{
+$this->Deleted = $Deleted;
 
 return $this;
 }

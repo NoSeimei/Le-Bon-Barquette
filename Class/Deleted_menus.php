@@ -1,15 +1,12 @@
 <?php
 
-class Entree{
+class Menus{
 
-private $Id_Entree;
+private $Id_Menu;
 private $Image;
 private $Nom;
 private $Description;
-private $Prix_Entree;
 private $Deleted;
-
-
 
 
 /**
@@ -73,34 +70,6 @@ return $this;
 }
 
 /**
- * Get the value of Prix_Entree
- */ 
-public function getPrix_Entree()
-{
-return $this->Prix_Entree;
-}
-
-/**
- * Set the value of Prix_Entree
- *
- * @return  self
- */ 
-public function setPrix_Entree($Prix_Entree)
-{
-$this->Prix_Entree = $Prix_Entree;
-
-return $this;
-}
-
-/**
- * Get the value of Id_Entree
- */ 
-public function getId_Entree()
-{
-return $this->Id_Entree;
-}
-
-/**
  * Get the value of Deleted
  */ 
 public function getDeleted()
@@ -119,7 +88,14 @@ $this->Deleted = $Deleted;
 
 return $this;
 }
-}
 
+/**
+ * Get the value of Id_Menu
+ */ 
+public function getId_Menu()
+{
+return $this->Id_Menu;
+}
+}
 
 ?>

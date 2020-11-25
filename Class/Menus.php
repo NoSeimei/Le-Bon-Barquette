@@ -2,12 +2,14 @@
 
 class Menus{
 
+private $Id_Menu;
 private $Image;
 private $Nom;
 private $Description;
 private $Id_Entree;
 private $Id_Plats;
 private $Id_Dessert;
+private $Deleted;
 
 
 /**
@@ -132,6 +134,34 @@ $this->Id_Dessert = $Id_Dessert;
 return $this;
 }
 
+
+/**
+ * Get the value of Id_Menu
+ */ 
+public function getId_Menu()
+{
+return $this->Id_Menu;
+}
+
+/**
+ * Get the value of Deleted
+ */ 
+public function getDeleted()
+{
+return $this->Deleted;
+}
+
+/**
+ * Set the value of Deleted
+ *
+ * @return  self
+ */ 
+public function setDeleted($Deleted)
+{
+$this->Deleted = $Deleted;
+
+return $this;
+}
 }
 
 ?>

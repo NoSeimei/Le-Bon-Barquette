@@ -1,26 +1,7 @@
-<?php
-session_start();
-
-include('Class/Clients.php');
-include('Class/Commandes.php');
-include('Class/Dessert.php');
-include('Class/Entree.php');
-include('Class/Menus.php');
-include('Class/Plats.php');
-include('connexion.php');
-
-	$requete = $db->query("select * from menus");
-	$requete->setFetchMode(PDO::FETCH_CLASS,'Menus');
-	$utilisateurs=$requete->fetchAll();
-
-	//var_dump($utilisateurs); 
-	?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Reservation</title>
+	<title>Accueil</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -78,14 +59,14 @@ include('connexion.php');
 									<a href="reservation.php">Reservation</a>
 								</li>
 								<li>
-									<a href="formulaire_connexion.php">Se connecter</a>
+									<a href="login.php">Se connecter</a>
 								</li>
 							</ul>
 						</nav>
 					</div>
 
 					<div class="social flex-w flex-l-m p-r-20">
-							<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+						<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
 					</div>
 				</div>
 			</div>
@@ -117,203 +98,159 @@ include('connexion.php');
 				</a>
 			</li>
 
-		</ul>::
+		</ul>
 
 		<!-- - -->
 	</aside>
-
-
-	<!-- Title Page -->
-	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url(images/bg-title-page-02.jpg);">
-		<h2 class="tit6 t-center">
-			Reservation
-		</h2>
-	</section>
-
-
-	<!-- Reservation -->
-	<section class="section-reservation bg1-pattern p-t-100 p-b-113">
+    <!-- Booking -->
+</br></br>
+	<section class="section-booking bg1-pattern p-t-100 p-b-110">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-12 p-b-30">
+				<div class="col-lg-6 p-b-30">
 					<div class="t-center">
 						<span class="tit2 t-center">
-							Commande
+							Inscription
 						</span>
 
 						<h3 class="tit3 t-center m-b-35 m-t-2">
-							Menu
+							Clients
 						</h3>
-						<img
-    					src="images/photo-gallery-thumb-03" 
-    					alt="imMenu"
-    					height="150px" 
-    					width="200px" 
-						/>
 					</div>
 
-					<form class="wrap-form-reservation size22 m-l-r-auto" method="POST" action="reservation.php">
+					<form class="wrap-form-booking">
 						<div class="row">
-							<div class="col-md-4">
-								<!-- Date -->
-								<span class="txt9">
-									Date
-								</span>
+							<div class="col-md-6">
 
-								<div class="wrap-inputdate pos-relative txt10 size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<input class="my-calendar bo-rad-10 sizefull txt10 p-l-20" type="text" name="date">
-									<i class="btn-calendar fa fa-calendar ab-r-m hov-pointer m-r-18" aria-hidden="true"></i>
-								</div>
-							</div>
-							
-							<div class="col-md-4">
-								<!-- Time -->
 								<span class="txt9">
-									Menu
-								</span>
-								<div class="wrap-inputtime size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<!-- Select2 -->							
-								
-								<select class="selection-1" name="time">
-								<?php foreach($utilisateurs as $menu) { ?>	<option> <?php echo $menu->getNom() ?></option> <?php } ?> 
-								</select>							
-
-								</div>
-							</div>
-							
-							<div class="col-md-4">
-								<!-- People -->
-								<span class="txt9">
-									Quantité 
-								</span>
+									Nom
 								</span>
 
 								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="quantité" placeholder="Quantité">
+									<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="nom" placeholder="Name">
+								</div>
+
+								<span class="txt9">
+									Phone
+								</span>
+
+								<div class="wrap-inputphone size12 bo2 bo-rad-10 m-t-3 m-b-23">
+									<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="phone" placeholder="Phone">
+								</div>
+
+								<span class="txt9">
+									identifiant
+								</span>
+
+								<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
+									<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="identifiant" placeholder="Email">
 								</div>
 							</div>
+
+							<div class="col-md-6">
+								<!-- Name -->
+								<span class="txt9">
+									Prenom
+								</span>
+
+								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
+									<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="prenom" placeholder="Name">
+								</div>
+
+								<!-- Email -->
+								<span class="txt9">
+									Email
+								</span>
+
+								<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
+									<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="email" placeholder="Email">
+								</div>
+
+								<!-- Email -->
+								<span class="txt9">
+									Mot de passe 
+								</span>
+
+								<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
+									<input class="bo-rad-10 sizefull txt10 p-l-20" type="password" name="password" placeholder="Email">
+								</div>
+
 							</div>
-							<div class="wrap-btn-booking flex-c-m m-t-6">
+						</div>
+
+						<div class="wrap-btn-booking flex-c-m m-t-6">
 							<!-- Button3 -->
 							<button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
-								commander
+								S'inscrire
 							</button>
 						</div>
-						</div>
-
-
-
 					</form>
 				</div>
 
-				<div class="t-center">
+				<div class="col-lg-6 p-b-30 p-t-18">
+					<div class="wrap-pic-booking size2 bo-rad-10 hov-img-zoom m-l-r-auto">
+						<img src="images/booking-01.jpg" alt="IMG-OUR">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 p-b-30">
+					<div class="t-center">
 						<span class="tit2 t-center">
-							Commande
+							Connexion
 						</span>
 
 						<h3 class="tit3 t-center m-b-35 m-t-2">
-							Plat à part
+							Clients
 						</h3>
-						<img
-    					src="images/photo-gallery-thumb-03" 
-    					alt="imMenu"
-    					height="150px" 
-    					width="200px" 
-						/>
-</br>
 					</div>
 
-				<form class="wrap-form-reservation size22 m-l-r-auto" method="POST" action="reservation.php">
+					<form class="wrap-form-booking">
 						<div class="row">
-							<div class="col-md-4">
-								<!-- Date -->
+							<div class="col-md-6">
+
 								<span class="txt9">
-									Date
+									Identifiant
 								</span>
 
-								<div class="wrap-inputdate pos-relative txt10 size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<input class="my-calendar bo-rad-10 sizefull txt10 p-l-20" type="text" name="date">
-									<i class="btn-calendar fa fa-calendar ab-r-m hov-pointer m-r-18" aria-hidden="true"></i>
-								</div>
-							</div>
-							
-							<div class="col-md-4">
-								<!-- Time -->
-								<span class="txt9">
-									Entree
-								</span>
-								<div class="wrap-inputtime size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<!-- Select2 -->							
-								
-								<select class="selection-1" name="time">
-								<?php foreach($utilisateurs as $menu) { ?>	<option> <?php echo $menu->getNom() ?></option> <?php } ?> 
-								</select>							
-
-								</div>
-							</div>
-							
-							<div class="col-md-4">
-								<!-- Time -->
-								<span class="txt9">
-									Plat 
-								</span>
-								<div class="wrap-inputtime size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<!-- Select2 -->							
-								
-								<select class="selection-1" name="time">
-								<?php foreach($utilisateurs as $menu) { ?>	<option> <?php echo $menu->getNom() ?></option> <?php } ?> 
-								</select>							
-
+								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
+									<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="identifiant" placeholder="Name">
 								</div>
 							</div>
 
-							<div class="col-md-4">
-								<!-- Time -->
+							<div class="col-md-6">
+								<!-- Name -->
 								<span class="txt9">
-									Dessert
+									Mot de passe
 								</span>
-								<div class="wrap-inputtime size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<!-- Select2 -->							
-								
-								<select class="selection-1" name="time">
-								<?php foreach($utilisateurs as $menu) { ?>	<option> <?php echo $menu->getNom() ?></option> <?php } ?> 
-								</select>							
 
+								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
+									<input class="bo-rad-10 sizefull txt10 p-l-20" type="password" name="password" placeholder="Name">
 								</div>
-							</div>
 
-							<div class="col-md-4">
-								<!-- Time -->
-								<span class="txt9">
-									Boisson
-								</span>
-								<div class="wrap-inputtime size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<!-- Select2 -->							
-								
-								<select class="selection-1" name="time">
-								<?php foreach($utilisateurs as $menu) { ?>	<option> <?php echo $menu->getNom() ?></option> <?php } ?> 
-								</select>							
+							</div>
+						</div>
 
-								</div>
-							</div>
-							</div>
-							<div class="wrap-btn-booking flex-c-m m-t-6">
+						<div class="wrap-btn-booking flex-c-m m-t-6">
 							<!-- Button3 -->
 							<button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
-								commander
+								Se connecter
 							</button>
 						</div>
-						</div>
-
-
-
 					</form>
+				</div>
+
+				<div class="col-lg-6 p-b-30 p-t-18">
+					<div class="wrap-pic-booking size2 bo-rad-10 hov-img-zoom m-l-r-auto">
+						<img src="images/event-01.jpg" alt="IMG-OUR">
+					</div>
+				</div>
 			</div>
-
 		</div>
-	</section>
-
-
+    </section>
 	<!-- Footer -->
 	<footer class="bg1">
 
@@ -370,3 +307,4 @@ include('connexion.php');
 
 </body>
 </html>
+	

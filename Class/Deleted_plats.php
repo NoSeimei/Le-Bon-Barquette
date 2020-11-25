@@ -1,15 +1,13 @@
 <?php
 
-class Entree{
+class Deleted_plats{
 
-private $Id_Entree;
+private $Id_Plat;
 private $Image;
 private $Nom;
 private $Description;
-private $Prix_Entree;
+private $Prix_Plat;
 private $Deleted;
-
-
 
 
 /**
@@ -73,31 +71,23 @@ return $this;
 }
 
 /**
- * Get the value of Prix_Entree
+ * Get the value of Prix_Plat
  */ 
-public function getPrix_Entree()
+public function getPrix_Plat()
 {
-return $this->Prix_Entree;
+return $this->Prix_Plat;
 }
 
 /**
- * Set the value of Prix_Entree
+ * Set the value of Prix_Plat
  *
  * @return  self
  */ 
-public function setPrix_Entree($Prix_Entree)
+public function setPrix_Plat($Prix_Plat)
 {
-$this->Prix_Entree = $Prix_Entree;
+$this->Prix_Plat = $Prix_Plat;
 
 return $this;
-}
-
-/**
- * Get the value of Id_Entree
- */ 
-public function getId_Entree()
-{
-return $this->Id_Entree;
 }
 
 /**
@@ -119,7 +109,14 @@ $this->Deleted = $Deleted;
 
 return $this;
 }
-}
 
+/**
+ * Get the value of Id_Plat
+ */ 
+public function getId_Plat()
+{
+return $this->Id_Plat;
+}
+}
 
 ?>

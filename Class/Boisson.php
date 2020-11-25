@@ -1,15 +1,22 @@
 <?php
+class Boisson{
 
-class Entree{
-
-private $Id_Entree;
+private $Id_Boisson;
 private $Image;
 private $Nom;
 private $Description;
-private $Prix_Entree;
+private $Prix_Boisson;
 private $Deleted;
 
 
+
+/**
+ * Get the value of Id_Boisson
+ */ 
+public function getId_Boisson()
+{
+return $this->Id_Boisson;
+}
 
 
 /**
@@ -73,32 +80,27 @@ return $this;
 }
 
 /**
- * Get the value of Prix_Entree
+ * Get the value of Prix_Boisson
  */ 
-public function getPrix_Entree()
+public function getPrix_Boisson()
 {
-return $this->Prix_Entree;
+return $this->Prix_Boisson;
 }
 
 /**
- * Set the value of Prix_Entree
+ * Set the value of Prix_Boisson
  *
  * @return  self
  */ 
-public function setPrix_Entree($Prix_Entree)
+public function setPrix_Boisson($Prix_Boisson)
 {
-$this->Prix_Entree = $Prix_Entree;
+$this->Prix_Boisson = $Prix_Boisson;
 
 return $this;
 }
 
-/**
- * Get the value of Id_Entree
- */ 
-public function getId_Entree()
-{
-return $this->Id_Entree;
-}
+
+
 
 /**
  * Get the value of Deleted

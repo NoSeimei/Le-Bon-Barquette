@@ -2,10 +2,12 @@
 
 class Commandes{
 
+private $Id_Commande;    
 private $dateCommande;
 private $PrixCommande;
 private $Id_Client;
 private $Id_Menu;
+private $Deleted;
 
 
 /**
@@ -84,6 +86,34 @@ return $this->Id_Menu;
 public function setId_Menu($Id_Menu)
 {
 $this->Id_Menu = $Id_Menu;
+
+return $this;
+}
+
+/**
+ * Get the value of Id_Commande
+ */ 
+public function getId_Commande()
+{
+return $this->Id_Commande;
+}
+
+/**
+ * Get the value of Deleted
+ */ 
+public function getDeleted()
+{
+return $this->Deleted;
+}
+
+/**
+ * Set the value of Deleted
+ *
+ * @return  self
+ */ 
+public function setDeleted($Deleted)
+{
+$this->Deleted = $Deleted;
 
 return $this;
 }

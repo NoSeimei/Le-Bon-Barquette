@@ -18,13 +18,18 @@ if(isset($_POST["nom"]))
    $request = $db->prepare("INSERT INTO clients (Nom,Prenom,Telephone,Email,Identifiant,MotDePasse)
    VALUES (:Nom,:Prenom,:Telephone,:Email,:Identifiant,:MotDePasse)");
    $request->execute(dismount($client));
-
+   
+   if (!isset($ex)){
+    header("location: login.php");
+    $_SESSION['login']= $client->getIdentifiant();
+ 
+  }
   }catch(Exception $ex){
 
       echo $ex;
 
   }
-
+ 
 } 
 ?>
 
@@ -42,7 +47,7 @@ if(isset($_POST["nom"]))
   </head>
   <body class="back">
   <div class="middle">
-        <div class="container">
+        <div class="container form">
             <div class="form-group">
                 <h1 class="only">Formulaire d'inscription</h1><br>
                 <form action="formulaire_connexion.php" method="POST">
@@ -53,7 +58,7 @@ if(isset($_POST["nom"]))
                     <label for="">Téléphone</label>
                     <input type="number" class="form-control"  required="required" name="telephone" id="telephone" aria-describedby="helpId" placeholder="069">
                     <label for="">Email</label>
-                    <input type="mail" class="form-control"  required="required" name="email" id="email" aria-describedby="helpId" placeholder="" value="">
+                    <input type="email" class="form-control"  required="required" name="email" id="email" aria-describedby="helpId" placeholder="" value="">
                     <div class="block">
                     <label for="">Identifiant</label>
                     <input type="text" class="form-control" required="required" name="identifiant" id="identifiant" aria-describedby="helpId" placeholder="" value="">

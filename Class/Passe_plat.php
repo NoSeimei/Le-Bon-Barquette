@@ -2,6 +2,8 @@
 
 class Passe_plat{
 
+private $Id_Commande;   
+private $Id_Plat;
 private $quantité;
 
 
@@ -23,5 +25,21 @@ public function setQuantité($quantité)
 $this->quantité = $quantité;
 
 return $this;
+}
+
+/**
+ * Get the value of Id_Commande
+ */ 
+public function getId_Commande()
+{
+return $this->Id_Commande;
+}
+
+/**
+ * Get the value of Id_Plat
+ */ 
+public function getId_Plat()
+{
+return $this->Id_Plat;
 }
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 23 nov. 2020 à 05:02
+-- Généré le :  mer. 25 nov. 2020 à 05:21
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -36,7 +36,15 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `userAdmin` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `pass` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`Id_Admin`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `admin`
+--
+
+INSERT INTO `admin` (`Id_Admin`, `userAdmin`, `pass`) VALUES
+(1, 'admin', 'admin'),
+(2, 'admin', '21232f297a57a5a743894a0e4a801fc3');
 
 -- --------------------------------------------------------
 
@@ -51,8 +59,27 @@ CREATE TABLE IF NOT EXISTS `boisson` (
   `Nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Prix_Boisson` decimal(15,2) DEFAULT NULL,
+  `Deleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`Id_Boisson`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `boisson`
+--
+
+INSERT INTO `boisson` (`Id_Boisson`, `Image`, `Nom`, `Description`, `Prix_Boisson`, `Deleted`) VALUES
+(1, '', 'eau plate', 'provenant de la source de champs fleury', '24.99', 0),
+(2, '', 'coca-cola', 'bouteille 2L', '9.99', 0),
+(3, '', 'coca-cola', 'bouteille 1L', '9.98', 0),
+(4, '', 'coca-cola', 'bouteille 0.5L', '3.99', 0),
+(5, '', 'shwepps agrum', 'bouteille 0.5L', '2.99', 0),
+(6, '', 'shwepps coco', 'bouteille 0.5L', '2.99', 0),
+(7, '', 'shwepps tonic', 'bouteille 0.5L', '2.99', 0),
+(8, '', 'fanta passion', 'bouteille 0.5L', '2.99', 0),
+(9, '', 'fanta original', 'bouteille 0.5L', '2.99', 0),
+(10, '', 'desperado original', 'bouteille 0.5L', '5.99', 0),
+(11, '', 'desperado red', 'bouteille 0.5L', '6.99', 0),
+(12, '', 'dodo', 'bouteille 0.33L', '3.99', 0);
 
 -- --------------------------------------------------------
 
@@ -69,8 +96,16 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `Email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Identifiant` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Deleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`Id_Client`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `clients`
+--
+
+INSERT INTO `clients` (`Id_Client`, `Nom`, `Prenom`, `Telephone`, `Email`, `Identifiant`, `Password`, `Deleted`) VALUES
+(1, 'payet', 'monsieur', '0692345678', 'monsieur.payet@barquette.re', 'mPayet', 'df91f42cda8b1946a1dfaafdd2207c8b', 0);
 
 -- --------------------------------------------------------
 
@@ -84,8 +119,94 @@ CREATE TABLE IF NOT EXISTS `commandes` (
   `dateCommande` date DEFAULT NULL,
   `PrixCommande` decimal(15,2) DEFAULT NULL,
   `Id_Client` int(11) NOT NULL,
+  `Deleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`Id_Commande`),
   KEY `Id_Client` (`Id_Client`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `deleted_boisson`
+--
+
+DROP TABLE IF EXISTS `deleted_boisson`;
+CREATE TABLE IF NOT EXISTS `deleted_boisson` (
+  `Id_Boisson` int(11) NOT NULL AUTO_INCREMENT,
+  `Image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Prix_Boisson` decimal(10,0) NOT NULL,
+  `Deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`Id_Boisson`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `deleted_dessert`
+--
+
+DROP TABLE IF EXISTS `deleted_dessert`;
+CREATE TABLE IF NOT EXISTS `deleted_dessert` (
+  `Id_Dessert` int(11) NOT NULL AUTO_INCREMENT,
+  `Image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Prix_Dessert` decimal(10,0) NOT NULL,
+  `Deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`Id_Dessert`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `deleted_entree`
+--
+
+DROP TABLE IF EXISTS `deleted_entree`;
+CREATE TABLE IF NOT EXISTS `deleted_entree` (
+  `Id_Boisson` int(11) NOT NULL AUTO_INCREMENT,
+  `Image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Prix_Boisson` decimal(10,0) NOT NULL,
+  `Deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`Id_Boisson`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `deleted_menus`
+--
+
+DROP TABLE IF EXISTS `deleted_menus`;
+CREATE TABLE IF NOT EXISTS `deleted_menus` (
+  `Id_Menu` int(11) NOT NULL AUTO_INCREMENT,
+  `Image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Prix_Menu` decimal(10,0) NOT NULL,
+  `Deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`Id_Menu`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `deleted_plats`
+--
+
+DROP TABLE IF EXISTS `deleted_plats`;
+CREATE TABLE IF NOT EXISTS `deleted_plats` (
+  `Id_Plat` int(11) NOT NULL AUTO_INCREMENT,
+  `Image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Prix_Plat` decimal(10,0) NOT NULL,
+  `Deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`Id_Plat`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -101,8 +222,21 @@ CREATE TABLE IF NOT EXISTS `dessert` (
   `Nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Prix_Dessert` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Deleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`Id_Dessert`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `dessert`
+--
+
+INSERT INTO `dessert` (`Id_Dessert`, `Image`, `Nom`, `Description`, `Prix_Dessert`, `Deleted`) VALUES
+(1, '', 'Ramequins fondants au chocolat', 'fondant chocolat moelleux', '12.08', 0),
+(2, '', 'tiramisu', 'Il existe de nombreuses recettes de tiramisu. Celle-ci est la recette originale', '14.12', 0),
+(3, '', 'Tarte aux pommes à l\'Alsacienne', 'nos régions ont du talent', '4.12', 0),
+(4, '', 'gateau patate', 'au bonnes patate du jardin', '7.12', 0),
+(5, '', 'gateau manioc', 'au bon manioc de cilaos', '7.12', 0),
+(6, '', 'bonbon bananes', '10 bonbons aux bananes de saint andré', '5.90', 0);
 
 -- --------------------------------------------------------
 
@@ -117,8 +251,19 @@ CREATE TABLE IF NOT EXISTS `entree` (
   `Nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Prix_Entree` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Deleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`Id_Entree`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `entree`
+--
+
+INSERT INTO `entree` (`Id_Entree`, `Image`, `Nom`, `Description`, `Prix_Entree`, `Deleted`) VALUES
+(1, 'jhkhjkjhk', 'salade museaux', 'pur porcs', '4.98', 0),
+(2, '', 'salade russe', 'légume de la cours', '4.90', 0),
+(3, '', 'salade poulet curry', 'poulet curry sur un lit de salade de choux et carotte vinaigrée', '8.90', 0),
+(4, 'dsfsd', 'ffghfh', 'hgfhfg', '15.5', 0);
 
 -- --------------------------------------------------------
 
@@ -129,11 +274,20 @@ CREATE TABLE IF NOT EXISTS `entree` (
 DROP TABLE IF EXISTS `menus`;
 CREATE TABLE IF NOT EXISTS `menus` (
   `Id_Menu` int(11) NOT NULL AUTO_INCREMENT,
-  `Image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Prix` decimal(15,2) DEFAULT NULL,
-  PRIMARY KEY (`Id_Menu`)
+  `Nom` VARCHAR(255)COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Description` VARCHAR(255)COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Prix` DECIMAL(15,2)DEFAULT NULL,
+  `Deleted` tinyint(1) NOT NULL,
+  `Id_Entree` INT NOT NULL,
+  `Id_Plat` INT NOT NULL,
+  `Id_Dessert` INT NOT NULL,
+  `Id_Boisson` INT NOT NULL,
+   PRIMARY KEY(Id_Menu),
+   FOREIGN KEY(Id_Entree) REFERENCES Entree(Id_Entree),
+   FOREIGN KEY(Id_Plat) REFERENCES Plats(Id_Plat),
+   FOREIGN KEY(Id_Dessert) REFERENCES Dessert(Id_Dessert),
+   FOREIGN KEY(Id_Boisson) REFERENCES Boisson(Id_Boisson)
+
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -280,8 +434,22 @@ CREATE TABLE IF NOT EXISTS `plats` (
   `Nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Prix_Plat` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Deleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`Id_Plat`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `plats`
+--
+
+INSERT INTO `plats` (`Id_Plat`, `Image`, `Nom`, `Description`, `Prix_Plat`, `Deleted`) VALUES
+(1, 'sdfsdf', 'salade museaux', 'pur porc', '4.90', 0),
+(2, '', 'civet zouritte', 'au bon vin de cilaos', '8.99', 0),
+(3, 'fdgdgdf', 'civet canards', 'au vin royal', '8.90', 0),
+(4, '', 'coq massalé', 'au massalé fait maison', '8.99', 0),
+(5, '', 'cabris massalé', 'cabris de la cours au massalé fait maison', '8.99', 0),
+(6, '', 'boeuf carotte', 'façon grand mère', '8.99', 0),
+(7, 'ds', 'fdffd', 'fdf', '700', 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

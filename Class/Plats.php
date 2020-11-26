@@ -2,10 +2,12 @@
 
 class Plats{
 
+private $Id_Plat;
 private $Image;
 private $Nom;
 private $Description;
 private $Prix_Plat;
+private $Deleted;
 
 
 /**
@@ -86,6 +88,34 @@ public function setPrix_Plat($Prix_Plat)
 $this->Prix_Plat = $Prix_Plat;
 
 return $this;
+}
+
+/**
+ * Get the value of Deleted
+ */ 
+public function getDeleted()
+{
+return $this->Deleted;
+}
+
+/**
+ * Set the value of Deleted
+ *
+ * @return  self
+ */ 
+public function setDeleted($Deleted)
+{
+$this->Deleted = $Deleted;
+
+return $this;
+}
+
+/**
+ * Get the value of Id_Plat
+ */ 
+public function getId_Plat()
+{
+return $this->Id_Plat;
 }
 }
 

@@ -1,22 +1,13 @@
 <?php
-class Boisson{
 
-private $Id_Boisson;
+class Deleted_plats{
+
+private $Id_Plat;
 private $Image;
 private $Nom;
 private $Description;
-private $Prix_Boisson;
+private $Prix_Plat;
 private $Deleted;
-
-
-
-/**
- * Get the value of Id_Boisson
- */ 
-public function getId_Boisson()
-{
-return $this->Id_Boisson;
-}
 
 
 /**
@@ -80,27 +71,24 @@ return $this;
 }
 
 /**
- * Get the value of Prix_Boisson
+ * Get the value of Prix_Plat
  */ 
-public function getPrix_Boisson()
+public function getPrix_Plat()
 {
-return $this->Prix_Boisson;
+return $this->Prix_Plat;
 }
 
 /**
- * Set the value of Prix_Boisson
+ * Set the value of Prix_Plat
  *
  * @return  self
  */ 
-public function setPrix_Boisson($Prix_Boisson)
+public function setPrix_Plat($Prix_Plat)
 {
-$this->Prix_Boisson = $Prix_Boisson;
+$this->Prix_Plat = $Prix_Plat;
 
 return $this;
 }
-
-
-
 
 /**
  * Get the value of Deleted
@@ -121,7 +109,14 @@ $this->Deleted = $Deleted;
 
 return $this;
 }
-}
 
+/**
+ * Get the value of Id_Plat
+ */ 
+public function getId_Plat()
+{
+return $this->Id_Plat;
+}
+}
 
 ?>

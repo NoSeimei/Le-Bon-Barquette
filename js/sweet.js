@@ -1,6 +1,6 @@
 function mafonction(){
                 
-    Swal.fire("identifiant incorrect!");
+    Swal.fire("Mauvais identifiant ou mot de passe");
     
   };
   function RedirectionJavascript(){

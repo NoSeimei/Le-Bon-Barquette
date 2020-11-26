@@ -1,4 +1,4 @@
-<link rel="stylesheet" media="screen" href="css/admin_footer.css">
+<link rel="stylesheet" media="screen" href="../css/admin_footer.css">
   <!-- Site footer -->
   <footer class="site-footer">
       <div class="container">

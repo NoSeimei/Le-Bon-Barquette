@@ -1,45 +1,42 @@
 <?php
 include("connexion.php");
 include("Class/Clients.php");
-include("Class/Entree.php");
-include("Class/Plats.php");
-include("Class/Dessert.php");
-include("Class/Boisson.php");
+include("Class/Deleted_entree.php");
+include("Class/Deleted_plats.php");
+include("Class/Deleted_dessert.php");
+include("Class/Deleted_boisson.php");
+include("Class/Deleted_menus.php");
 include("Class/Admin.php");
 include("Function/Function.php");
 try {
-    $request = $db->query("SELECT * FROM entree");
-    $request->setFetchMode(PDO::FETCH_CLASS, 'Entree');
+    $request = $db->query("SELECT * FROM Deleted_entree");
+    $request->setFetchMode(PDO::FETCH_CLASS, 'Deleted_entree');
     $lesEntree = $request->fetchAll();
 } catch (Exception $exE) {
-
     echo $exE;
 }
 
 try {
-    $request2 = $db->query("SELECT * FROM plats");
-    $request2->setFetchMode(PDO::FETCH_CLASS, 'Plats');
+    $request2 = $db->query("SELECT * FROM Deleted_plats");
+    $request2->setFetchMode(PDO::FETCH_CLASS, 'Deleted_plats');
     $lesPlats = $request2->fetchAll();
 } catch (Exception $exP) {
-
     echo $exP;
 }
 
 try {
-    $request3 = $db->query("SELECT * FROM dessert");
-    $request3->setFetchMode(PDO::FETCH_CLASS, 'Dessert');
+    $request3 = $db->query("SELECT * FROM Deleted_dessert");
+    $request3->setFetchMode(PDO::FETCH_CLASS, 'Deleted_dessert');
     $lesDesserts = $request3->fetchAll();
 } catch (Exception $exD) {
-
     echo $exD;
 }
 
 try {
-    $request4 = $db->query("SELECT * FROM boisson");
-    $request4->setFetchMode(PDO::FETCH_CLASS, 'Boisson');
+    $request4 = $db->query("SELECT * FROM Deleted_boisson");
+    $request4->setFetchMode(PDO::FETCH_CLASS, 'Deleted_boisson');
     $lesBoissons = $request4->fetchAll();
 } catch (Exception $exB) {
-
     echo $exB;
 }
 ?>
@@ -62,12 +59,19 @@ try {
 
 <body>
    <?php include("admin-navbar.php");?>
-
+  
     <div class="container-fluid">
         <div class="row">
             <div class="col-xl">
                 <table class="table">
                     <thead class="thead-dark">
+                        <tr>
+                            <th scope="col" style="background-color: white; border-color:white;"></th>
+                            <th scope="col" style="background-color: white; border-color:white;"></th>
+                            <th scope="col" style="text-align:center; background-color: white; border-color:white; color:black; font-size:20px;">Les Entrées</th>
+                            <th scope="col" style="background-color: white; border-color:white;"></th>
+                            <th scope="col" style="background-color: white; border-color:white;"></th>
+                        </tr>
                         <tr>
                             <th scope="col">Image</th>
                             <th scope="col">Nom</th>
@@ -83,7 +87,7 @@ try {
                                 <td><?php echo $entree->getNom(); ?></td>
                                 <td><?php echo $entree->getDescription(); ?></td>
                                 <td><?php echo $entree->getPrix_Entree(); ?></td>
-                                <td><a href="" class="far fa-edit"></a> <a href="" style="color:red" class="far fa-trash-alt"></a></td>
+                                <td><a href="Modifications/modification.php?idEntree=<?php echo $entree->getId_Entree();?>" class="far fa-edit"></a> <a href="" style="color:red" class="far fa-trash-alt"></a></td>
                             </tr>
                         <?php
                         }
@@ -94,6 +98,13 @@ try {
             <div class="col-xl">
                 <table class="table">
                     <thead class="thead-dark">
+                        <tr>
+                            <th scope="col" style="background-color: white; border-color:white;"></th>
+                            <th scope="col" style="background-color: white; border-color:white;"></th>
+                            <th scope="col" style="text-align:center; background-color: white; border-color:white; color:black; font-size:20px;">Les Plats</th>
+                            <th scope="col" style="background-color: white; border-color:white;"></th>
+                            <th scope="col" style="background-color: white; border-color:white;"></th>
+                        </tr>
                         <tr>
                             <th scope="col">Image</th>
                             <th scope="col">Nom</th>
@@ -109,7 +120,7 @@ try {
                                 <td><?php echo $plat->getNom(); ?></td>
                                 <td><?php echo $plat->getDescription(); ?></td>
                                 <td><?php echo $plat->getPrix_Plat(); ?></td>
-                                <td><a href="" class="far fa-edit"></a> <a href="" style="color:red" class="far fa-trash-alt"></a></td>
+                                <td><a href="Modifications/modification.php?idPlat=<?php echo $plat->getId_Plat();?>" class="far fa-edit"></a> <a href="" style="color:red" class="far fa-trash-alt"></a></td>
                             </tr>
                         <?php
                         }
@@ -120,6 +131,13 @@ try {
             <div class="col-xl">
                 <table class="table">
                     <thead class="thead-dark">
+                        <tr>
+                            <th scope="col" style="background-color: white; border-color:white;"></th>
+                            <th scope="col" style="background-color: white; border-color:white;"></th>
+                            <th scope="col" style="text-align:center; background-color: white; border-color:white; color:black; font-size:20px;">Les Desserts</th>
+                            <th scope="col" style="background-color: white; border-color:white;"></th>
+                            <th scope="col" style="background-color: white; border-color:white;"></th>
+                        </tr>
                         <tr>
                             <th scope="col">Image</th>
                             <th scope="col">Nom</th>
@@ -135,7 +153,7 @@ try {
                                 <td><?php echo $dessert->getNom(); ?></td>
                                 <td><?php echo $dessert->getDescription(); ?></td>
                                 <td><?php echo $dessert->getPrix_Dessert(); ?></td>
-                                <td><a href="" class="far fa-edit"></a> <a href="" style="color:red" class="far fa-trash-alt"></a></td>
+                                <td><a href="Modifications/modification.php?idDessert=<?php echo $dessert->getId_Dessert();?>" class="far fa-edit"></a> <a href="" style="color:red" class="far fa-trash-alt"></a></td>
                             </tr>
                         <?php
                         }
@@ -146,6 +164,13 @@ try {
             <div class="col-xl">
                 <table class="table">
                     <thead class="thead-dark">
+                        <tr>
+                            <th scope="col" style="background-color: white; border-color:white;"></th>
+                            <th scope="col" style="background-color: white; border-color:white;"></th>
+                            <th scope="col" style="text-align:center; background-color: white; border-color:white; color:black; font-size:20px;">Les Boissons</th>
+                            <th scope="col" style="background-color: white; border-color:white;"></th>
+                            <th scope="col" style="background-color: white; border-color:white;"></th>
+                        </tr>
                         <tr>
                             <th scope="col">Image</th>
                             <th scope="col">Nom</th>
@@ -161,7 +186,7 @@ try {
                                 <td><?php echo $boisson->getNom(); ?></td>
                                 <td><?php echo $boisson->getDescription(); ?></td>
                                 <td><?php echo $boisson->getPrix_Boisson(); ?></td>
-                                <td><a href="" class="far fa-edit"></a> <a href="" style="color:red" class="far fa-trash-alt"></a></td>
+                                <td><a href="Modifications/modification.php?idBoisson=<?php echo $boisson->getId_Boisson();?>" class="far fa-edit"></a> <a href="" style="color:red" class="far fa-trash-alt"></a></td>
                             </tr>
                         <?php
                         }

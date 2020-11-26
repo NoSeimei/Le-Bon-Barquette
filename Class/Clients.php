@@ -113,10 +113,39 @@ $this->Identifiant = $Identifiant;
 return $this;
 }
 
+
+/**
+ * Get the value of Id_Client
+ */ 
+public function getId_Client()
+{
+return $this->Id_Client;
+}
+
+/**
+ * Get the value of Deleted
+ */ 
+public function getDeleted()
+{
+return $this->Deleted;
+}
+
+/**
+ * Set the value of Deleted
+ *
+ * @return  self
+ */ 
+public function setDeleted($Deleted)
+{
+$this->Deleted = $Deleted;
+
+return $this;
+}
+
 /**
  * Get the value of Password
  */ 
-public function getMotDePasse()
+public function getPassword()
 {
 return $this->Password;
 }
@@ -126,19 +155,11 @@ return $this->Password;
  *
  * @return  self
  */ 
-public function setMotDePasse($Password)
+public function setPassword($Password)
 {
 $this->Password = $Password;
 
 return $this;
-}
-
-/**
- * Get the value of Id_Client
- */ 
-public function getId_Client()
-{
-return $this->Id_Client;
 }
 
 /**

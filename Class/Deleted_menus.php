@@ -1,22 +1,12 @@
 <?php
-class Boisson{
 
-private $Id_Boisson;
+class Menus{
+
+private $Id_Menu;
 private $Image;
 private $Nom;
 private $Description;
-private $Prix_Boisson;
 private $Deleted;
-
-
-
-/**
- * Get the value of Id_Boisson
- */ 
-public function getId_Boisson()
-{
-return $this->Id_Boisson;
-}
 
 
 /**
@@ -80,29 +70,6 @@ return $this;
 }
 
 /**
- * Get the value of Prix_Boisson
- */ 
-public function getPrix_Boisson()
-{
-return $this->Prix_Boisson;
-}
-
-/**
- * Set the value of Prix_Boisson
- *
- * @return  self
- */ 
-public function setPrix_Boisson($Prix_Boisson)
-{
-$this->Prix_Boisson = $Prix_Boisson;
-
-return $this;
-}
-
-
-
-
-/**
  * Get the value of Deleted
  */ 
 public function getDeleted()
@@ -121,7 +88,14 @@ $this->Deleted = $Deleted;
 
 return $this;
 }
-}
 
+/**
+ * Get the value of Id_Menu
+ */ 
+public function getId_Menu()
+{
+return $this->Id_Menu;
+}
+}
 
 ?>

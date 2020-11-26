@@ -9,7 +9,6 @@ include("../Class/Menus.php");
 include("../Class/Admin.php");
 include("../Function/Function.php");
 ?>
-
 <!doctype html>
 <html lang="en">
 
@@ -20,17 +19,17 @@ include("../Function/Function.php");
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" media="screen" href="../css/main.css">
     <link rel="stylesheet" media="screen" href="../css/admin.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="../fontawesome-free-5.15.1-web/css/all.css" rel="stylesheet">
 </head>
 
-<body style="display: inherit;">
+<body >
 
     <?php include("admin-navbar.php"); ?>
-
+    
+    <div class="left">
 <?php try {
     $request = $db->query("SELECT * FROM menus");
     $request->setFetchMode(PDO::FETCH_CLASS, 'Menus');
@@ -85,9 +84,7 @@ foreach($lesMenus as $leMenu){
                 <?php foreach ($lesDesserts as $leDessert) { ?>
                     <?php foreach ($lesBoissons as $laBoisson) { ?>
                         
-                        <div class="subContainer">
-                        <div class="left">
-                        <div class="container-fluid">
+                        <div class="container-fluid" style="width: auto; display: inline-block;">
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
                                     <h4 class="card-title" style="text-align: center;"><u>Menu</u></h4>
@@ -119,11 +116,11 @@ foreach($lesMenus as $leMenu){
                                 <div class="card-body" style="text-align: center;">
                                     <a href="../Modifications/modification_menu.php?idMenu=<?php echo $leMenu->getId_Menu(); ?>" class="far fa-edit"></a>
                                     <a href="#" style="color:red; padding-left:10%;" class="far fa-trash-alt"></a>
+                                    </tr>
+                   
                                 </div>
                             </div>
                         </div>
-                        </div>
-                    </div>
                     <?php } ?>
                 <?php } ?>
             <?php } ?>
@@ -134,9 +131,10 @@ foreach($lesMenus as $leMenu){
 }catch (Exception $exE) {
     echo $exE;
 } ?>
-    <footer class="footer">
+</div>
+   
     <?php include("admin-footer.php"); ?>
-    </footer>
+  
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -78,9 +78,6 @@ if(isset($_POST["modifMenu"]) && isset($_POST["Nom"]) ){
 
 		}
 
-
-
-
 }
 
 ?>

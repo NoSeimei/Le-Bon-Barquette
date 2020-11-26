@@ -291,7 +291,7 @@ include("Function/Function.php");
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $entree->getPrix_entree() ?> €
-								<a href=""><img src="..\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 
@@ -350,7 +350,7 @@ include("Function/Function.php");
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $plat->getPrix_Plat() ?>
-								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:80px; height:30px"> </img></a>
+								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 

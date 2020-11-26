@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 25 nov. 2020 à 05:21
+-- Généré le :  jeu. 26 nov. 2020 à 07:50
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -98,14 +98,15 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `Password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Deleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`Id_Client`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `clients`
 --
 
 INSERT INTO `clients` (`Id_Client`, `Nom`, `Prenom`, `Telephone`, `Email`, `Identifiant`, `Password`, `Deleted`) VALUES
-(1, 'payet', 'monsieur', '0692345678', 'monsieur.payet@barquette.re', 'mPayet', 'df91f42cda8b1946a1dfaafdd2207c8b', 0);
+(1, 'payet', 'monsieur', '0692345678', 'monsieur.payet@barquette.re', 'mPayet', 'df91f42cda8b1946a1dfaafdd2207c8b', 0),
+(2, 'dfgdfg', 'sdfsdf', '05651', 'ssfsf@dsfs.fr', 'test', 'test', 0);
 
 -- --------------------------------------------------------
 
@@ -122,91 +123,6 @@ CREATE TABLE IF NOT EXISTS `commandes` (
   `Deleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`Id_Commande`),
   KEY `Id_Client` (`Id_Client`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `deleted_boisson`
---
-
-DROP TABLE IF EXISTS `deleted_boisson`;
-CREATE TABLE IF NOT EXISTS `deleted_boisson` (
-  `Id_Boisson` int(11) NOT NULL AUTO_INCREMENT,
-  `Image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `Nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `Description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `Prix_Boisson` decimal(10,0) NOT NULL,
-  `Deleted` tinyint(1) NOT NULL,
-  PRIMARY KEY (`Id_Boisson`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `deleted_dessert`
---
-
-DROP TABLE IF EXISTS `deleted_dessert`;
-CREATE TABLE IF NOT EXISTS `deleted_dessert` (
-  `Id_Dessert` int(11) NOT NULL AUTO_INCREMENT,
-  `Image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `Nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `Description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `Prix_Dessert` decimal(10,0) NOT NULL,
-  `Deleted` tinyint(1) NOT NULL,
-  PRIMARY KEY (`Id_Dessert`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `deleted_entree`
---
-
-DROP TABLE IF EXISTS `deleted_entree`;
-CREATE TABLE IF NOT EXISTS `deleted_entree` (
-  `Id_Boisson` int(11) NOT NULL AUTO_INCREMENT,
-  `Image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `Nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `Description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `Prix_Boisson` decimal(10,0) NOT NULL,
-  `Deleted` tinyint(1) NOT NULL,
-  PRIMARY KEY (`Id_Boisson`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `deleted_menus`
---
-
-DROP TABLE IF EXISTS `deleted_menus`;
-CREATE TABLE IF NOT EXISTS `deleted_menus` (
-  `Id_Menu` int(11) NOT NULL AUTO_INCREMENT,
-  `Image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `Nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `Description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `Prix_Menu` decimal(10,0) NOT NULL,
-  `Deleted` tinyint(1) NOT NULL,
-  PRIMARY KEY (`Id_Menu`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `deleted_plats`
---
-
-DROP TABLE IF EXISTS `deleted_plats`;
-CREATE TABLE IF NOT EXISTS `deleted_plats` (
-  `Id_Plat` int(11) NOT NULL AUTO_INCREMENT,
-  `Image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `Nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `Description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `Prix_Plat` decimal(10,0) NOT NULL,
-  `Deleted` tinyint(1) NOT NULL,
-  PRIMARY KEY (`Id_Plat`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -274,21 +190,28 @@ INSERT INTO `entree` (`Id_Entree`, `Image`, `Nom`, `Description`, `Prix_Entree`,
 DROP TABLE IF EXISTS `menus`;
 CREATE TABLE IF NOT EXISTS `menus` (
   `Id_Menu` int(11) NOT NULL AUTO_INCREMENT,
-  `Nom` VARCHAR(255)COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Description` VARCHAR(255)COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Prix` DECIMAL(15,2)DEFAULT NULL,
+  `Nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Prix` decimal(15,2) DEFAULT NULL,
   `Deleted` tinyint(1) NOT NULL,
-  `Id_Entree` INT NOT NULL,
-  `Id_Plat` INT NOT NULL,
-  `Id_Dessert` INT NOT NULL,
-  `Id_Boisson` INT NOT NULL,
-   PRIMARY KEY(Id_Menu),
-   FOREIGN KEY(Id_Entree) REFERENCES Entree(Id_Entree),
-   FOREIGN KEY(Id_Plat) REFERENCES Plats(Id_Plat),
-   FOREIGN KEY(Id_Dessert) REFERENCES Dessert(Id_Dessert),
-   FOREIGN KEY(Id_Boisson) REFERENCES Boisson(Id_Boisson)
+  `Id_Entree` int(11) NOT NULL,
+  `Id_Plat` int(11) NOT NULL,
+  `Id_Dessert` int(11) NOT NULL,
+  `Id_Boisson` int(11) NOT NULL,
+  PRIMARY KEY (`Id_Menu`),
+  KEY `Id_Entree` (`Id_Entree`),
+  KEY `Id_Plat` (`Id_Plat`),
+  KEY `Id_Dessert` (`Id_Dessert`),
+  KEY `Id_Boisson` (`Id_Boisson`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+--
+-- Déchargement des données de la table `menus`
+--
+
+INSERT INTO `menus` (`Id_Menu`, `Nom`, `Description`, `Prix`, `Deleted`, `Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) VALUES
+(1, 'test', 'test', '10.00', 0, 1, 1, 1, 1),
+(2, 'non', 'non', '70.00', 0, 3, 3, 2, 2);
 
 -- --------------------------------------------------------
 

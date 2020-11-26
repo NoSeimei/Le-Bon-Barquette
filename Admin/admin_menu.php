@@ -8,42 +8,6 @@ include("../Class/Boisson.php");
 include("../Class/Menus.php");
 include("../Class/Admin.php");
 include("../Function/Function.php");
-try {
-    $request = $db->query("SELECT * FROM menus");
-    $request->setFetchMode(PDO::FETCH_CLASS, 'Menus');
-    $lesMenus = $request->fetchAll();
-} catch (Exception $ex) {
-    echo $ex;
-}
-try {
-    $request1 = $db->query("SELECT * FROM menus INNER JOIN entree ON menus.Id_Entree = entree.Id_Entree");
-    $request1->setFetchMode(PDO::FETCH_CLASS, 'Entree');
-    $lesEntrees = $request1->fetchAll();
-} catch (Exception $ex) {
-    echo $ex;
-}
-    try {
-    $request2 = $db->query("SELECT * FROM menus INNER JOIN plats ON menus.Id_Plat = plats.Id_Plat");
-    $request2->setFetchMode(PDO::FETCH_CLASS, 'Plats');
-    $lesPlats = $request2->fetchAll();
-} catch (Exception $ex) {
-    echo $ex;
-}
-    try {
-    $request3 = $db->query("SELECT * FROM menus INNER JOIN dessert ON menus.Id_Dessert = dessert.Id_Dessert");
-    $request3->setFetchMode(PDO::FETCH_CLASS, 'Dessert');
-    $lesDesserts = $request3->fetchAll();
-} catch (Exception $ex) {
-    echo $ex;
-}
-    try {
-    $request4 = $db->query("SELECT * FROM menus INNER JOIN boisson ON menus.Id_Boisson = boisson.Id_Boisson");
-    $request4->setFetchMode(PDO::FETCH_CLASS, 'Boisson');
-    $lesBoissons = $request4->fetchAll();
-} catch (Exception $ex) {
-    echo $ex;
-}
-
 ?>
 
 <!doctype html>
@@ -63,14 +27,66 @@ try {
     <link href="../fontawesome-free-5.15.1-web/css/all.css" rel="stylesheet">
 </head>
 
-<body>
+<body style="display: inherit;">
+
     <?php include("admin-navbar.php"); ?>
-    <?php foreach ($lesMenus as $leMenu) { ?>
+
+<?php try {
+    $request = $db->query("SELECT * FROM menus");
+    $request->setFetchMode(PDO::FETCH_CLASS, 'Menus');
+    $lesMenus = $request->fetchAll();
+
+foreach($lesMenus as $leMenu){
+
+       $idEntree = $leMenu->getId_Entree();
+       $idPlat = $leMenu->getId_Plat();
+       $idDessert = $leMenu->getId_Dessert();
+       $idBoisson = $leMenu->getId_Boisson();
+
+    try {
+        $request1 = $db->query("SELECT * FROM menus INNER JOIN entree ON menus.Id_Entree = entree.Id_Entree 
+        WHERE entree.Id_Entree = $idEntree");
+        $request1->setFetchMode(PDO::FETCH_CLASS, 'Entree');
+        $lesEntrees = $request1->fetchAll();
+    } catch (Exception $exE) {
+        echo $exE;
+    }
+    
+    try {
+        $request2 = $db->query("SELECT * FROM menus INNER JOIN plats ON menus.Id_Plat = plats.Id_Plat  
+        WHERE plats.Id_Plat = $idPlat");
+        $request2->setFetchMode(PDO::FETCH_CLASS, 'Plats');
+        $lesPlats = $request2->fetchAll();
+    } catch (Exception $exE) {
+        echo $exE;
+    }
+    
+    try {
+        $request3 = $db->query("SELECT * FROM menus INNER JOIN dessert ON menus.Id_Dessert = dessert.Id_Dessert  
+        WHERE dessert.Id_Dessert = $idDessert");
+        $request3->setFetchMode(PDO::FETCH_CLASS, 'Dessert');
+        $lesDesserts = $request3->fetchAll();
+    } catch (Exception $exE) {
+        echo $exE;
+    }
+    
+    try {
+        $request4 = $db->query("SELECT * FROM menus INNER JOIN boisson ON menus.Id_Boisson = boisson.Id_Boisson 
+        WHERE boisson.Id_Boisson = $idBoisson");
+        $request4->setFetchMode(PDO::FETCH_CLASS, 'Boisson');
+        $lesBoissons = $request4->fetchAll();
+    } catch (Exception $exE) {
+        echo $exE;
+    }
+      
+?>
         <?php foreach ($lesEntrees as $lEntree) { ?>
             <?php foreach ($lesPlats as $lePlat) { ?>
                 <?php foreach ($lesDesserts as $leDessert) { ?>
                     <?php foreach ($lesBoissons as $laBoisson) { ?>
                         
+                        <div class="subContainer">
+                        <div class="left">
                         <div class="container-fluid">
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
@@ -101,17 +117,26 @@ try {
                                     </li>
                                 </ul>
                                 <div class="card-body" style="text-align: center;">
-                                    <a href="#" class="far fa-edit"></a>
+                                    <a href="../Modifications/modification_menu.php?idMenu=<?php echo $leMenu->getId_Menu(); ?>" class="far fa-edit"></a>
                                     <a href="#" style="color:red; padding-left:10%;" class="far fa-trash-alt"></a>
                                 </div>
                             </div>
                         </div>
+                        </div>
+                    </div>
                     <?php } ?>
                 <?php } ?>
             <?php } ?>
         <?php } ?>
     <?php } ?>
+<?php 
+   
+}catch (Exception $exE) {
+    echo $exE;
+} ?>
+    <footer class="footer">
     <?php include("admin-footer.php"); ?>
+    </footer>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

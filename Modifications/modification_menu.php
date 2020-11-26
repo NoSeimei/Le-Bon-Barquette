@@ -62,12 +62,12 @@ if(isset($_POST["modifMenu"]) && isset($_POST["Nom"]) ){
 		$menu->setNom($_POST["Nom"]);
 		$menu->setDescription($_POST["Description"]);
         $menu->setPrix($_POST["Prix"]);
+        $menu->setDeleted(0);
         $menu->setId_Entree($_POST["entree"]);
         $menu->setId_Plat($_POST["plat"]);
         $menu->setId_Dessert($_POST["dessert"]);
         $menu->setId_Boisson($_POST["boisson"]);
-		$menu->setDeleted(0);
-		$request = $db->prepare("UPDATE menus SET Nom = :Nom, Description = :Description, Prix = :Prix, Id_Entre = :entree, Id_Plat = :plat; Id_Dessert = :dessert, Id_Boisson = :boisson WHERE Id_Menu = $id");
+		$request = $db->prepare("UPDATE menus SET Nom = :Nom, Description = :Description, Prix = :Prix, Deleted = :Deleted, Id_Entree = :Id_Entree, Id_Plat = :Id_Plat, Id_Dessert = :Id_Dessert, Id_Boisson = :Id_Boisson WHERE Id_Menu = $id");
 		$request->execute(dismountMenu($menu));
 
 		header("Location: ..\admin.php");	

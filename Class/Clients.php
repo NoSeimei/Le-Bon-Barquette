@@ -122,25 +122,7 @@ public function getId_Client()
 return $this->Id_Client;
 }
 
-/**
- * Get the value of Deleted
- */ 
-public function getDeleted()
-{
-return $this->Deleted;
-}
 
-/**
- * Set the value of Deleted
- *
- * @return  self
- */ 
-public function setDeleted($Deleted)
-{
-$this->Deleted = $Deleted;
-
-return $this;
-}
 
 /**
  * Get the value of Password
@@ -161,6 +143,8 @@ $this->Password = $Password;
 
 return $this;
 }
+
+
 
 /**
  * Get the value of Deleted

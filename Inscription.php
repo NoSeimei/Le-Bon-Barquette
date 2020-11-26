@@ -7,133 +7,140 @@ include("connexion.php");
 include("Class/Clients.php");
 include("Class/Admin.php");
 include("Function/Function.php");
-if (!isset($_SESSION['ident']) &&  !isset($_SESSION['ident']) && !isset($_SESSION['nom']) && !isset($_SESSION['prenom']) && !isset($_SESSION['tel']) && !isset($_SESSION['mail']) && !isset($_SESSION['mdp']) && !isset($_SESSION['del'])) {
+if(!isset($_SESSION['ident'])){
 
-	$_SESSION['ident'] = "";
-	$_SESSION['nom']   = "";
-	$_SESSION['prenom'] = "";
-	$_SESSION['tel']   = "";
-	$_SESSION['mail']  = "";
-	$_SESSION['mdp']   = "";
-	$_SESSION['del']   = "";
+	$_SESSION['ident']="";
+
+	
+$_SESSION['nom']   = "";
+$_SESSION['prenom']="";
+$_SESSION['tel']   = "";
+$_SESSION['mail']  = "";
+$_SESSION['mdp']   = "";
+$_SESSION['del']   = "";
 }
 
 if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 
-	$user = $_POST["identifiant"];
-	$pass = $_POST["password"];
-	/*$request = $db->prepare("SELECT * FROM admin WHERE userAdmin = :userAdmin AND pass = :pass");
+  $user = $_POST["identifiant"];
+  $pass = $_POST["password"];
+
+
+  /*$request = $db->prepare("SELECT * FROM admin WHERE userAdmin = :userAdmin AND pass = :pass");
     $request->execute(array(':userAdmin' => $user, ':pass' => $pass));
     $resultat = $request->fetch();*/
-
+    
 	try {
 		$requete = $db->query("SELECT * FROM `clients`");
 		$requete->setFetchMode(PDO::FETCH_CLASS, 'Clients');
 		$client = $requete->fetchAll();
-
+	
 		foreach ($client as $theClient) {
-			echo $theClient->getIdentifiant();
-			echo $theClient->getMotDePasse() . "<br>";
-			if ($theClient->getIdentifiant() === $user && $theClient->getMotDePasse() === $pass) {
-
-				header("Location: index.php");
-				break;
-			} else {
-				echo "<br>";
-				echo $user;
-				echo $pass;
-				echo "<br>";
-				echo  " <script>
+			echo $theClient->getIdentifiant()	;
+			echo $theClient->getMotDePasse()."<br>"; 
+		  if ($theClient->getIdentifiant() === $user && $theClient->getMotDePasse() === $pass) {
+			
+			header("Location: index.php");
+			break;
+		  } 
+		  
+		  else {
+			  echo "<br>";
+			echo $user;
+			echo $pass;
+			echo "<br>";
+		  echo  " <script>
 					window.onload = function() 
 					  {
 						mafonction();
 					  }; 
 				  </script>";
-			}
+		  }
 		}
-	} catch (Exception $ex) {
-
+	  } catch (Exception $ex) {
+	
 		echo $ex;
+	  }
 	}
-} else {
-	if (isset($_POST["nom"])) {
-		try {
-			$client = new Clients();
-
-			$client->setNom($_POST["nom"]);
-			$client->setPrenom($_POST["prenom"]);
-			$client->setTelephone($_POST["phone"]);
-			$client->setEmail($_POST["email"]);
-			$client->setIdentifiant($_POST["ident"]);
-			$client->setPassword($_POST["pass"]);
-			$client->setDeleted(0);
-
-			$request = $db->prepare("INSERT INTO clients (Nom,Prenom,Telephone,Email,Identifiant,Password, Deleted)
+	else
+	{
+		if (isset($_POST["nom"])) {
+		try{ 
+		  $client = new Clients();
+	  
+		  $client->setNom($_POST["nom"]);
+		  $client->setPrenom($_POST["prenom"]);
+		  $client->setTelephone($_POST["phone"]);
+		  $client->setEmail($_POST["email"]);
+		  $client->setIdentifiant($_POST["ident"]);
+		  $client->setPassword($_POST["pass"]);
+		  $client->setDeleted(0);
+	  
+		 $request = $db->prepare("INSERT INTO clients (Nom,Prenom,Telephone,Email,Identifiant,Password, Deleted)
 		 VALUES (:Nom,:Prenom,:Telephone,:Email,:Identifiant,:Password, :Deleted)");
-			$request->execute(dismountC($client));
-
-			if (!isset($ex)) {
-				header("location: Inscription.php");
-				$_SESSION['ident'] = $client->getIdentifiant();
-				$_SESSION['nom'] = $client->getNom();
-				$_SESSION['prenom'] = $client->getPrenom();
-				$_SESSION['tel'] = $client->getTelephone();
-				$_SESSION['mail'] = $client->getEmail();
-				$_SESSION['mdp'] = $client->getPassword();
-				$_SESSION['del'] = $client->getDeleted();
-
-				echo $client->getIdentifiant();
-			}
-		} catch (Exception $ex) {
-
-			echo $ex;
+		 $request->execute(dismount($client));
+		 
+		 if (!isset($ex)){
+		  header("location: Inscription.php");
+		  $_SESSION['ident']= $client->getIdentifiant();
+		  $_SESSION['nom']= $client->getNom();
+		  $_SESSION['prenom']= $client->getPrenom();
+		  $_SESSION['tel']= $client->getTelephone();
+		  $_SESSION['mail']= $client->getEmail();
+		  $_SESSION['del']= $client->getDeleted();
+		  
+			echo $client->getIdentifiant();
 		}
-	} else {
-		echo "erreur";
-	}
-}
-
-
+		}catch(Exception $ex){
+	  
+			echo $ex;
+	  
+		}
+		 }
+		else{
+			echo "erreur";
+		}
+	}   
+	
+  
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<title>Accueil</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-	<!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="images/icons/favicon.png" />
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="fonts/themify/themify-icons.css">
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/lightbox2/css/lightbox.min.css">
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 </head>
-
 <body class="animsition">
 
 	<!-- Header -->
@@ -184,7 +191,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 			<li class="t-center m-b-13">
 				<a href="index.html" class="txt19">Acceuil</a>
 			</li>
-
+			
 			<li class="t-center">
 				<!-- Button3 -->
 				<a href="reservation.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
@@ -192,8 +199,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 				</a>
 			</li>
 
-			<br>
-			<li class="t-center">
+		<br>	<li class="t-center">
 				<!-- Button3 -->
 				<a href="formulaire_connexion.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
 					Se connecter
@@ -204,8 +210,8 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 
 		<!-- - -->
 	</aside>
-	<!-- Booking -->
-	</br></br>
+    <!-- Booking -->
+</br></br>
 	<section class="section-booking bg1-pattern p-t-100 p-b-110">
 	<form nom="conn" action="Inscription.php" method="post">
 	<div class="container">
@@ -221,9 +227,9 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 						</h3>
 					</div>
 
-						<form class="wrap-form-booking">
-							<div class="row">
-								<div class="col-md-6">
+					<form class="wrap-form-booking">
+						<div class="row">
+							<div class="col-md-6">
 
 								<span class="txt9">
 									Identifiant
@@ -233,8 +239,6 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 									<input required="required" class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="identifiant" placeholder="identifiant" value="<?php echo  $_SESSION['ident']; ?>">
 								</div>
 							</div>
-						</form>
-					</div>
 
 							<div class="col-md-6">
 								<!-- Name -->
@@ -242,14 +246,12 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 									Mot de passe
 
 									<?php
-									echo $_SESSION['ident'];
-									echo $_SESSION['nom']   ;
-									echo $_SESSION['prenom'];
-									echo $_SESSION['tel']   ;
-									echo"<br>";
-									echo $_SESSION['mail']  ;
-									echo $_SESSION['mdp']   ;
-									echo $_SESSION['del']   ;
+									echo	$_SESSION['nom']   ;
+									echo	$_SESSION['prenom'];
+									echo	$_SESSION['tel']   ;
+									echo	$_SESSION['mail']  ;
+									echo	$_SESSION['mdp']   ;
+									echo	$_SESSION['del']   ;
 ;
 									?>
 								</span>
@@ -291,10 +293,9 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 						</h3>
 					</div>
 
-									<!-- Email -->
-									<span class="txt9">
-										Email
-									</span>
+					<form class="wrap-form-booking">
+						<div class="row">
+							<div class="col-md-6">
 
 								<span class="txt9">
 									Nom
@@ -348,16 +349,9 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 								<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
 									<input required="required" class="bo-rad-10 sizefull txt10 p-l-20" type="password" name="pass" placeholder="Mot de passe">
 								</div>
-							</div>
 
-							<div class="wrap-btn-booking flex-c-m m-t-6">
-								<!-- Button3 -->
-								<button type="submit" name="insc" class="btn3 flex-c-m size13 txt11 trans-0-4">
-									S'inscrire
-								</button>
 							</div>
-						</form>
-					</div>
+						</div>
 
 						<div class="wrap-btn-booking flex-c-m m-t-6">
 							<!-- Button3 -->
@@ -405,36 +399,36 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 
 
 
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/jquery/jquery-3.2.1.min.js"></script>
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/animsition/js/animsition.min.js"></script>
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/bootstrap/js/popper.js"></script>
 	<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/select2/select2.min.js"></script>
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/daterangepicker/moment.min.js"></script>
 	<script type="text/javascript" src="vendor/daterangepicker/daterangepicker.js"></script>
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/slick/slick.min.js"></script>
 	<script type="text/javascript" src="js/slick-custom.js"></script>
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/parallax100/parallax100.js"></script>
 	<script type="text/javascript">
-		$('.parallax100').parallax100();
+        $('.parallax100').parallax100();
 	</script>
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/countdowntime/countdowntime.js"></script>
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/lightbox2/js/lightbox.min.js"></script>
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 	<script src="js/main.js"></script>
     <script src="sweetalert2.all.min.js"></script>
   	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   	<script src="js/sweet.js"></script>
 
 </body>
-
 </html>
+	

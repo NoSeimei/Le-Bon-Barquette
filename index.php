@@ -349,8 +349,8 @@ include("Function/Function.php");
 								<div class="line-item-mainmenu bg3-pattern"></div>
 
 								<div class="price-item-mainmenu txt22">
-								<?php echo $plat->getprix_plat()." €"  ?>
-								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:80px; height:30px"> </img></a>
+								<?php echo $plat->getPrix_Plat() ?>
+								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 

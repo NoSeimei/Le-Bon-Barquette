@@ -58,7 +58,6 @@ try {
 
 <body>
    <?php include("admin-navbar.php");?>
-  
     <div class="container-fluid">
         <div class="row">
             <div class="col-xl">

@@ -70,7 +70,7 @@ if(isset($_POST["modifMenu"]) && isset($_POST["Nom"]) ){
 		$request = $db->prepare("UPDATE menus SET Nom = :Nom, Description = :Description, Prix = :Prix, Deleted = :Deleted, Id_Entree = :Id_Entree, Id_Plat = :Id_Plat, Id_Dessert = :Id_Dessert, Id_Boisson = :Id_Boisson WHERE Id_Menu = $id");
 		$request->execute(dismountMenu($menu));
 
-		header("Location: ..\admin.php");	
+		header("Location: ..\Admin\admin_menu.php");	
 
 		} catch (Exception $ex) {
 

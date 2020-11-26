@@ -117,6 +117,11 @@
 		</h2>
         
 	</section>
+
+	<?php 
+	$ids = array_keys($_SESSION['panier']);
+	$products = $db->query(SELECT * FROM )
+	?>
 <div class="container mb-4">
     <div class="row">
         <div class="col-12">

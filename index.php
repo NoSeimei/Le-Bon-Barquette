@@ -297,7 +297,7 @@ include("Function/Function.php");
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $entree->getPrix_entree() ?> €
-								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<a href="addpanier.php?id=<?php echo $entree->getId_entree(); ?>"><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 
@@ -326,7 +326,7 @@ include("Function/Function.php");
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $boisson->getprix_boisson() ?> €
-								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<a href="addpanier.php?id=<?php echo $boisson->getId_boisson(); ?>"><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 
@@ -356,7 +356,7 @@ include("Function/Function.php");
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $plat->getprix_plat() ?> €
-								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<a href="addpanier.php?id=<?php echo $plat->getId_plat(); ?>"><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 
@@ -384,7 +384,7 @@ include("Function/Function.php");
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $dessert->getPrix_dessert()  ?> €	
-								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<a href="addpanier.php?id=<?php echo $dessert->getId_dessert(); ?>&type=dessert"><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 

@@ -55,13 +55,68 @@ try {
 
 }
 
-if(isset($_POST["modifMenu"]) && isset($_POST["Nom"]) ){
+if(isset($_POST["modifMenu"]) && isset($_POST["Nom"])){
+
+    if(isset($_POST["Calcule"])){
+        $idEntree = $_POST["entree"];
+        $idPlat = $_POST["plat"];
+        $idDessert = $_POST["dessert"];
+        $idBoisson = $_POST["boisson"];
+
+        try {
+            $request = $db->prepare("SELECT Id_Entree, Prix_Entree FROM entree WHERE Id_Entree = :Id_Entree");
+            $request->execute(array('Id_Entree' => $idEntree));
+            $request->setFetchMode(PDO::FETCH_CLASS, 'Entree');
+            $lEntree = $request->fetch(PDO::FETCH_CLASS);
+        } catch (Exception $exB) {
+            echo $exB;
+        }
+        
+        try {
+            $request1 = $db->prepare("SELECT Id_Plat, Prix_Plat FROM plats WHERE Id_Plat = :Id_Plat");
+            $request1->execute(array('Id_Plat' => $idPlat));
+            $request1->setFetchMode(PDO::FETCH_CLASS, 'Plats');
+            $lePlat = $request1->fetch(PDO::FETCH_CLASS);
+        } catch (Exception $exB) {
+            echo $exB;
+        }
+
+        try {
+            $request2 = $db->prepare("SELECT Id_Dessert, Prix_Dessert FROM dessert WHERE Id_Dessert = :Id_Dessert");
+            $request2->execute(array('Id_Dessert' => $idPlat));
+            $request2->setFetchMode(PDO::FETCH_CLASS, 'Dessert');
+            $leDessert = $request2->fetch(PDO::FETCH_CLASS);
+        } catch (Exception $exB) {
+            echo $exB;
+        }
+
+        try {
+            $request3 = $db->prepare("SELECT Id_Boisson, Prix_Boisson FROM boisson WHERE Id_Boisson = :Id_Boisson");
+            $request3->execute(array('Id_Boisson' => $idBoisson));
+            $request3->setFetchMode(PDO::FETCH_CLASS, 'Boisson');
+            $laBoisson = $request3->fetch(PDO::FETCH_CLASS);
+        } catch (Exception $exB) {
+            echo $exB;
+        }
+
+        $PrixE = $lEntree->getPrix_Entree();
+        $PrixP = $lePlat->getPrix_Plat();
+        $PrixD = $leDessert->getPrix_Dessert();
+        $PrixB = $laBoisson->getPrix_Boisson();
+
+        $Total = ($PrixE + $PrixP + $PrixD + $PrixB);
+   }
+
     try {
 		$id = $_POST["modifMenu"];
 		$menu = new Menus();
 		$menu->setNom($_POST["Nom"]);
-		$menu->setDescription($_POST["Description"]);
-        $menu->setPrix($_POST["Prix"]);
+        $menu->setDescription($_POST["Description"]);
+        if(!empty($Total)){
+            $menu->setPrix($Total);
+        }else{
+            $menu->setPrix($_POST["Prix"]);
+        }
         $menu->setDeleted(0);
         $menu->setId_Entree($_POST["entree"]);
         $menu->setId_Plat($_POST["plat"]);
@@ -71,7 +126,8 @@ if(isset($_POST["modifMenu"]) && isset($_POST["Nom"]) ){
 		$request->execute(dismountMenu($menu));
 
 		header("Location: ..\Admin\admin_menu.php");	
-
+        $db = null;
+        break;
 		} catch (Exception $ex) {
 
 		echo $ex;
@@ -165,16 +221,33 @@ if(isset($_POST["modifMenu"]) && isset($_POST["Nom"]) ){
                             <input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="Description" placeholder="Description" value="<?php echo $leMenu->getDescription(); ?>">
                         </div>
                         <!-- Prix -->
+                        <div class="col-md-4" style="padding-left: 0px;">
                         <span class="txt9">
                             Prix
                         </span>
                         <div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-                            <input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="Prix" required="required" placeholder="Prix" step="any" value="">
+                            <input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="Prix" required="required" placeholder="Prix" step="any" id="Prix" value="<?php echo $leMenu->getPrix(); ?>">
                         </div>
-                    </div>
+                        </div>
+                        <div class="col-md-4" style="margin-left:auto; margin-right:auto;">
+                        <!-- Cocher -->
+                        <div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23" style="text-align:left;border: 0px solid #d9d9d9; padding-right: 230px; margin-top: 38px; margin-left:auto; margin-right:auto;">
+                        <input class="bo-rad-10 sizefull txt10 p-l-20" type="checkbox" name="Calcule" value="Calcule" style="height: 50%;" id="Check" onchange="ClickPrix()">
+                        </div>
+                        </div>
+                        
+                        <div class="col-md-4" style="padding-left: 0px;">
+                        <!-- Prix -->
+                        <div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23" style="border: 0px solid #d9d9d9; margin-top: 20px; margin-left: -200px;">
+                        <span class="txt9">
+                            Cocher la case pour calculer automatiquement le prix
+                        </span>
+                        </div>
+                        </div>
+                    
                    
 
-                    <div class="row">
+                    
                         <div class="col-md-4">
                             <!-- Time -->
                             <span class="txt9">
@@ -305,6 +378,7 @@ if(isset($_POST["modifMenu"]) && isset($_POST["Nom"]) ){
     <script type="text/javascript" src="../vendor/lightbox2/js/lightbox.min.js"></script>
     <!--===============================================================================================-->
     <script src="../js/main.js"></script>
+    <script src="../js/sweet.js"></script>
 
 </body>
 

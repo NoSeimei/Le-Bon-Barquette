@@ -110,7 +110,7 @@ foreach($lesMenus as $leMenu){
                                     </li>
 
                                     <li class="list-group-item" style="text-align: center;">
-                                        <h6 class="card-title" style="text-align: center;"><u>Prix</u></h6>100
+                                        <h6 class="card-title" style="text-align: center;"><u>Prix</u></h6><?php echo $leMenu->getPrix(); ?>
                                     </li>
                                 </ul>
                                 <div class="card-body" style="text-align: center;">

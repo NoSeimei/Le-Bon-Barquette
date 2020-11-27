@@ -10,7 +10,7 @@ include("../Class/Admin.php");
 include("../Function/Function.php");
 
 try {
-    $requete = $db->query("SELECT * FROM `clients` WHERE Deleted=0");
+    $requete = $db->query("SELECT * FROM `clients` WHERE Deleted=1");
     $requete->setFetchMode(PDO::FETCH_CLASS, 'Clients');
     $client = $requete->fetchAll();
 } catch (Exception $ex) {
@@ -45,7 +45,7 @@ try {
                         <tr>
                             <th scope="col" style="background-color: white; border-color:white;"></th>
                             <th scope="col" style="background-color: white; border-color:white;"></th>
-                            <th scope="col" style="text-align:center; background-color: white; border-color:white; color:black; font-size:20px;">Les Utilsateurs</th>
+                            <th scope="col" style="text-align:center; background-color: white; border-color:white; color:black; font-size:20px;">Les Utilsateurs supprimés</th>
                             <th scope="col" style="background-color: white; border-color:white;"></th>
                             <th scope="col" style="background-color: white; border-color:white;"></th>
                         </tr>
@@ -68,15 +68,15 @@ try {
                                 <td><?php echo $lesClient->getTelephone(); ?></td>
                                 <td><?php echo $lesClient->getEmail(); ?></td>
                                 
-                                <td><a href="modifCA.php?iduser=<?php echo $lesClient->getId_Client();?>" class="far fa-edit"></a> 
-                                <a href="sup_Cli.php?iduser=<?php echo $lesClient->getId_Client();?>" style="color:red" class="far fa-trash-alt"></a></td>
+                                <td>
+                                <a href="readdCli.php?iduser=<?php echo $lesClient->getId_Client();?>" style="color:red" class="far fa-trash-alt"></a></td>
                             </tr>
                         <?php
                         }
                         ?>
                     </tbody>
                 </table>
-            </div>
+                </div>
         </div>
     </div>
     <?php include("admin-footer.php");?>
@@ -89,10 +89,6 @@ try {
 </script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 </script>
-<script src="js/main.js"></script>
-    <script src="sweetalert2.all.min.js"></script>
-  	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  	<script src="js/sweet.js"></script>
 </body>
 
 </html>

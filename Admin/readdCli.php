@@ -18,11 +18,11 @@ if (isset($_GET["iduser"])) {
     </script>";
     try {
         $IdClient = $_GET["iduser"];
-        $Deleted = 1;
+        $Deleted = 0;
         $request = $db->prepare("UPDATE clients SET Deleted = :Deleted
         WHERE Id_Client= :IdClient");
         $request->execute(array('Deleted' => $Deleted,'IdClient' => $IdClient));
-        header("Location: utilisateurC.php");	
+        header("Location: lessupp.php");	
         
     }
     catch (Exception $ex) 
@@ -31,8 +31,3 @@ if (isset($_GET["iduser"])) {
     echo $ex;
     }
 }
-?>
-<script src="js/main.js"></script>
-    <script src="sweetalert2.all.min.js"></script>
-  	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  	<script src="js/sweet.js"></script>

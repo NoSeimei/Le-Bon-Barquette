@@ -35,6 +35,9 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="utilisateurC.php">Les Utilisateurs</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="lessupp.php">Les supprimés</a>
+        </div>
           
         </li>
       <li class="nav-item dropdown">

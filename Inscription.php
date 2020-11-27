@@ -29,7 +29,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
     $resultat = $request->fetch();*/
     
 	try {
-		$requete = $db->query("SELECT * FROM `clients`");
+		$requete = $db->query("SELECT * FROM `clients` WHERE Deleted =0 ");
 		$requete->setFetchMode(PDO::FETCH_CLASS, 'Clients');
 		$client = $requete->fetchAll();
 		$pass = MD5($pass);

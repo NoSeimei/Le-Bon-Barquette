@@ -14,12 +14,13 @@ if(!isset($_GET["iduser"])) {
 if (isset($_GET["iduser"])) {
 
     try {
+        //on récupère l'utilisateur à modifier
         $uncli = $_GET["iduser"];
         $requete = $db->prepare("SELECT * FROM `clients` WHERE Id_Client = :IdClient");
         $requete->execute(array('IdClient'=>$uncli));
         $requete->setFetchMode(PDO::FETCH_CLASS, 'Clients');
         $client = $requete->fetchAll();
-
+        //on rempli les input avec les infos de l'utilisateur
         foreach ($client as $lesClient) { 
             $leClient = $lesClient->getId_Client();
             $nomC= $lesClient->getNom();
@@ -29,32 +30,37 @@ if (isset($_GET["iduser"])) {
             $telephoneC= $lesClient->getTelephone();
         }
 
-     if (isset($_POST['nom'])){
+        //on modifie l'utilisateur
+        if (isset($_POST['nom'])){
          
         
-        $Nom= $_POST["nom"];
-        $Prenom= $_POST["prenom"];
-        $phone= $_POST["phone"];
-        $Email= $_POST["email"];
-        $Identifiant= $_POST["ident"];
-        $Password= $_POST["pass2"];
-        $request = $db->prepare("UPDATE clients SET `Nom`=:Nom,`Prenom`=:Prenom,`Telephone`=:Telephone,
-        `Email`=:Email,`Identifiant`=:Identifiant,`Password`=:Password
-        WHERE Id_Client= :IdClient");
-        $request->execute(array('Nom'=>$Nom,'Prenom'=>$Prenom,'Telephone'=>$phone,'Email'=>$Email,'Identifiant'=>$Identifiant,'Password'=>$Password,'IdClient'=>$leClient));
-        header("Location: utilisateurC.php");
-     }
-         else{
+            $Nom= $_POST["nom"];
+            $Prenom= $_POST["prenom"];
+            $phone= $_POST["phone"];
+            $Email= $_POST["email"];
+            $Identifiant= $_POST["ident"];
+            $Password= $_POST["pass2"];
+
+            $request = $db->prepare("UPDATE clients SET `Nom`=:Nom,`Prenom`=:Prenom,`Telephone`=:Telephone,
+            `Email`=:Email,`Identifiant`=:Identifiant,`Password`=:Password
+            WHERE Id_Client= :IdClient");
+            
+            $request->execute(array('Nom'=>$Nom,'Prenom'=>$Prenom,'Telephone'=>$phone,'Email'=>$Email,'Identifiant'=>$Identifiant,'Password'=>$Password,'IdClient'=>$leClient));
+            header("Location: utilisateurC.php");
+        }
+        //si l'utilisateur n'a pas correctement remplis les champs on lui renvoie un msg d'erreur
+        else
+        {
             echo  " <script>
             window.onload = function() 
               {
                 mafonction3();
               }; 
             </script>";
-         }
         }
-     catch (Exception $ex) {
-
+    }
+    catch (Exception $ex) 
+    {
         echo $ex;
     }   
 }

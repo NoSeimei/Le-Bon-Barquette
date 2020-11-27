@@ -3,32 +3,12 @@
 class Dessert{
 
 private $Id_Dessert;
-private $Image;
 private $Nom;
 private $Description;
 private $Prix_Dessert;
 private $Deleted;
 
 
-/**
- * Get the value of Image
- */ 
-public function getImage()
-{
-return $this->Image;
-}
-
-/**
- * Set the value of Image
- *
- * @return  self
- */ 
-public function setImage($Image)
-{
-$this->Image = $Image;
-
-return $this;
-}
 
 /**
  * Get the value of Nom

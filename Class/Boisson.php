@@ -2,7 +2,6 @@
 class Boisson{
 
 private $Id_Boisson;
-private $Image;
 private $Nom;
 private $Description;
 private $Prix_Boisson;
@@ -18,26 +17,6 @@ public function getId_Boisson()
 return $this->Id_Boisson;
 }
 
-
-/**
- * Get the value of Image
- */ 
-public function getImage()
-{
-return $this->Image;
-}
-
-/**
- * Set the value of Image
- *
- * @return  self
- */ 
-public function setImage($Image)
-{
-$this->Image = $Image;
-
-return $this;
-}
 
 /**
  * Get the value of Nom

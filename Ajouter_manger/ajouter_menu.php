@@ -209,7 +209,7 @@ if(isset($_POST["Nom"]) && isset($_POST["plat"])){
                             Prix
                         </span>
                         <div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-                            <input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="Prix" placeholder="Prix"  id="Prix" step="any">
+                            <input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="Prix" placeholder="Prix"  id="Prix" step="0.01">
                         </div>
                         </div>
                         <div class="col-md-4" style="margin-left:auto; margin-right:auto;">

@@ -34,10 +34,7 @@
           Elements supprimés
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="../Ajouter_manger/ajouter.php?idEntree=1">Les entrées</a>
-          <a class="dropdown-item" href="../Ajouter_manger/ajouter.php?idPlat=2">Les plats</a>
-          <a class="dropdown-item" href="../Ajouter_manger/ajouter.php?idDessert=3">Les desserts</a>
-          <a class="dropdown-item" href="../Ajouter_manger/ajouter.php?idBoisson=4">Les boissons</a>
+          <a class="dropdown-item" href="deleted_all.php">Les supprimés</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="deleted_menu.php">Les menus</a>
         </div>

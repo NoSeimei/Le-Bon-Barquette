@@ -107,7 +107,7 @@ include("Function/Function.php");
 					</div>
 
 					<!-- Menu -->
-					<div class="wrap_menu p-l-45 p-l-0-xl">
+					<div class="wrap_menu p-l-45 p-l-0-xl" style="padding-left: 0px;">
 						<nav class="menu">
 							<ul class="main_menu">
 								<li>
@@ -449,7 +449,7 @@ include("Function/Function.php");
 									<?php foreach($Boissons as $boisson) { ?>
 					<div class="blo3 flex-w flex-col-l-sm m-b-30">
 						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/Menujour.jpg" alt="IMG-MENU" style = "width:30px; height:30px"></a>
+							<a href="#"><img src="images/Menujour.jpg" alt="IMG-MENU" style = "width:80px; height:80px"></a>
 						</div>
 
 						<div class="text-blo3 size21 flex-col-l-m">

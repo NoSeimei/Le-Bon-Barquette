@@ -8,32 +8,7 @@ include("../Class/Boisson.php");
 include("../Class/Admin.php");
 include("../Function/Function.php");
 
-if(isset($_GET["idEntree"])){
-    $idEntree = $_GET["idEntree"];
-    $Deleted = 1;
-    $request = $db->prepare("UPDATE entree SET Deleted = :Deleted WHERE Id_Entree = :IdEntree");
-    $request->execute(array('Deleted' => $Deleted,'IdEntree' => $idEntree));
-}else if(isset($_GET["idPlat"])){
-    $idPlat = $_GET["idPlat"];
-    $Deleted = 1;
-    $request = $db->prepare("UPDATE plats SET Deleted = :Deleted WHERE Id_Plat = :IdPlat");
-    $request->execute(array('Deleted' => $Deleted,'IdPlat' => $idPlat));
-}else if(isset($_GET["idDessert"])){
-    $idDessert = $_GET["idDessert"];
-    $Deleted = 1;
-    $request = $db->prepare("UPDATE dessert SET Deleted = :Deleted WHERE Id_Dessert = :IdDessert");
-    $request->execute(array('Deleted' => $Deleted,'IdDessert' => $idDessert));
-}else if(isset($_GET["idBoisson"])){
-    $idBoisson = $_GET["idBoisson"];
-    $Deleted = 1;
-    $request = $db->prepare("UPDATE boisson SET Deleted = :Deleted WHERE Id_Boisson = :idBoisson");
-    $request->execute(array('Deleted' => $Deleted,'idBoisson' => $idBoisson));
-}
-?>
-
-
-<?php
-$Deleted = 0;
+$Deleted = 1;
 
 try {
     $request = $db->prepare("SELECT * FROM entree WHERE Deleted = :Deleted");
@@ -117,8 +92,7 @@ try {
                                 <td><?php echo $entree->getNom(); ?></td>
                                 <td><?php echo $entree->getDescription(); ?></td>
                                 <td><?php echo $entree->getPrix_Entree(); ?></td>
-                                <td><a href="../Modifications/modification.php?idEntree=<?php echo $entree->getId_Entree();?>" class="far fa-edit"></a> 
-                                <a href="admin.php?idEntree=<?php echo $entree->getId_Entree();?>" style="color:red" class="far fa-trash-alt"></a></td>
+                                <td><a href="../Modifications/modification.php?idEntree=<?php echo $entree->getId_Entree();?>" class="far fa-edit"></a> <a href="" style="color:red" class="far fa-trash-alt"></a></td>
                             </tr>
                         <?php
                         }
@@ -151,8 +125,7 @@ try {
                                 <td><?php echo $plat->getNom(); ?></td>
                                 <td><?php echo $plat->getDescription(); ?></td>
                                 <td><?php echo $plat->getPrix_Plat(); ?></td>
-                                <td><a href="../Modifications/modification.php?idPlat=<?php echo $plat->getId_Plat();?>" class="far fa-edit"></a> 
-                                <a href="admin.php?idPlat=<?php echo $plat->getId_Plat();?>" style="color:red" class="far fa-trash-alt"></a></td>
+                                <td><a href="../Modifications/modification.php?idPlat=<?php echo $plat->getId_Plat();?>" class="far fa-edit"></a> <a href="" style="color:red" class="far fa-trash-alt"></a></td>
                             </tr>
                         <?php
                         }
@@ -185,8 +158,7 @@ try {
                                 <td><?php echo $dessert->getNom(); ?></td>
                                 <td><?php echo $dessert->getDescription(); ?></td>
                                 <td><?php echo $dessert->getPrix_Dessert(); ?></td>
-                                <td><a href="../Modifications/modification.php?idDessert=<?php echo $dessert->getId_Dessert();?>" class="far fa-edit"></a>
-                                <a href="admin.php?idDessert=<?php echo $dessert->getId_Dessert();?>" style="color:red" class="far fa-trash-alt"></a></td>
+                                <td><a href="../Modifications/modification.php?idDessert=<?php echo $dessert->getId_Dessert();?>" class="far fa-edit"></a> <a href="" style="color:red" class="far fa-trash-alt"></a></td>
                             </tr>
                         <?php
                         }
@@ -219,8 +191,7 @@ try {
                                 <td><?php echo $boisson->getNom(); ?></td>
                                 <td><?php echo $boisson->getDescription(); ?></td>
                                 <td><?php echo $boisson->getPrix_Boisson(); ?></td>
-                                <td><a href="../Modifications/modification.php?idBoisson=<?php echo $boisson->getId_Boisson();?>" class="far fa-edit"></a> 
-                                <a href="admin.php?idBoisson=<?php echo $boisson->getId_Boisson();?>" style="color:red" class="far fa-trash-alt"></a></td>
+                                <td><a href="../Modifications/modification.php?idBoisson=<?php echo $boisson->getId_Boisson();?>" class="far fa-edit"></a> <a href="" style="color:red" class="far fa-trash-alt"></a></td>
                             </tr>
                         <?php
                         }

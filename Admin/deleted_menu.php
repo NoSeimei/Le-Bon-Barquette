@@ -8,6 +8,14 @@ include("../Class/Boisson.php");
 include("../Class/Menus.php");
 include("../Class/Admin.php");
 include("../Function/Function.php");
+
+if(isset($_GET["idMenu"])){
+    $idMenu = $_GET["idMenu"];
+    $Deleted = 0;
+    $request = $db->prepare("UPDATE menus SET Deleted = :Deleted WHERE Id_Menu = :IdMenu");
+    $request->execute(array('Deleted' => $Deleted,'IdMenu' => $idMenu));
+    header("Location: deleted_menu.php");	
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -21,13 +29,14 @@ include("../Function/Function.php");
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" media="screen" href="../css/main.css">
     <link rel="stylesheet" media="screen" href="../css/admin.css">
+    <link rel="stylesheet" media="screen" href="../css/admin_footer.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="../fontawesome-free-5.15.1-web/css/all.css" rel="stylesheet">
 </head>
 
 <body >
 
-    <?php include("admin-navbar.php"); ?>
+    <?php include("../Admin/admin-navbar.php"); ?>
     
     <div class="left">
 <?php try {
@@ -138,7 +147,7 @@ foreach($lesMenus as $leMenu){
 } ?>
 </div>
    
-    <?php include("admin-footer.php"); ?>
+    <?php include("../admin-footer.php"); ?>
   
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

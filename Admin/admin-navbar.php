@@ -39,7 +39,7 @@
           <a class="dropdown-item" href="../Ajouter_manger/ajouter.php?idDessert=3">Les desserts</a>
           <a class="dropdown-item" href="../Ajouter_manger/ajouter.php?idBoisson=4">Les boissons</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="../Deleted/deleted_menu.php">Les menus</a>
+          <a class="dropdown-item" href="deleted_menu.php">Les menus</a>
         </div>
       </li>
     </ul>

@@ -10,11 +10,10 @@ include("../Class/Admin.php");
 include("../Function/Function.php");
 
 if(isset($_GET["idMenuD"])){
-
     $idMenuD = $_GET["idMenuD"];
-    $request = $db->prepare("UPDATE menus SET Deleted = :Deleted WHERE Id_Menu = $id");
-    $request->execute(dismountMenu($menu));
-
+    $Deleted = 1;
+    $request = $db->prepare("UPDATE menus SET Deleted = :Deleted WHERE Id_Menu = :IdMenuD");
+    $request->execute(array('Deleted' => $Deleted,'IdMenuD' => $idMenuD));
     header("Location: ..\Admin\admin_menu.php");	
 }
 

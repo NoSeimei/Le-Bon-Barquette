@@ -1,10 +1,10 @@
 <?php 
     include('connexion.php');
-    include('Class/Panier.php');
+    include('Class/Panier_class.php');
     $panier = new Panier();
 
-    if (isset($_GET['id'])){
-        $id = $_GET['id'];
+    if (isset($_SESSION['panier'])){
+        $id = $_SESSION['panier'];
         $type = $_GET['type'];
         if($type = "boisson"){
         $result = $db->query("SELECT Id_Boisson FROM boisson WHERE Id_Boisson=$id");

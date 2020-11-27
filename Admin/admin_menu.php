@@ -37,6 +37,7 @@ include("../Function/Function.php");
 
 foreach($lesMenus as $leMenu){
 
+       $idMenu = $leMenu->getId_Menu();
        $idEntree = $leMenu->getId_Entree();
        $idPlat = $leMenu->getId_Plat();
        $idDessert = $leMenu->getId_Dessert();
@@ -44,7 +45,7 @@ foreach($lesMenus as $leMenu){
 
     try {
         $request1 = $db->query("SELECT * FROM menus INNER JOIN entree ON menus.Id_Entree = entree.Id_Entree 
-        WHERE entree.Id_Entree = $idEntree");
+        WHERE entree.Id_Entree = $idEntree AND menus.Id_Menu = $idMenu");
         $request1->setFetchMode(PDO::FETCH_CLASS, 'Entree');
         $lesEntrees = $request1->fetchAll();
     } catch (Exception $exE) {
@@ -53,7 +54,7 @@ foreach($lesMenus as $leMenu){
     
     try {
         $request2 = $db->query("SELECT * FROM menus INNER JOIN plats ON menus.Id_Plat = plats.Id_Plat  
-        WHERE plats.Id_Plat = $idPlat");
+        WHERE plats.Id_Plat = $idPlat AND menus.Id_Menu = $idMenu");
         $request2->setFetchMode(PDO::FETCH_CLASS, 'Plats');
         $lesPlats = $request2->fetchAll();
     } catch (Exception $exE) {
@@ -62,7 +63,7 @@ foreach($lesMenus as $leMenu){
     
     try {
         $request3 = $db->query("SELECT * FROM menus INNER JOIN dessert ON menus.Id_Dessert = dessert.Id_Dessert  
-        WHERE dessert.Id_Dessert = $idDessert");
+        WHERE dessert.Id_Dessert = $idDessert AND menus.Id_Menu = $idMenu");
         $request3->setFetchMode(PDO::FETCH_CLASS, 'Dessert');
         $lesDesserts = $request3->fetchAll();
     } catch (Exception $exE) {
@@ -71,7 +72,7 @@ foreach($lesMenus as $leMenu){
     
     try {
         $request4 = $db->query("SELECT * FROM menus INNER JOIN boisson ON menus.Id_Boisson = boisson.Id_Boisson 
-        WHERE boisson.Id_Boisson = $idBoisson");
+        WHERE boisson.Id_Boisson = $idBoisson AND menus.Id_Menu = $idMenu");
         $request4->setFetchMode(PDO::FETCH_CLASS, 'Boisson');
         $lesBoissons = $request4->fetchAll();
     } catch (Exception $exE) {
@@ -110,7 +111,7 @@ foreach($lesMenus as $leMenu){
                                     </li>
 
                                     <li class="list-group-item" style="text-align: center;">
-                                        <h6 class="card-title" style="text-align: center;"><u>Prix</u></h6>100
+                                        <h6 class="card-title" style="text-align: center;"><u>Prix</u></h6><?php echo $leMenu->getPrix(); ?>
                                     </li>
                                 </ul>
                                 <div class="card-body" style="text-align: center;">

@@ -439,18 +439,20 @@ include("Function/Function.php");
 									<?php foreach($Boissons as $boisson) { ?>
 					<div class="blo3 flex-w flex-col-l-sm m-b-30">
 						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/Menujour.jpg" alt="IMG-MENU" style = "width:80px; height:80px"></a>
+							<a href="#"><img src="images/Menujour.jpg" alt="IMG-MENU" style = "width:100px; height:100px"></a>
 						</div>
 
 						<div class="text-blo3 size21 flex-col-l-m">
-							<span class="txt21 m-b-3">
-								<?php echo $leMenu->getNom() ?>
-							</span>
+							<p><span class="txt22 text-monospace">
+								<?php echo $leMenu->getNom() ?><br>
+							</span></p>
 
-							<span class="txt23">
-							<?php echo $leMenu->getDescription() ?><br>
-								<?php echo $entree->getNom().", ".$Plat->getNom().", ".$dessert->getNom().", ".$boisson->getNom()?>
-							
+							<span class="txt19">
+							<p><?php echo $leMenu->getDescription() ?><br></p>
+							<p> <span class="font-weight-bold"> Entréé :  </span> <?php echo $entree->getNom()?></p>
+							<p> <span class="font-weight-bold"> Plat : </span> <?php echo $Plat->getNom() ?> </p>
+							<p> <span class="font-weight-bold"> Déssert :  </span> <?php echo $dessert->getNom() ?> </p>
+							<p> <span class="font-weight-bold"> Boisson :  </span> <?php echo $boisson->getNom() ?> </p>		
 							</span>
 
 							<span class="txt22 m-t-20">

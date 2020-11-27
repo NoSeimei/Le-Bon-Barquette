@@ -225,7 +225,7 @@ if(isset($_POST["modifMenu"]) && isset($_POST["Nom"])){
                             Prix
                         </span>
                         <div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-                            <input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="Prix" required="required" placeholder="Prix" step="any" id="Prix" value="<?php echo $leMenu->getPrix(); ?>">
+                            <input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="Prix" required="required" placeholder="Prix" step="0.01" id="Prix" value="<?php echo $leMenu->getPrix(); ?>">
                         </div>
                         </div>
                         <div class="col-md-4" style="margin-left:auto; margin-right:auto;">

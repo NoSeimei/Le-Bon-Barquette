@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 26 nov. 2020 à 07:50
+-- Généré le :  ven. 27 nov. 2020 à 09:43
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -55,31 +55,30 @@ INSERT INTO `admin` (`Id_Admin`, `userAdmin`, `pass`) VALUES
 DROP TABLE IF EXISTS `boisson`;
 CREATE TABLE IF NOT EXISTS `boisson` (
   `Id_Boisson` int(11) NOT NULL AUTO_INCREMENT,
-  `Image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Prix_Boisson` decimal(15,2) DEFAULT NULL,
   `Deleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`Id_Boisson`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `boisson`
 --
 
-INSERT INTO `boisson` (`Id_Boisson`, `Image`, `Nom`, `Description`, `Prix_Boisson`, `Deleted`) VALUES
-(1, '', 'eau plate', 'provenant de la source de champs fleury', '24.99', 0),
-(2, '', 'coca-cola', 'bouteille 2L', '9.99', 0),
-(3, '', 'coca-cola', 'bouteille 1L', '9.98', 0),
-(4, '', 'coca-cola', 'bouteille 0.5L', '3.99', 0),
-(5, '', 'shwepps agrum', 'bouteille 0.5L', '2.99', 0),
-(6, '', 'shwepps coco', 'bouteille 0.5L', '2.99', 0),
-(7, '', 'shwepps tonic', 'bouteille 0.5L', '2.99', 0),
-(8, '', 'fanta passion', 'bouteille 0.5L', '2.99', 0),
-(9, '', 'fanta original', 'bouteille 0.5L', '2.99', 0),
-(10, '', 'desperado original', 'bouteille 0.5L', '5.99', 0),
-(11, '', 'desperado red', 'bouteille 0.5L', '6.99', 0),
-(12, '', 'dodo', 'bouteille 0.33L', '3.99', 0);
+INSERT INTO `boisson` (`Id_Boisson`, `Nom`, `Description`, `Prix_Boisson`, `Deleted`) VALUES
+(1, 'eau plate', 'provenant de la source de champs fleury', '24.99', 0),
+(2, 'coca-cola', 'bouteille 2L', '9.99', 0),
+(3, 'coca-cola', 'bouteille 1L', '9.98', 0),
+(4, 'coca-cola', 'bouteille 0.5L', '3.99', 0),
+(5, 'shwepps agrum', 'bouteille 0.5L', '2.99', 0),
+(6, 'shwepps coco', 'bouteille 0.5L', '2.99', 0),
+(7, 'shwepps tonic', 'bouteille 0.5L', '2.99', 0),
+(8, 'fanta passion', 'bouteille 0.5L', '2.99', 0),
+(9, 'fanta original', 'bouteille 0.5L', '2.99', 0),
+(10, 'desperado original', 'bouteille 0.5L', '5.99', 0),
+(11, 'desperado red', 'bouteille 0.5L', '6.99', 0),
+(12, '86', 'bouteille 0.33L', '3.99', 0);
 
 -- --------------------------------------------------------
 
@@ -134,7 +133,6 @@ CREATE TABLE IF NOT EXISTS `commandes` (
 DROP TABLE IF EXISTS `dessert`;
 CREATE TABLE IF NOT EXISTS `dessert` (
   `Id_Dessert` int(11) NOT NULL AUTO_INCREMENT,
-  `Image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Prix_Dessert` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -146,13 +144,13 @@ CREATE TABLE IF NOT EXISTS `dessert` (
 -- Déchargement des données de la table `dessert`
 --
 
-INSERT INTO `dessert` (`Id_Dessert`, `Image`, `Nom`, `Description`, `Prix_Dessert`, `Deleted`) VALUES
-(1, '', 'Ramequins fondants au chocolat', 'fondant chocolat moelleux', '12.08', 0),
-(2, '', 'tiramisu', 'Il existe de nombreuses recettes de tiramisu. Celle-ci est la recette originale', '14.12', 0),
-(3, '', 'Tarte aux pommes à l\'Alsacienne', 'nos régions ont du talent', '4.12', 0),
-(4, '', 'gateau patate', 'au bonnes patate du jardin', '7.12', 0),
-(5, '', 'gateau manioc', 'au bon manioc de cilaos', '7.12', 0),
-(6, '', 'bonbon bananes', '10 bonbons aux bananes de saint andré', '5.90', 0);
+INSERT INTO `dessert` (`Id_Dessert`, `Nom`, `Description`, `Prix_Dessert`, `Deleted`) VALUES
+(1, 'Ramequins fondants au chocolat', 'fondant chocolat moelleux', '12.08', 0),
+(2, 'tiramisu', 'Il existe de nombreuses recettes de tiramisu. Celle-ci est la recette originale', '14.12', 0),
+(3, 'Tarte aux pommes à l\'Alsacienne', 'nos régions ont du talent', '4.12', 0),
+(4, 'gateau patate', 'au bonnes patate du jardin', '7.12', 0),
+(5, 'gateau manioc', 'au bon manioc de cilaos', '7.12', 0),
+(6, 'bonbon bananes', '10 bonbons aux bananes de saint andré', '5.90', 0);
 
 -- --------------------------------------------------------
 
@@ -163,23 +161,21 @@ INSERT INTO `dessert` (`Id_Dessert`, `Image`, `Nom`, `Description`, `Prix_Desser
 DROP TABLE IF EXISTS `entree`;
 CREATE TABLE IF NOT EXISTS `entree` (
   `Id_Entree` int(11) NOT NULL AUTO_INCREMENT,
-  `Image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Prix_Entree` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Deleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`Id_Entree`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `entree`
 --
 
-INSERT INTO `entree` (`Id_Entree`, `Image`, `Nom`, `Description`, `Prix_Entree`, `Deleted`) VALUES
-(1, 'jhkhjkjhk', 'salade museaux', 'pur porcs', '4.98', 0),
-(2, '', 'salade russe', 'légume de la cours', '4.90', 0),
-(3, '', 'salade poulet curry', 'poulet curry sur un lit de salade de choux et carotte vinaigrée', '8.90', 0),
-(4, 'dsfsd', 'ffghfh', 'hgfhfg', '15.5', 0);
+INSERT INTO `entree` (`Id_Entree`, `Nom`, `Description`, `Prix_Entree`, `Deleted`) VALUES
+(1, 'salade museaux', 'pur porcs', '4.98', 0),
+(2, 'salade russe', 'légume de la cours', '4.90', 0),
+(3, 'salade poulet curry', 'poulet curry sur un lit de salade de choux et carotte vinaigrée', '8.90', 0);
 
 -- --------------------------------------------------------
 
@@ -203,15 +199,16 @@ CREATE TABLE IF NOT EXISTS `menus` (
   KEY `Id_Plat` (`Id_Plat`),
   KEY `Id_Dessert` (`Id_Dessert`),
   KEY `Id_Boisson` (`Id_Boisson`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `menus`
 --
 
 INSERT INTO `menus` (`Id_Menu`, `Nom`, `Description`, `Prix`, `Deleted`, `Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) VALUES
-(1, 'test', 'test', '10.00', 0, 1, 1, 1, 1),
-(2, 'non', 'non', '70.00', 0, 3, 3, 2, 2);
+(12, 'menu20', 'non2', '56.60', 1, 4, 4, 1, 1),
+(11, 'Menu10', 'non2', '31.90', 0, 3, 3, 4, 3),
+(10, 'test', 'non2', '50.00', 0, 3, 4, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -353,26 +350,24 @@ CREATE TABLE IF NOT EXISTS `passe_plat` (
 DROP TABLE IF EXISTS `plats`;
 CREATE TABLE IF NOT EXISTS `plats` (
   `Id_Plat` int(11) NOT NULL AUTO_INCREMENT,
-  `Image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Prix_Plat` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Deleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`Id_Plat`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `plats`
 --
 
-INSERT INTO `plats` (`Id_Plat`, `Image`, `Nom`, `Description`, `Prix_Plat`, `Deleted`) VALUES
-(1, 'sdfsdf', 'salade museaux', 'pur porc', '4.90', 0),
-(2, '', 'civet zouritte', 'au bon vin de cilaos', '8.99', 0),
-(3, 'fdgdgdf', 'civet canards', 'au vin royal', '8.90', 0),
-(4, '', 'coq massalé', 'au massalé fait maison', '8.99', 0),
-(5, '', 'cabris massalé', 'cabris de la cours au massalé fait maison', '8.99', 0),
-(6, '', 'boeuf carotte', 'façon grand mère', '8.99', 0),
-(7, 'ds', 'fdffd', 'fdf', '700', 0);
+INSERT INTO `plats` (`Id_Plat`, `Nom`, `Description`, `Prix_Plat`, `Deleted`) VALUES
+(1, 'salade museaux', 'pur porc', '4.90', 0),
+(2, 'civet zouritte', 'au bon vin de cilaos', '8.99', 0),
+(3, 'civet canards', 'au vin royal', '8.90', 0),
+(4, 'coq massalé', 'au massalé fait maison', '8.99', 0),
+(5, 'cabris massalé', 'cabris de la cours au massalé fait maison', '8.99', 0),
+(6, 'boeuf carotte', 'façon grand mère', '8.99', 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

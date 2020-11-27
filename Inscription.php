@@ -194,7 +194,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 									<a href="index.php">Accueil</a>
 								</li>
 								<li>
-									<a href="login.php">Se connecter</a>
+									<a href="inscription.php">Se connecter</a>
 								</li>
 							</ul>
 						</nav>

@@ -9,14 +9,7 @@ include('Class/Menus.php');
 include('Class/Plats.php');
 include("Function/Function.php");
 
-	try {
-	$requete = $db->query("SELECT * from menus");
-	$requete->setFetchMode(PDO::FETCH_CLASS,'Menus');
-	$lesmenus=$requete->fetchAll();
-	} catch (Exception $exM) {
-	
-		echo $exM;
-	}
+
 	//var_dump($lesmenus);
 	try {
 		$requete1 = $db->query("SELECT * FROM entree");
@@ -60,14 +53,7 @@ include("Function/Function.php");
 	
 		echo $exB;
 	}
-	try {
-		$requete22 = $db->query("SELECT boisson.Nom FROM boisson inner join Menus on Menus.Id_Boisson = boisson.Id_Boisson where Menus.Id_Boisson = boisson.Id_Boisson; ");
-		$requete22->setFetchMode(PDO::FETCH_CLASS, 'Boisson');
-		$test = $requete22->fetchAll();
-	} catch (Exception $exB) {
-	
-		echo $exB;
-	}
+
 
 ?>
 <!DOCTYPE html>
@@ -425,8 +411,60 @@ include("Function/Function.php");
 			<div class="row p-t-108 p-b-70">
 				<div class="col-md-8 col-lg-6 m-l-r-auto">
 					<!-- Block3 -->
-					<?php foreach($test as $mns) { ?>
-
+			<?php		try {
+		$request = $db->query("SELECT * FROM menus");
+		$request->setFetchMode(PDO::FETCH_CLASS, 'Menus');
+		$lesMenusduJour = $request->fetchAll();
+	
+	foreach($lesMenusduJour as $leMenu){
+	
+		   $idMenu = $leMenu->getId_Menu();
+		   $idEntree = $leMenu->getId_Entree();
+		   $idPlat = $leMenu->getId_Plat();
+		   $idDessert = $leMenu->getId_Dessert();
+		   $idBoisson = $leMenu->getId_Boisson();
+	
+		try {
+			$requestE = $db->query("SELECT * FROM menus INNER JOIN entree ON menus.Id_Entree = entree.Id_Entree 
+			WHERE entree.Id_Entree = $idEntree AND menus.Id_Menu = $idMenu");
+			$requestE->setFetchMode(PDO::FETCH_CLASS, 'Entree');
+			$Entrees = $requestE->fetchAll();
+		} catch (Exception $exE) {
+			echo $exE;
+		}
+		
+		try {
+			$requestP = $db->query("SELECT * FROM menus INNER JOIN plats ON menus.Id_Plat = plats.Id_Plat  
+			WHERE plats.Id_Plat = $idPlat AND menus.Id_Menu = $idMenu");
+			$requestP->setFetchMode(PDO::FETCH_CLASS, 'Plats');
+			$Plats = $requestP->fetchAll();
+		} catch (Exception $exE) {
+			echo $exE;
+		}
+		
+		try {
+			$requestD = $db->query("SELECT * FROM menus INNER JOIN dessert ON menus.Id_Dessert = dessert.Id_Dessert  
+			WHERE dessert.Id_Dessert = $idDessert AND menus.Id_Menu = $idMenu");
+			$requestD->setFetchMode(PDO::FETCH_CLASS, 'Dessert');
+			$Desserts = $requestD->fetchAll();
+		} catch (Exception $exE) {
+			echo $exE;
+		}
+		
+		try {
+			$requestD = $db->query("SELECT * FROM menus INNER JOIN boisson ON menus.Id_Boisson = boisson.Id_Boisson 
+			WHERE boisson.Id_Boisson = $idBoisson AND menus.Id_Menu = $idMenu");
+			$requestD->setFetchMode(PDO::FETCH_CLASS, 'Boisson');
+			$Boissons = $requestD->fetchAll();
+		} catch (Exception $exE) {
+			echo $exE;
+		}
+	}
+					 foreach($lesMenusduJour as $Menus) { ?>
+						<?php foreach($Entrees as $entree) { ?>
+							<?php foreach($Plats as $Plat) { ?>
+								<?php foreach($Desserts as $dessert) { ?>
+									<?php foreach($Boissons as $boisson) { ?>
 					<div class="blo3 flex-w flex-col-l-sm m-b-30">
 						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
 							<a href="#"><img src="images/Menujour.jpg" alt="IMG-MENU" style = "width:100px; height:100px"></a>
@@ -434,24 +472,31 @@ include("Function/Function.php");
 
 						<div class="text-blo3 size21 flex-col-l-m">
 							<span class="txt21 m-b-3">
-								<?php echo $mns->getNom() ?>
+								<?php echo $Menus->getNom() ?>
 							</span>
 
 							<span class="txt23">
-							<?php echo $mns->getDescription() ?> 
-								<?php echo $mns->getNom()?> 
+							<?php echo $Menus->getDescription() ?> 
+								<?php echo $entree->getNom()?>
+								<?php echo $Plat->getNom()?>
+								<?php echo $dessert->getNom()?>
+								<?php echo $boisson->getNom()?> 
 							
 							</span>
 
 							<span class="txt22 m-t-20">
-							<?php echo $mns->getprix()." €"  ?>
+							<?php echo $Menus->getprix()." €"  ?>
 							</span>
 						</div>
-						<?php } ?>
-					
-					
 					</div>
-
+					<?php } ?>
+						<?php } ?>
+						<?php } ?>
+						<?php } ?>
+						<?php } 				
+					}catch (Exception $exE) {
+    echo $exE;
+} ?>
 				</div>
 			</div>
 		</div>

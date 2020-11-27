@@ -39,7 +39,27 @@
 </head>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 <body class="animsition">
-
+<?php 
+include('connexion.php');
+if(isset($_SESSION['ident2'])&& isset($_SESSION['nom2']) && isset($_SESSION['prenom2'])){
+    $_SESSION['ok']="tuesco";
+}
+else
+{
+	$_SESSION['ok']="";
+	$message = "Veuillez vous connecter.";
+    echo "<script type='text/javascript'>alert('$message');</script>";
+    header('location: index.php');
+}
+if(!isset($leClient)){
+    $leClient = "";
+          $nomC ="";
+          $prenomC="";
+          $mailC="";
+          $identC="";
+          $telephoneC="";
+}
+?>
 	<!-- Header -->
 	<header>
 		<!-- Header desktop -->

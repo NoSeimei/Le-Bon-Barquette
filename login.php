@@ -22,6 +22,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
     foreach ($admin as $theAdmin) {
 
       if ($theAdmin->getUserAdmin() === $user && $theAdmin->getPass() === $pass) {
+		$_SESSION['identAd']=$theAdmin->getUserAdmin();
 
         header("Location: Admin/admin.php");
         break;

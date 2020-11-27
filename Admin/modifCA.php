@@ -1,139 +1,69 @@
-<?php
-
-
-
-include('connexion.php');
-if(isset($_SESSION['ident2'])&& isset($_SESSION['nom2']) && isset($_SESSION['prenom2'])){
-	$_SESSION['ok']="tuesco";
+<?php 
+include("../connexion.php");
+if(!isset($_SESSION['identAd'])){
+    $ok="";
+    session_destroy();
+    header('location: ../index.php');
 }
-else
-{
-    $_SESSION['ok']="";
-    header('location: index.php');
+include("../Class/Clients.php");
+include("../Class/Admin.php");
+include("../Function/Function.php");
+if(!isset($_GET["iduser"])) {
+    $_GET["iduser"] = $_POST['idCli'];
 }
-if(!isset($leClient)){
-    $leClient = "";
-          $nomC ="";
-          $prenomC="";
-          $mailC="";
-          $identC="";
-          $telephoneC="";
-}
+if (isset($_GET["iduser"])) {
 
-include('Class/Clients.php');
-include("Function/Function.php");
+    try {
+        //on récupère l'utilisateur à modifier
+        $uncli = $_GET["iduser"];
+        $requete = $db->prepare("SELECT * FROM `clients` WHERE Id_Client = :IdClient");
+        $requete->execute(array('IdClient'=>$uncli));
+        $requete->setFetchMode(PDO::FETCH_CLASS, 'Clients');
+        $client = $requete->fetchAll();
+        //on rempli les input avec les infos de l'utilisateur
+        foreach ($client as $lesClient) { 
+            $leClient = $lesClient->getId_Client();
+            $nomC= $lesClient->getNom();
+            $prenomC= $lesClient->getPrenom();
+            $mailC= $lesClient->getEmail();
+            $identC= $lesClient->getIdentifiant();
+            $telephoneC= $lesClient->getTelephone();
+        }
 
-if(!isset($_SESSION['nom'])){
-	
-	$_SESSION['nom']="";
-	$_SESSION['prenom']="";
-	$_SESSION['tel']="";
-	$_SESSION['mail']="";
-}
-
-	
-		 
-		try{ 
-            /////////////////////////
-            $uncli = $_SESSION['leClient2'];
-		    $requete = $db->query("SELECT * FROM `clients` WHERE Identifiant = $uncli");
-		    $requete->setFetchMode(PDO::FETCH_CLASS, 'Clients');
-		    $client = $requete->fetchAll();
-
-
-            $leClient = $_SESSION['leClient2'];
-            $nomC= $_SESSION['nom2'];
-            $prenomC= $_SESSION['prenom2'];
-            $mailC= $_SESSION['mail2'];
-            $identC= $_SESSION['ident2'];
-            $telephoneC= $_SESSION['telephone2'] ;
-
-         if (isset($_POST['insc'])&& isset($_POST['phone']) && !isset($_POST['pass2'])){
-             
-            $phone= $_POST["phone"];
-           $request = $db->prepare("UPDATE clients SET Telephone = :Telephone
-           WHERE Id_Client= :IdClient");
-           $request->execute(array('Telephone'=>$phone,'IdClient'=>$leClient));
-           $_SESSION['telephone2'] = $phone;
-           $telephoneC= $_SESSION['telephone2'] ;
-         }
-         elseif(isset($_POST['insc']) && isset($_POST['pass2']) && isset($_POST['confpass'])){
-             $confpass=$_POST['confpass'];
-             $passw= $_POST['pass2'];
-
-             if($passw === $confpass){
-                $phone= $_POST["phone"];
-                $request2 = $db->prepare("UPDATE clients SET Telephone = :Telephone, Password = MD5(:Password)
-                WHERE Id_Client= :IdClient");
-                $request2->execute(array('Telephone'=>$phone,'Password'=>$passw,'IdClient'=>$leClient));
-                $_SESSION['telephone2'] = $phone;
-                $telephoneC= $_SESSION['telephone2'] ;
-             }
-             else{
-                echo  " <script>
-                window.onload = function() 
-                  {
-                    mafonction3();
-                  }; 
-                </script>";
-             }
-            
-         }
+        //on modifie l'utilisateur
+        if (isset($_POST['nom'])){
          
-		  
-		  /*
-			  
-			if (empty($client) ) {
-				
-				$client = new Clients();
-				$client->setTelephone($_POST["phone"]);
-				$client->setPassword($_POST["pass"]);
-			   $request = $db->prepare("UPDATE clients Telephone = '$client->getTelephone()',Password ='$client->getPassword()'
-			   WHERE Id_Client=$leClient");
-			   $request->execute(dismountC($client));
-			   $_SESSION['ident']=$client->getIdentifiant();
-			   echo  " <script>
-				window.onload = function() 
-				  {
-					validation();
-				  }; 
-			    </script>";
-				
-			}
-			else
-			{	
-				$_SESSION['nom']=$_POST["nom"];
-				$_SESSION['prenom']=$_POST["prenom"];
-				$_SESSION['tel']=$_POST["phone"];
-				$_SESSION['mail']=$_POST["email"];
+        
+            $Nom= $_POST["nom"];
+            $Prenom= $_POST["prenom"];
+            $phone= $_POST["phone"];
+            $Email= $_POST["email"];
+            $Identifiant= $_POST["ident"];
+            $Password= $_POST["pass2"];
 
-				echo  " <script>
-				window.onload = function() 
-				  {
-					mafonction2();
-				  }; 
-			    </script>";
-				
-			
-			}*/
-			
-			
-				
-
-			//////////////////
-		
-		 }
-		 
-		
-		catch(Exception $ex){
-	  
-			echo $ex;
-	  
-		}
-	
-	   
-	
-  
+            $request = $db->prepare("UPDATE clients SET `Nom`=:Nom,`Prenom`=:Prenom,`Telephone`=:Telephone,
+            `Email`=:Email,`Identifiant`=:Identifiant,`Password`=:Password
+            WHERE Id_Client= :IdClient");
+            
+            $request->execute(array('Nom'=>$Nom,'Prenom'=>$Prenom,'Telephone'=>$phone,'Email'=>$Email,'Identifiant'=>$Identifiant,'Password'=>$Password,'IdClient'=>$leClient));
+            header("Location: utilisateurC.php");
+        }
+        //si l'utilisateur n'a pas correctement remplis les champs on lui renvoie un msg d'erreur
+        else
+        {
+            echo  " <script>
+            window.onload = function() 
+              {
+                mafonction3();
+              }; 
+            </script>";
+        }
+    }
+    catch (Exception $ex) 
+    {
+        echo $ex;
+    }   
+}
 
 ?>
 
@@ -146,30 +76,30 @@ if(!isset($_SESSION['nom'])){
 <!--===============================================================================================-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
 <!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
+	<link rel="icon" type="image/png" href="../images/icons/favicon.png"/>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/themify/themify-icons.css">
+	<link rel="stylesheet" type="text/css" href="../fonts/themify/themify-icons.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/animate/animate.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/animsition/css/animsition.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/select2/select2.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/daterangepicker/daterangepicker.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/slick/slick.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/lightbox2/css/lightbox.min.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/lightbox2/css/lightbox.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="../css/util.css">
+	<link rel="stylesheet" type="text/css" href="../css/main.css">
 <!--===============================================================================================-->
 </head>
 <body class="animsition">
@@ -247,7 +177,7 @@ if(!isset($_SESSION['nom'])){
     <!-- Booking -->
 </br></br>
 	<section class="section-booking bg1-pattern p-t-100 p-b-110">
-		<form nom="insc" action="modificationC.php" method="post">
+		<form nom="insc" action="modifCA.php" method="post">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 p-b-30">
@@ -270,7 +200,7 @@ if(!isset($_SESSION['nom'])){
 								</span>
 
 								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<input required="required" class="bo-rad-10 sizefull txt10 p-l-20" type="text" id="nom" name="nom" placeholder="Nom" value="<?php echo $nomC;?>"readonly="true">
+									<input required="required" class="bo-rad-10 sizefull txt10 p-l-20" type="text" id="nom" name="nom" placeholder="Nom" value="<?php echo $nomC;?>">
 								</div>
 
 								<span class="txt9">
@@ -286,7 +216,7 @@ if(!isset($_SESSION['nom'])){
 								</span>
 
 								<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<input required="required" class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="ident" placeholder="identifiant" value="<?php echo $identC; ?>" readonly="true">
+									<input required="required" class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="ident" placeholder="identifiant" value="<?php echo $identC; ?>" >
 								</div>
 							</div>
 
@@ -297,7 +227,7 @@ if(!isset($_SESSION['nom'])){
 								</span>
 
 								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<input required="required" class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="prenom" placeholder="Prenom" value="<?php echo $prenomC; ?>"readonly="true">
+									<input required="required" class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="prenom" placeholder="Prenom" value="<?php echo $prenomC; ?>">
 								</div>
 
 								<!-- Email -->
@@ -306,7 +236,7 @@ if(!isset($_SESSION['nom'])){
 								</span>
 
 								<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<input required="required" class="bo-rad-10 sizefull txt10 p-l-20" type="email" name="email" placeholder="Email" value="<?php echo $mailC; ?>"readonly="true">
+									<input required="required" class="bo-rad-10 sizefull txt10 p-l-20" type="email" name="email" placeholder="Email" value="<?php echo $mailC; ?>">
 								</div>
 
 								<!-- Email -->
@@ -331,16 +261,16 @@ if(!isset($_SESSION['nom'])){
 
 						<div class="wrap-btn-booking flex-c-m m-t-6">
 							<!-- Button3 -->
-							<button type="submit" name="insc" class="btn3 flex-c-m size13 txt11 trans-0-4">
-								Modifier
-							</button>
+                            <input type="hidden" value=" <?php echo $leClient;?>" name="idCli">
+							<input type="submit" name="insc" class="btn3 flex-c-m size13 txt11 trans-0-4" value="Modifier">
+							
 						</div>
 					</form>
 				</div>
 
 				<div class="col-lg-6 p-b-30 p-t-18">
 					<div class="wrap-pic-booking size2 bo-rad-10 hov-img-zoom m-l-r-auto">
-						<img src="images/booking-01.jpg" alt="IMG-OUR">
+						<img src="../images/booking-01.jpg" alt="IMG-OUR">
 					</div>
 				</div>
 			</div>
@@ -376,34 +306,34 @@ if(!isset($_SESSION['nom'])){
 
 
 <!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="../vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/animsition/js/animsition.min.js"></script>
+	<script type="text/javascript" src="../vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/bootstrap/js/popper.js"></script>
-	<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../vendor/bootstrap/js/popper.js"></script>
+	<script type="text/javascript" src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/select2/select2.min.js"></script>
+	<script type="text/javascript" src="../vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/daterangepicker/moment.min.js"></script>
-	<script type="text/javascript" src="vendor/daterangepicker/daterangepicker.js"></script>
+	<script type="text/javascript" src="../vendor/daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" src="../vendor/daterangepicker/daterangepicker.js"></script>
 <!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/slick/slick.min.js"></script>
-	<script type="text/javascript" src="js/slick-custom.js"></script>
+	<script type="text/javascript" src="../vendor/slick/slick.min.js"></script>
+	<script type="text/javascript" src="../js/slick-custom.js"></script>
 <!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/parallax100/parallax100.js"></script>
+	<script type="text/javascript" src="../vendor/parallax100/parallax100.js"></script>
 	<script type="text/javascript">
         $('.parallax100').parallax100();
 	</script>
 <!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/countdowntime/countdowntime.js"></script>
+	<script type="text/javascript" src="../vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/lightbox2/js/lightbox.min.js"></script>
+	<script type="text/javascript" src="../vendor/lightbox2/js/lightbox.min.js"></script>
 <!--===============================================================================================-->
-	<script src="js/main.js"></script>
-    <script src="sweetalert2.all.min.js"></script>
-  	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  	<script src="js/sweet.js"></script>
+	<script src="../js/main.js"></script>
+    <script src="../sweetalert2.all.min.js"></script>
+  	<script src="../https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  	<script src="../js/sweet.js"></script>
 
 </body>
 </html>

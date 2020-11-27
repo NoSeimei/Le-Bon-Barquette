@@ -317,8 +317,8 @@ include("Function/Function.php");
 							Bienvenue
 						</h3>
 
-						<p class="t-center m-b-22 size3 m-l-r-auto">
-						Le bon barquette, Un restaurant traditionnel qui vous propose une cuisine conviviale et familiale à base de produits en général, locaux et régionaux. Ce dernier vous permet de déguster les meilleurs mets issus de la gastronomie traditionnelle afin de retrouver les saveurs d'antan. Le tout avec un service irréprochable.</p>
+						<p class="t-center m-b-22 size3 m-l-r-auto" style="max-width: 600px;">
+						Le bon barquette, Un restaurant traditionnel qui vous propose une cuisine conviviale et familiale à base de produits en général, locale et régionale. </br>Ce dernier vous permet de déguster les meilleurs mets issus de la gastronomie traditionnelle afin de retrouver les saveurs d'antan. Le tout avec un service irréprochable.</p>
 					</div>
 				</div>
 

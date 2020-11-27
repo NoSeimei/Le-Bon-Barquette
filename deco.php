@@ -3,5 +3,6 @@
 include("connexion.php");
 session_destroy();
 
-header('location: index.php')
+header("Location: index.php");
+
 ?>

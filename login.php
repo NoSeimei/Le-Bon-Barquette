@@ -13,10 +13,6 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
   $user = $_POST["identifiant"];
   $pass = $_POST["password"];
 
-
-  /*$request = $db->prepare("SELECT * FROM admin WHERE userAdmin = :userAdmin AND pass = :pass");
-    $request->execute(array(':userAdmin' => $user, ':pass' => $pass));
-    $resultat = $request->fetch();*/
     
   try {
     $requete = $db->query("SELECT * FROM admin");
@@ -90,7 +86,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
 </head>
-<body class="animsition">
+<body class="animsition" style="display: grid;">
 
 	<!-- Header -->
 	<header>
@@ -160,8 +156,8 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 		<!-- - -->
 	</aside>
     <!-- Booking -->
-</br></br>
-	<section class="section-booking bg1-pattern p-t-100 p-b-110">
+
+	<section class="section-booking bg1-pattern p-t-100 p-b-110" style="margin-top: auto; margin-bottom: auto;">
 	<form nom="conn" action="login.php" method="post">
 	<div class="container">
 			<div class="row">

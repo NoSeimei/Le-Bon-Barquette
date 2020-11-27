@@ -231,7 +231,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 
 		<br>	<li class="t-center">
 				<!-- Button3 -->
-				<a href="formulaire_connexion.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
+				<a href="login.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
 					Se connecter
 				</a>
 			</li>

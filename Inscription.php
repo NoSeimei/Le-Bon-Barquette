@@ -145,7 +145,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 <!--===============================================================================================-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
 <!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
+	<link rel="icon" type="image/png" href="images/icons/logo.png"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
@@ -194,9 +194,6 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 									<a href="index.php">Accueil</a>
 								</li>
 								<li>
-									<a href="reservation.php">Reservation</a>
-								</li>
-								<li>
 									<a href="login.php">Se connecter</a>
 								</li>
 							</ul>
@@ -220,13 +217,6 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 		<ul class="menu-sidebar p-t-95 p-b-70">
 			<li class="t-center m-b-13">
 				<a href="index.html" class="txt19">Acceuil</a>
-			</li>
-			
-			<li class="t-center">
-				<!-- Button3 -->
-				<a href="reservation.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-					Reservation
-				</a>
 			</li>
 
 		<br>	<li class="t-center">

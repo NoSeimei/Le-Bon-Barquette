@@ -1,15 +1,5 @@
 <?php
-
-
-
 include('connexion.php');
-if(isset($_SESSION['ident2'])&& isset($_SESSION['nom2']) && isset($_SESSION['prenom2'])){
-	$_SESSION['ok']="tuesco";
-}
-else
-{
-	$_SESSION['ok']="";
-}
 include('Class/Clients.php');
 include('Class/Commandes.php');
 include('Class/Dessert.php');
@@ -75,7 +65,7 @@ include("Function/Function.php");
 <!--===============================================================================================-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
 <!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
+	<link rel="icon" type="image/png" href="images/icons/logo.png"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
@@ -105,150 +95,62 @@ include("Function/Function.php");
 
 	<!-- Header -->
 	<header>
-	<?php 
-	if($_SESSION['ok']!=="tuesco"){
-
-			echo ' <!-- Header desktop -->
-			<div class="wrap-menu-header gradient1 trans-0-4">
-				<div class="container h-full">
-					<div class="wrap_header trans-0-3">
-						<!-- Logo -->
-						<div class="logo">
-						<span class="tit2 t-center">
-								Le Bon Barquette
-							</span>
-						</div>
-
-						<!-- Menu -->
-						<div class="wrap_menu p-l-45 p-l-0-xl">
-							<nav class="menu">
-								<ul class="main_menu">
-									<li>
-										<a href="index.php">Accueil</a>
-									</li>
-									<li>
-										<a href="reservation.php">Reservation</a>
-									</li>
-									<li>
-										<a href="inscription.php">Se connecter</a>
-									</li>
-									
-								</ul>
-							</nav>
-						</div>
-
-						<div class="social flex-w flex-l-m p-r-20">
-							<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</header>
-
-		<!-- Sidebar -->
-		<aside class="sidebar trans-0-4">
-			<!-- Button Hide sidebar -->
-			<button class="btn-hide-sidebar ti-close color0-hov trans-0-4"></button>
-
-			<!-- - -->
-			<ul class="menu-sidebar p-t-95 p-b-70">
-				<li class="t-center m-b-13">
-					<a href="index.html" class="txt19">Acceuil</a>
-				</li>
-
-				<li class="t-center">
-					<!-- Button3 -->
-					<a href="reservation.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-						Reservation
-					</a>
-				</li>
-
-			<br>	<li class="t-center">
-					<!-- Button3 -->
-					<a href="inscription.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-						Se connecter
-					</a>
-				</li>
-
-			</ul>
-
-			<!-- - -->
-		</aside>';
-
-
-	}
-	else{
-		echo '<!-- Header desktop -->
+		<!-- Header desktop -->
 		<div class="wrap-menu-header gradient1 trans-0-4">
-				<div class="container h-full">
-					<div class="wrap_header trans-0-3">
-						<!-- Logo -->
-						<div class="logo">
-						<span class="tit2 t-center">
-								Le Bon Barquette
-							</span>
-						</div>
-	
-						<!-- Menu -->
-						<div class="wrap_menu p-l-45 p-l-0-xl">
-							<nav class="menu">
-								<ul class="main_menu">
-									<li>
-										<a href="index.php">Accueil</a>
-									</li>
-									<li>
-										<a href="reservation.php">Reservation</a>
-									</li>
-									<li>
-										<a href="modificationC.php">mon compte</a>
-									</li>
-									<li>
-										<a href="deco.php">Déconnexion</a>
-									</li>
-								</ul>
-							</nav>
-						</div>
-	
-						<div class="social flex-w flex-l-m p-r-20">
-							<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
-						</div>
+			<div class="container h-full">
+				<div class="wrap_header trans-0-3">
+					<!-- Logo -->
+					<div class="logo">
+					<span class="tit2 t-center">
+                            Le Bon Barquette
+                        </span>
+					</div>
+
+					<!-- Menu -->
+					<div class="wrap_menu p-l-45 p-l-0-xl" style="padding-left: 0px;">
+						<nav class="menu">
+							<ul class="main_menu">
+								<li>
+									<a href="index.php">Accueil</a>
+								</li>
+								<li>
+									<a href="login.php">Se connecter</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+
+					<div class="social flex-w flex-l-m p-r-20">
+						<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
 					</div>
 				</div>
 			</div>
-		</header>
-	
-		<!-- Sidebar -->
-		<aside class="sidebar trans-0-4">
-			<!-- Button Hide sidebar -->
-			<button class="btn-hide-sidebar ti-close color0-hov trans-0-4"></button>
-	
-			<!-- - -->
-			<ul class="menu-sidebar p-t-95 p-b-70">
-				<li class="t-center m-b-13">
-					<a href="index.html" class="txt19">Acceuil</a>
-				</li>
-				
-				<li class="t-center">
-					<!-- Button3 -->
-					<a href="reservation.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-						Reservation
-					</a>
-				</li>
-	
-			<br>	<li class="t-center">
-					<!-- Button3 -->
-					<a href="formulaire_connexion.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-						Se connecter
-					</a>
-				</li>
-	
-			</ul>
-	
-			<!-- - -->
-		</aside>';
-	
-	}
-	?>
+		</div>
+	</header>
+
+	<!-- Sidebar -->
+	<aside class="sidebar trans-0-4">
+		<!-- Button Hide sidebar -->
+		<button class="btn-hide-sidebar ti-close color0-hov trans-0-4"></button>
+
+		<!-- - -->
+		<ul class="menu-sidebar p-t-95 p-b-70">
+			<li class="t-center m-b-13">
+				<a href="index.html" class="txt19">Acceuil</a>
+			</li>
+
+		<br>	<li class="t-center">
+				<!-- Button3 -->
+				<a href="formulaire_connexion.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
+					Se connecter
+				</a>
+			</li>
+
+		</ul>
+
+		<!-- - -->
+	</aside>
+
 	<!-- Slide1 -->
 	<section class="section-slide">
 		<div class="wrap-slick1">

@@ -145,7 +145,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 <!--===============================================================================================-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
 <!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
+	<link rel="icon" type="image/png" href="images/icons/logo.png"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
@@ -181,9 +181,9 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 				<div class="wrap_header trans-0-3">
 					<!-- Logo -->
 					<div class="logo">
-						<a href="index.html">
-							<img src="images/icons/logo.png" alt="IMG-LOGO" data-logofixed="images/icons/logo2.png">
-						</a>
+					<span class="tit2 t-center">
+                            Le Bon Barquette
+                        </span>
 					</div>
 
 					<!-- Menu -->
@@ -192,9 +192,6 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 							<ul class="main_menu">
 								<li>
 									<a href="index.php">Accueil</a>
-								</li>
-								<li>
-									<a href="reservation.php">Reservation</a>
 								</li>
 								<li>
 									<a href="login.php">Se connecter</a>
@@ -221,17 +218,10 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 			<li class="t-center m-b-13">
 				<a href="index.html" class="txt19">Acceuil</a>
 			</li>
-			
-			<li class="t-center">
-				<!-- Button3 -->
-				<a href="reservation.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-					Reservation
-				</a>
-			</li>
 
 		<br>	<li class="t-center">
 				<!-- Button3 -->
-				<a href="login.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
+				<a href="inscription.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
 					Se connecter
 				</a>
 			</li>

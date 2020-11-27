@@ -126,9 +126,6 @@ $_SESSION['panier'] = array();
 										<a href="index.php">Accueil</a>
 									</li>
 									<li>
-										<a href="reservation.php">Reservation</a>
-									</li>
-									<li>
 										<a href="inscription.php">Se connecter</a>
 									</li>
 									<li>
@@ -199,9 +196,6 @@ $_SESSION['panier'] = array();
 										<a href="index.php">Accueil</a>
 									</li>
 									<li>
-										<a href="reservation.php">Reservation</a>
-									</li>
-									<li>
 										<a href="modificationC.php">mon compte</a>
 									</li>
 									<li>
@@ -230,12 +224,6 @@ $_SESSION['panier'] = array();
 					<a href="index.html" class="txt19">Acceuil</a>
 				</li>
 				
-				<li class="t-center">
-					<!-- Button3 -->
-					<a href="reservation.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-						Reservation
-					</a>
-				</li>
 	
 			<br>	<li class="t-center">
 					<!-- Button3 -->

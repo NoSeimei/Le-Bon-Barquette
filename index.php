@@ -445,7 +445,7 @@ $_SESSION['panier'] = array();
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $dessert->getPrix_dessert()  ?> €	
-								<a <?phparray_push($_SESSION['panier'], $dessert->getId_dessert(), 'dessert') ?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<a <?php array_push($_SESSION['panier'], $dessert->getId_dessert(), 'dessert') ?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 

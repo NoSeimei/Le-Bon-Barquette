@@ -114,9 +114,6 @@ include("Function/Function.php");
 									<a href="index.php">Accueil</a>
 								</li>
 								<li>
-									<a href="reservation.php">Reservation</a>
-								</li>
-								<li>
 									<a href="login.php">Se connecter</a>
 								</li>
 							</ul>
@@ -140,13 +137,6 @@ include("Function/Function.php");
 		<ul class="menu-sidebar p-t-95 p-b-70">
 			<li class="t-center m-b-13">
 				<a href="index.html" class="txt19">Acceuil</a>
-			</li>
-			
-			<li class="t-center">
-				<!-- Button3 -->
-				<a href="reservation.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-					Reservation
-				</a>
 			</li>
 
 		<br>	<li class="t-center">
@@ -214,10 +204,7 @@ include("Function/Function.php");
 						</h2>
 
 						<div class="wrap-btn-slide1 animated visible-false" data-appear="rotateIn">
-							<!-- Button1 -->
-							<a href="menu.html" class="btn1 flex-c-m size1 txt3 trans-0-4">
-								Voir le menu
-							</a>
+							
 						</div>
 					</div>
 				</div>
@@ -244,10 +231,6 @@ include("Function/Function.php");
 
 						<p class="t-center m-b-22 size3 m-l-r-auto">
 						Le bon barquette, Un restaurant traditionnel qui vous propose une cuisine conviviale et familiale à base de produits en général, locaux et régionaux. Ce dernier vous permet de déguster les meilleurs mets issus de la gastronomie traditionnelle afin de retrouver les saveurs d'antan. Le tout avec un service irréprochable.</p>
-						<a href="about.html" class="txt4">
-							En savoir davantage
-							<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
-						</a>
 					</div>
 				</div>
 
@@ -475,11 +458,8 @@ include("Function/Function.php");
 							</span>
 
 							<span class="txt23">
-							<?php echo $leMenu->getDescription() ?> 
-								<?php echo $entree->getNom()?>
-								<?php echo $Plat->getNom()?>
-								<?php echo $dessert->getNom()?>
-								<?php echo $boisson->getNom()?> 
+							<?php echo $leMenu->getDescription() ?><br>
+								<?php echo $entree->getNom().", ".$Plat->getNom().", ".$dessert->getNom().", ".$boisson->getNom()?>
 							
 							</span>
 
@@ -497,152 +477,6 @@ include("Function/Function.php");
 	}catch (Exception $exE) {
     echo $exE;
 } ?>
-				</div>
-			</div>
-		</div>
-	</section>
-
-
-	<!-- Dinner -->
-	<section class="section-dinner bgwhite">
-		<div class="header-dinner parallax0 parallax100" style="background-image: url(images/header-menu-02.jpg);">
-			<div class="bg1-overlay t-center p-t-170 p-b-165">
-				<h2 class="tit4 t-center">
-					Dinner
-				</h2>
-			</div>
-		</div>
-
-		<div class="container">
-			<div class="row p-t-108 p-b-70">
-				<div class="col-md-8 col-lg-6 m-l-r-auto">
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/dinner-01.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Maecenas tristique
-							</a>
-
-							<span class="txt23">
-								Aenean pharetra tortor dui in pellentesque
-							</span>
-
-							<span class="txt22 m-t-20">
-								$29.79
-							</span>
-						</div>
-					</div>
-
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/dinner-03.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Pine nut sbrisalona
-							</a>
-
-							<span class="txt23">
-								Aenean condimentum ante erat
-							</span>
-
-							<span class="txt22 m-t-20">
-								$45.09
-							</span>
-						</div>
-					</div>
-
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/dinner-05.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Suspendisse eu
-							</a>
-
-							<span class="txt23">
-								Proin lacinia nisl ut ultricies posuere nulla
-							</span>
-
-							<span class="txt22 m-t-20">
-								$12.75
-							</span>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-8 col-lg-6 m-l-r-auto">
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/dinner-02.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Cras maximus
-							</a>
-
-							<span class="txt23">
-								Proin lacinia nisl ut ultricies posuere nulla
-							</span>
-
-							<span class="txt22 m-t-20">
-								$29.79
-							</span>
-						</div>
-					</div>
-
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/dinner-04.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Pine nut sbrisalona
-							</a>
-
-							<span class="txt23">
-								Sed fermentum eros vitae eros
-							</span>
-
-							<span class="txt22 m-t-20">
-								$45.09
-							</span>
-						</div>
-					</div>
-
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/dinner-06.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Tempor malesuada
-							</a>
-
-							<span class="txt23">
-								Duis massa nibh porttitor nec imperdiet eget
-							</span>
-
-							<span class="txt22 m-t-20">
-								$12.75
-							</span>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>

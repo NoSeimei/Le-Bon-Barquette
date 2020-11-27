@@ -1,10 +1,14 @@
 <?php
 include("../connexion.php");
+<<<<<<< Updated upstream
 if(!isset($_SESSION['identAd'])){
     $ok="";
     session_destroy();
     header('location: ../index.php');
 }
+=======
+
+>>>>>>> Stashed changes
 include("../Class/Clients.php");
 include("../Class/Entree.php");
 include("../Class/Plats.php");

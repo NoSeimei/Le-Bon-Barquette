@@ -9,14 +9,7 @@ include('Class/Menus.php');
 include('Class/Plats.php');
 include("Function/Function.php");
 
-	try {
-	$requete = $db->query("SELECT * from menus");
-	$requete->setFetchMode(PDO::FETCH_CLASS,'Menus');
-	$lesmenus=$requete->fetchAll();
-	} catch (Exception $exM) {
-	
-		echo $exM;
-	}
+
 	//var_dump($lesmenus);
 	try {
 		$requete1 = $db->query("SELECT * FROM entree");
@@ -26,7 +19,14 @@ include("Function/Function.php");
 	
 		echo $exE;
 	}
+	try {
+		$requete12 = $db->query("SELECT * FROM entree w");
+		$requete12->setFetchMode(PDO::FETCH_CLASS, 'Entree');
+		$lesEntree = $requete12->fetchAll();
+	} catch (Exception $exE) {
 	
+		echo $exE;
+	}
 	try {
 		$requete2 = $db->query("SELECT * FROM plats");
 		$requete2->setFetchMode(PDO::FETCH_CLASS, 'Plats');
@@ -53,6 +53,8 @@ include("Function/Function.php");
 	
 		echo $exB;
 	}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -99,9 +101,9 @@ include("Function/Function.php");
 				<div class="wrap_header trans-0-3">
 					<!-- Logo -->
 					<div class="logo">
-						<a href="index.html">
-							<img src="images/icons/logo.png" alt="IMG-LOGO" data-logofixed="images/icons/logo2.png">
-						</a>
+					<span class="tit2 t-center">
+                            Le Bon Barquette
+                        </span>
 					</div>
 
 					<!-- Menu -->
@@ -110,9 +112,6 @@ include("Function/Function.php");
 							<ul class="main_menu">
 								<li>
 									<a href="index.php">Accueil</a>
-								</li>
-								<li>
-									<a href="reservation.php">Reservation</a>
 								</li>
 								<li>
 									<a href="login.php">Se connecter</a>
@@ -138,13 +137,6 @@ include("Function/Function.php");
 		<ul class="menu-sidebar p-t-95 p-b-70">
 			<li class="t-center m-b-13">
 				<a href="index.html" class="txt19">Acceuil</a>
-			</li>
-			
-			<li class="t-center">
-				<!-- Button3 -->
-				<a href="reservation.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-					Reservation
-				</a>
 			</li>
 
 		<br>	<li class="t-center">
@@ -212,10 +204,7 @@ include("Function/Function.php");
 						</h2>
 
 						<div class="wrap-btn-slide1 animated visible-false" data-appear="rotateIn">
-							<!-- Button1 -->
-							<a href="menu.html" class="btn1 flex-c-m size1 txt3 trans-0-4">
-								Voir le menu
-							</a>
+							
 						</div>
 					</div>
 				</div>
@@ -241,12 +230,7 @@ include("Function/Function.php");
 						</h3>
 
 						<p class="t-center m-b-22 size3 m-l-r-auto">
-						Le bon barquette, Un restaurant traditionnel qui vous propose une cuisine conviviale et familiale à base de produits en général, locaux et régionaux. Ce dernier vous permet de déguster les meilleurs mets issus de la gastronomie traditionnelle afin de retrouver les saveurs d'antan. Le tout avec un service irréprochable.						</p>
-
-						<a href="about.html" class="txt4">
-							En savoir davantage
-							<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
-						</a>
+						Le bon barquette, Un restaurant traditionnel qui vous propose une cuisine conviviale et familiale à base de produits en général, locaux et régionaux. Ce dernier vous permet de déguster les meilleurs mets issus de la gastronomie traditionnelle afin de retrouver les saveurs d'antan. Le tout avec un service irréprochable.</p>
 					</div>
 				</div>
 
@@ -263,7 +247,7 @@ include("Function/Function.php");
 	<!-- Title Page -->
 	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url(images/bg-title-page-01.jpg);">
 		<h2 class="tit6 t-center">
-			Nos Menus
+			Notre carte
 		</h2>
 	</section>
 
@@ -290,8 +274,8 @@ include("Function/Function.php");
 								<div class="line-item-mainmenu bg3-pattern"></div>
 
 								<div class="price-item-mainmenu txt22">
-								<?php echo $entree->getPrix_entree() ?> €
-								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<?php echo $entree->getPrix_entree()." €" ?>
+								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:80px; height:30px"> </img></a>
 								</div>
 							</div>
 
@@ -319,13 +303,14 @@ include("Function/Function.php");
 								<div class="line-item-mainmenu bg3-pattern"></div>
 
 								<div class="price-item-mainmenu txt22">
-								<?php echo $boisson->getPrix_Boisson() ?> €
-								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<?php echo $boisson->getprix_boisson()." €" ?>
+								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:80px; height:30px"> </img></a>
 								</div>
 							</div>
 
 							<span class="info-item-mainmenu txt23">
 							<?php echo $boisson->getDescription() ?>
+							
 							</span>
 						</div>
 						<?php } ?>
@@ -377,8 +362,8 @@ include("Function/Function.php");
 								<div class="line-item-mainmenu bg3-pattern"></div>
 
 								<div class="price-item-mainmenu txt22">
-								<?php echo $dessert->getPrix_dessert()  ?> €	
-								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<?php echo $dessert->getPrix_dessert()." €"  ?>
+								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:80px; height:30px"> </img></a>
 								</div>
 							</div>
 
@@ -408,170 +393,90 @@ include("Function/Function.php");
 			<div class="row p-t-108 p-b-70">
 				<div class="col-md-8 col-lg-6 m-l-r-auto">
 					<!-- Block3 -->
-					<?php foreach($lesmenus as $menu) { ?>
+			<?php		try {
+		$request = $db->query("SELECT * FROM menus");
+		$request->setFetchMode(PDO::FETCH_CLASS, 'Menus');
+		$lesMenusduJour = $request->fetchAll();
+	
+	foreach($lesMenusduJour as $leMenu){
+	
+		   $idMenu = $leMenu->getId_Menu();
+		   $idEntree = $leMenu->getId_Entree();
+		   $idPlat = $leMenu->getId_Plat();
+		   $idDessert = $leMenu->getId_Dessert();
+		   $idBoisson = $leMenu->getId_Boisson();
+	
+		try {
+			$requestE = $db->query("SELECT * FROM menus INNER JOIN entree ON menus.Id_Entree = entree.Id_Entree 
+			WHERE entree.Id_Entree = $idEntree AND menus.Id_Menu = $idMenu");
+			$requestE->setFetchMode(PDO::FETCH_CLASS, 'Entree');
+			$Entrees = $requestE->fetchAll();
+		} catch (Exception $exE) {
+			echo $exE;
+		}
+		
+		try {
+			$requestP = $db->query("SELECT * FROM menus INNER JOIN plats ON menus.Id_Plat = plats.Id_Plat  
+			WHERE plats.Id_Plat = $idPlat AND menus.Id_Menu = $idMenu");
+			$requestP->setFetchMode(PDO::FETCH_CLASS, 'Plats');
+			$Plats = $requestP->fetchAll();
+		} catch (Exception $exE) {
+			echo $exE;
+		}
+		
+		try {
+			$requestD = $db->query("SELECT * FROM menus INNER JOIN dessert ON menus.Id_Dessert = dessert.Id_Dessert  
+			WHERE dessert.Id_Dessert = $idDessert AND menus.Id_Menu = $idMenu");
+			$requestD->setFetchMode(PDO::FETCH_CLASS, 'Dessert');
+			$Desserts = $requestD->fetchAll();
+		} catch (Exception $exE) {
+			echo $exE;
+		}
+		
+		try {
+			$requestD = $db->query("SELECT * FROM menus INNER JOIN boisson ON menus.Id_Boisson = boisson.Id_Boisson 
+			WHERE boisson.Id_Boisson = $idBoisson AND menus.Id_Menu = $idMenu");
+			$requestD->setFetchMode(PDO::FETCH_CLASS, 'Boisson');
+			$Boissons = $requestD->fetchAll();
+		} catch (Exception $exE) {
+			echo $exE;
+		}
+		?>
+	
+						<?php foreach($Entrees as $entree) { ?>
+							<?php foreach($Plats as $Plat) { ?>
+								<?php foreach($Desserts as $dessert) { ?>
+									<?php foreach($Boissons as $boisson) { ?>
 					<div class="blo3 flex-w flex-col-l-sm m-b-30">
+						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
+							<a href="#"><img src="images/Menujour.jpg" alt="IMG-MENU" style = "width:100px; height:100px"></a>
+						</div>
 
 						<div class="text-blo3 size21 flex-col-l-m">
 							<span class="txt21 m-b-3">
-								<?php echo $menu->getNom() ?>
+								<?php echo $leMenu->getNom() ?>
 							</span>
 
 							<span class="txt23">
-							<?php echo $menu->getDescription() ?>
+							<?php echo $leMenu->getDescription() ?><br>
+								<?php echo $entree->getNom().", ".$Plat->getNom().", ".$dessert->getNom().", ".$boisson->getNom()?>
+							
 							</span>
 
 							<span class="txt22 m-t-20">
-							<?php echo $menu->getPrix() ?>€
+							<?php echo $leMenu->getprix()." €"  ?>
 							</span>
 						</div>
 					</div>
 					<?php } ?>
-				</div>
-			</div>
-		</div>
-	</section>
-
-
-	<!-- Dinner -->
-	<section class="section-dinner bgwhite">
-		<div class="header-dinner parallax0 parallax100" style="background-image: url(images/header-menu-02.jpg);">
-			<div class="bg1-overlay t-center p-t-170 p-b-165">
-				<h2 class="tit4 t-center">
-					Dinner
-				</h2>
-			</div>
-		</div>
-
-		<div class="container">
-			<div class="row p-t-108 p-b-70">
-				<div class="col-md-8 col-lg-6 m-l-r-auto">
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/dinner-01.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Maecenas tristique
-							</a>
-
-							<span class="txt23">
-								Aenean pharetra tortor dui in pellentesque
-							</span>
-
-							<span class="txt22 m-t-20">
-								$29.79
-							</span>
-						</div>
-					</div>
-
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/dinner-03.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Pine nut sbrisalona
-							</a>
-
-							<span class="txt23">
-								Aenean condimentum ante erat
-							</span>
-
-							<span class="txt22 m-t-20">
-								$45.09
-							</span>
-						</div>
-					</div>
-
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/dinner-05.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Suspendisse eu
-							</a>
-
-							<span class="txt23">
-								Proin lacinia nisl ut ultricies posuere nulla
-							</span>
-
-							<span class="txt22 m-t-20">
-								$12.75
-							</span>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-8 col-lg-6 m-l-r-auto">
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/dinner-02.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Cras maximus
-							</a>
-
-							<span class="txt23">
-								Proin lacinia nisl ut ultricies posuere nulla
-							</span>
-
-							<span class="txt22 m-t-20">
-								$29.79
-							</span>
-						</div>
-					</div>
-
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/dinner-04.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Pine nut sbrisalona
-							</a>
-
-							<span class="txt23">
-								Sed fermentum eros vitae eros
-							</span>
-
-							<span class="txt22 m-t-20">
-								$45.09
-							</span>
-						</div>
-					</div>
-
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/dinner-06.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Tempor malesuada
-							</a>
-
-							<span class="txt23">
-								Duis massa nibh porttitor nec imperdiet eget
-							</span>
-
-							<span class="txt22 m-t-20">
-								$12.75
-							</span>
-						</div>
-					</div>
+					<?php } ?>
+				<?php } ?>
+			<?php } ?>
+		<?php } ?>		
+<?php				
+	}catch (Exception $exE) {
+    echo $exE;
+} ?>
 				</div>
 			</div>
 		</div>

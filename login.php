@@ -100,9 +100,9 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 				<div class="wrap_header trans-0-3">
 					<!-- Logo -->
 					<div class="logo">
-						<a href="index.html">
-							<img src="images/icons/logo.png" alt="IMG-LOGO" data-logofixed="images/icons/logo2.png">
-						</a>
+					<span class="tit2 t-center">
+                            Le Bon Barquette
+                        </span>
 					</div>
 
 					<!-- Menu -->
@@ -113,7 +113,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 									<a href="index.php">Accueil</a>
 								</li>
 								<li>
-									<a href="login.php">Se connecter</a>
+									<a href="inscription.php">Se connecter</a>
 								</li>
 							</ul>
 						</nav>

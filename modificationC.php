@@ -172,7 +172,7 @@ if(!isset($_SESSION['nom'])){
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
 </head>
-<body class="animsition">
+<body class="animsition" style="display:grid;">
 
 	<!-- Header -->
 	<header>
@@ -235,7 +235,7 @@ if(!isset($_SESSION['nom'])){
 	
 			<br>	<li class="t-center">
 					<!-- Button3 -->
-					<a href="formulaire_connexion.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
+					<a href="Inscription.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
 						Se connecter
 					</a>
 				</li>
@@ -245,8 +245,8 @@ if(!isset($_SESSION['nom'])){
 			<!-- - -->
 		</aside>'
     <!-- Booking -->
-</br></br>
-	<section class="section-booking bg1-pattern p-t-100 p-b-110">
+
+	<section class="section-booking bg1-pattern p-t-100 p-b-110" style="margin-top:auto; margin-bottom:auto;" >
 		<form nom="insc" action="modificationC.php" method="post">
 		<div class="container">
 			<div class="row">

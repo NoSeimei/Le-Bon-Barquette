@@ -1,4 +1,15 @@
 <?php
+
+
+
+include('connexion.php');
+if(isset($_SESSION['ident2'])&& isset($_SESSION['nom2']) && isset($_SESSION['prenom2'])){
+	$_SESSION['ok']="tuesco";
+}
+else
+{
+	$_SESSION['ok']="";
+}
 include('Class/Clients.php');
 include('Class/Commandes.php');
 include('Class/Dessert.php');
@@ -6,18 +17,9 @@ include('Class/Entree.php');
 include('Class/Boisson.php');
 include('Class/Menus.php');
 include('Class/Plats.php');
-include('connexion.php');
 include("Function/Function.php");
 $_SESSION['panier'] = array();
 
-	try {
-	$requete = $db->query("SELECT * from menus");
-	$requete->setFetchMode(PDO::FETCH_CLASS,'Menus');
-	$lesmenus=$requete->fetchAll();
-	} catch (Exception $exM) {
-	
-		echo $exM;
-	}
 	//var_dump($lesmenus);
 	try {
 		$requete1 = $db->query("SELECT * FROM entree");
@@ -27,7 +29,14 @@ $_SESSION['panier'] = array();
 	
 		echo $exE;
 	}
+	try {
+		$requete12 = $db->query("SELECT * FROM entree w");
+		$requete12->setFetchMode(PDO::FETCH_CLASS, 'Entree');
+		$lesEntree = $requete12->fetchAll();
+	} catch (Exception $exE) {
 	
+		echo $exE;
+	}
 	try {
 		$requete2 = $db->query("SELECT * FROM plats");
 		$requete2->setFetchMode(PDO::FETCH_CLASS, 'Plats');
@@ -54,6 +63,8 @@ $_SESSION['panier'] = array();
 	
 		echo $exB;
 	}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -95,75 +106,150 @@ $_SESSION['panier'] = array();
 
 	<!-- Header -->
 	<header>
-		<!-- Header desktop -->
-		<div class="wrap-menu-header gradient1 trans-0-4">
-			<div class="container h-full">
-				<div class="wrap_header trans-0-3">
-					<!-- Logo -->
-					<div class="logo">
-						<a href="index.html">
-							<img src="images/icons/logo.png" alt="IMG-LOGO" data-logofixed="images/icons/logo2.png">
-						</a>
-					</div>
+	<?php 
+	if($_SESSION['ok']!=="tuesco"){
 
-					<!-- Menu -->
-					<div class="wrap_menu p-l-45 p-l-0-xl">
-						<nav class="menu">
-							<ul class="main_menu">
-								<li>
-									<a href="index.php">Accueil</a>
-								</li>
-								<li>
-									<a href="reservation.php">Reservation</a>
-								</li>
-								<li>
-									<a href="login.php">Se connecter</a>
-								</li>
-								<li>
-									<a href="panier.php"> <i class="fas fa-shopping-cart fa-2x"></i></a>
-								</li>
-							</ul>
-						</nav>
-					</div>
+			echo ' <!-- Header desktop -->
+			<div class="wrap-menu-header gradient1 trans-0-4">
+				<div class="container h-full">
+					<div class="wrap_header trans-0-3">
+						<!-- Logo -->
+						<div class="logo">
+						<span class="tit2 t-center">
+								Le Bon Barquette
+							</span>
+						</div>
 
-					<div class="social flex-w flex-l-m p-r-20">
-						<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+						<!-- Menu -->
+						<div class="wrap_menu p-l-45 p-l-0-xl">
+							<nav class="menu">
+								<ul class="main_menu">
+									<li>
+										<a href="index.php">Accueil</a>
+									</li>
+									<li>
+										<a href="reservation.php">Reservation</a>
+									</li>
+									<li>
+										<a href="inscription.php">Se connecter</a>
+									</li>
+									
+								</ul>
+							</nav>
+						</div>
+
+						<div class="social flex-w flex-l-m p-r-20">
+							<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</header>
+		</header>
 
-	<!-- Sidebar -->
-	<aside class="sidebar trans-0-4">
-		<!-- Button Hide sidebar -->
-		<button class="btn-hide-sidebar ti-close color0-hov trans-0-4"></button>
+		<!-- Sidebar -->
+		<aside class="sidebar trans-0-4">
+			<!-- Button Hide sidebar -->
+			<button class="btn-hide-sidebar ti-close color0-hov trans-0-4"></button>
 
-		<!-- - -->
-		<ul class="menu-sidebar p-t-95 p-b-70">
-			<li class="t-center m-b-13">
-				<a href="index.html" class="txt19">Acceuil</a>
-			</li>
-			
-			<li class="t-center">
-				<!-- Button3 -->
-				<a href="reservation.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-					Reservation
-				</a>
-			</li>
+			<!-- - -->
+			<ul class="menu-sidebar p-t-95 p-b-70">
+				<li class="t-center m-b-13">
+					<a href="index.html" class="txt19">Acceuil</a>
+				</li>
 
-		<br>	<li class="t-center">
-				<!-- Button3 -->
-				<a href="formulaire_connexion.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-					Se connecter
-				</a>
-			</li>
+				<li class="t-center">
+					<!-- Button3 -->
+					<a href="reservation.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
+						Reservation
+					</a>
+				</li>
 
-		</ul>
+			<br>	<li class="t-center">
+					<!-- Button3 -->
+					<a href="inscription.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
+						Se connecter
+					</a>
+				</li>
 
-		<!-- - -->
-	</aside>
+			</ul>
 
+			<!-- - -->
+		</aside>';
+
+
+	}
+	else{
+		echo '<!-- Header desktop -->
+		<div class="wrap-menu-header gradient1 trans-0-4">
+				<div class="container h-full">
+					<div class="wrap_header trans-0-3">
+						<!-- Logo -->
+						<div class="logo">
+						<span class="tit2 t-center">
+								Le Bon Barquette
+							</span>
+						</div>
+	
+						<!-- Menu -->
+						<div class="wrap_menu p-l-45 p-l-0-xl">
+							<nav class="menu">
+								<ul class="main_menu">
+									<li>
+										<a href="index.php">Accueil</a>
+									</li>
+									<li>
+										<a href="reservation.php">Reservation</a>
+									</li>
+									<li>
+										<a href="modificationC.php">mon compte</a>
+									</li>
+									<li>
+										<a href="deco.php">Déconnexion</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+	
+						<div class="social flex-w flex-l-m p-r-20">
+							<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+	
+		<!-- Sidebar -->
+		<aside class="sidebar trans-0-4">
+			<!-- Button Hide sidebar -->
+			<button class="btn-hide-sidebar ti-close color0-hov trans-0-4"></button>
+	
+			<!-- - -->
+			<ul class="menu-sidebar p-t-95 p-b-70">
+				<li class="t-center m-b-13">
+					<a href="index.html" class="txt19">Acceuil</a>
+				</li>
+				
+				<li class="t-center">
+					<!-- Button3 -->
+					<a href="reservation.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
+						Reservation
+					</a>
+				</li>
+	
+			<br>	<li class="t-center">
+					<!-- Button3 -->
+					<a href="formulaire_connexion.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
+						Se connecter
+					</a>
+				</li>
+	
+			</ul>
+	
+			<!-- - -->
+		</aside>';
+	
+	}
+	?>
 	<!-- Slide1 -->
 	<section class="section-slide">
 		<div class="wrap-slick1">
@@ -178,12 +264,7 @@ $_SESSION['panier'] = array();
 							BON BARQUETTE
 						</h2>
 
-						<div class="wrap-btn-slide1 animated visible-false" data-appear="zoomIn">
-							<!-- Button1 -->
-							<a href="menu.html" class="btn1 flex-c-m size1 txt3 trans-0-4">
-								Voir le menu
-							</a>
-						</div>
+
 					</div>
 				</div>
 
@@ -197,12 +278,7 @@ $_SESSION['panier'] = array();
 							BON BARQUETTE
 						</h2>
 
-						<div class="wrap-btn-slide1 animated visible-false" data-appear="slideInUp">
-							<!-- Button1 -->
-							<a href="menu.html" class="btn1 flex-c-m size1 txt3 trans-0-4">
-								Voir le menu
-							</a>
-						</div>
+
 					</div>
 				</div>
 
@@ -217,10 +293,7 @@ $_SESSION['panier'] = array();
 						</h2>
 
 						<div class="wrap-btn-slide1 animated visible-false" data-appear="rotateIn">
-							<!-- Button1 -->
-							<a href="menu.html" class="btn1 flex-c-m size1 txt3 trans-0-4">
-								Voir le menu
-							</a>
+							
 						</div>
 					</div>
 				</div>
@@ -246,12 +319,7 @@ $_SESSION['panier'] = array();
 						</h3>
 
 						<p class="t-center m-b-22 size3 m-l-r-auto">
-						Le bon barquette, Un restaurant traditionnel qui vous propose une cuisine conviviale et familiale à base de produits en général, locaux et régionaux. Ce dernier vous permet de déguster les meilleurs mets issus de la gastronomie traditionnelle afin de retrouver les saveurs d'antan. Le tout avec un service irréprochable.						</p>
-
-						<a href="about.html" class="txt4">
-							En savoir davantage
-							<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
-						</a>
+						Le bon barquette, Un restaurant traditionnel qui vous propose une cuisine conviviale et familiale à base de produits en général, locaux et régionaux. Ce dernier vous permet de déguster les meilleurs mets issus de la gastronomie traditionnelle afin de retrouver les saveurs d'antan. Le tout avec un service irréprochable.</p>
 					</div>
 				</div>
 
@@ -268,7 +336,7 @@ $_SESSION['panier'] = array();
 	<!-- Title Page -->
 	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url(images/bg-title-page-01.jpg);">
 		<h2 class="tit6 t-center">
-			Nos Menus
+			Notre carte
 		</h2>
 	</section>
 
@@ -301,7 +369,7 @@ $_SESSION['panier'] = array();
 							</div>
 
 							<span class="info-item-mainmenu txt23">
-							<?php echo $entree->getdescription() ?>
+							<?php echo $entree->getDescription() ?>
 							</span>
 						</div>
 						<?php } ?>
@@ -318,7 +386,7 @@ $_SESSION['panier'] = array();
 						<div class="item-mainmenu m-b-36">
 							<div class="flex-w flex-b m-b-3">	
 								<a href="#" class="name-item-mainmenu txt21">
-								<?php echo $boisson->getnom() ?> 
+								<?php echo $boisson->getNom() ?> 
 								</a>
 
 								<div class="line-item-mainmenu bg3-pattern"></div>
@@ -330,7 +398,8 @@ $_SESSION['panier'] = array();
 							</div>
 
 							<span class="info-item-mainmenu txt23">
-							<?php echo $boisson->getdescription() ?>
+							<?php echo $boisson->getDescription() ?>
+							
 							</span>
 						</div>
 						<?php } ?>
@@ -360,7 +429,7 @@ $_SESSION['panier'] = array();
 							</div>
 
 							<span class="info-item-mainmenu txt23">
-							<?php echo $plat->getdescription() ?>
+							<?php echo $plat->getDescription() ?>
 							</span>
 						</div>
 						<?php } ?>
@@ -376,7 +445,7 @@ $_SESSION['panier'] = array();
 						<div class="item-mainmenu m-b-36">
 							<div class="flex-w flex-b m-b-3">
 								<a href="#" class="name-item-mainmenu txt21">
-								<?php echo $dessert->getnom() ?>
+								<?php echo $dessert->getNom() ?>
 								</a>
 
 								<div class="line-item-mainmenu bg3-pattern"></div>
@@ -388,7 +457,7 @@ $_SESSION['panier'] = array();
 							</div>
 
 							<span class="info-item-mainmenu txt23">
-							<?php echo $dessert->getdescription() ?>
+							<?php echo $dessert->getDescription() ?>
 							</span>
 						</div>
 						<?php } ?>
@@ -413,173 +482,92 @@ $_SESSION['panier'] = array();
 			<div class="row p-t-108 p-b-70">
 				<div class="col-md-8 col-lg-6 m-l-r-auto">
 					<!-- Block3 -->
-					<?php foreach($lesmenus as $menu) { ?>
+			<?php		try {
+		$request = $db->query("SELECT * FROM menus");
+		$request->setFetchMode(PDO::FETCH_CLASS, 'Menus');
+		$lesMenusduJour = $request->fetchAll();
+	
+	foreach($lesMenusduJour as $leMenu){
+	
+		   $idMenu = $leMenu->getId_Menu();
+		   $idEntree = $leMenu->getId_Entree();
+		   $idPlat = $leMenu->getId_Plat();
+		   $idDessert = $leMenu->getId_Dessert();
+		   $idBoisson = $leMenu->getId_Boisson();
+	
+		try {
+			$requestE = $db->query("SELECT * FROM menus INNER JOIN entree ON menus.Id_Entree = entree.Id_Entree 
+			WHERE entree.Id_Entree = $idEntree AND menus.Id_Menu = $idMenu");
+			$requestE->setFetchMode(PDO::FETCH_CLASS, 'Entree');
+			$Entrees = $requestE->fetchAll();
+		} catch (Exception $exE) {
+			echo $exE;
+		}
+		
+		try {
+			$requestP = $db->query("SELECT * FROM menus INNER JOIN plats ON menus.Id_Plat = plats.Id_Plat  
+			WHERE plats.Id_Plat = $idPlat AND menus.Id_Menu = $idMenu");
+			$requestP->setFetchMode(PDO::FETCH_CLASS, 'Plats');
+			$Plats = $requestP->fetchAll();
+		} catch (Exception $exE) {
+			echo $exE;
+		}
+		
+		try {
+			$requestD = $db->query("SELECT * FROM menus INNER JOIN dessert ON menus.Id_Dessert = dessert.Id_Dessert  
+			WHERE dessert.Id_Dessert = $idDessert AND menus.Id_Menu = $idMenu");
+			$requestD->setFetchMode(PDO::FETCH_CLASS, 'Dessert');
+			$Desserts = $requestD->fetchAll();
+		} catch (Exception $exE) {
+			echo $exE;
+		}
+		
+		try {
+			$requestD = $db->query("SELECT * FROM menus INNER JOIN boisson ON menus.Id_Boisson = boisson.Id_Boisson 
+			WHERE boisson.Id_Boisson = $idBoisson AND menus.Id_Menu = $idMenu");
+			$requestD->setFetchMode(PDO::FETCH_CLASS, 'Boisson');
+			$Boissons = $requestD->fetchAll();
+		} catch (Exception $exE) {
+			echo $exE;
+		}
+		?>
+	
+						<?php foreach($Entrees as $entree) { ?>
+							<?php foreach($Plats as $Plat) { ?>
+								<?php foreach($Desserts as $dessert) { ?>
+									<?php foreach($Boissons as $boisson) { ?>
 					<div class="blo3 flex-w flex-col-l-sm m-b-30">
 						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src=<?php"images/".$menu->getImage().".jpg" ?> alt="IMG-MENU"></a>
+							<a href="#"><img src="images/Menujour.jpg" alt="IMG-MENU" style = "width:100px; height:100px"></a>
 						</div>
 
 						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								<?php $menu->getNom() ?>
-							</a>
+							<p><span class="txt22 text-monospace">
+								<?php echo $leMenu->getNom() ?><br>
+							</span></p>
 
-							<span class="txt23">
-							<?php $menu->getdescription() ?>
+							<span class="txt19">
+							<p><?php echo $leMenu->getDescription() ?><br></p>
+							<p> <span class="font-weight-bold"> Entréé :  </span> <?php echo $entree->getNom()?></p>
+							<p> <span class="font-weight-bold"> Plat : </span> <?php echo $Plat->getNom() ?> </p>
+							<p> <span class="font-weight-bold"> Déssert :  </span> <?php echo $dessert->getNom() ?> </p>
+							<p> <span class="font-weight-bold"> Boisson :  </span> <?php echo $boisson->getNom() ?> </p>		
 							</span>
 
 							<span class="txt22 m-t-20">
-							<?php $menu->getprix() ?>
+							<?php echo $leMenu->getprix()." €"  ?>
 							</span>
 						</div>
 					</div>
 					<?php } ?>
-				</div>
-			</div>
-		</div>
-	</section>
-
-
-	<!-- Dinner -->
-	<section class="section-dinner bgwhite">
-		<div class="header-dinner parallax0 parallax100" style="background-image: url(images/header-menu-02.jpg);">
-			<div class="bg1-overlay t-center p-t-170 p-b-165">
-				<h2 class="tit4 t-center">
-					Dinner
-				</h2>
-			</div>
-		</div>
-
-		<div class="container">
-			<div class="row p-t-108 p-b-70">
-				<div class="col-md-8 col-lg-6 m-l-r-auto">
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/dinner-01.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Maecenas tristique
-							</a>
-
-							<span class="txt23">
-								Aenean pharetra tortor dui in pellentesque
-							</span>
-
-							<span class="txt22 m-t-20">
-								$29.79
-							</span>
-						</div>
-					</div>
-
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/dinner-03.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Pine nut sbrisalona
-							</a>
-
-							<span class="txt23">
-								Aenean condimentum ante erat
-							</span>
-
-							<span class="txt22 m-t-20">
-								$45.09
-							</span>
-						</div>
-					</div>
-
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/dinner-05.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Suspendisse eu
-							</a>
-
-							<span class="txt23">
-								Proin lacinia nisl ut ultricies posuere nulla
-							</span>
-
-							<span class="txt22 m-t-20">
-								$12.75
-							</span>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-8 col-lg-6 m-l-r-auto">
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/dinner-02.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Cras maximus
-							</a>
-
-							<span class="txt23">
-								Proin lacinia nisl ut ultricies posuere nulla
-							</span>
-
-							<span class="txt22 m-t-20">
-								$29.79
-							</span>
-						</div>
-					</div>
-
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/dinner-04.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Pine nut sbrisalona
-							</a>
-
-							<span class="txt23">
-								Sed fermentum eros vitae eros
-							</span>
-
-							<span class="txt22 m-t-20">
-								$45.09
-							</span>
-						</div>
-					</div>
-
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="images/dinner-06.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Tempor malesuada
-							</a>
-
-							<span class="txt23">
-								Duis massa nibh porttitor nec imperdiet eget
-							</span>
-
-							<span class="txt22 m-t-20">
-								$12.75
-							</span>
-						</div>
-					</div>
+					<?php } ?>
+				<?php } ?>
+			<?php } ?>
+		<?php } ?>		
+<?php				
+	}catch (Exception $exE) {
+    echo $exE;
+} ?>
 				</div>
 			</div>
 		</div>

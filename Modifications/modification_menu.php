@@ -126,8 +126,7 @@ if(isset($_POST["modifMenu"]) && isset($_POST["Nom"])){
 		$request->execute(dismountMenu($menu));
 
 		header("Location: ..\Admin\admin_menu.php");	
-        $db = null;
-        break;
+        
 		} catch (Exception $ex) {
 
 		echo $ex;

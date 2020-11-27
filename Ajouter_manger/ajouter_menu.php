@@ -94,7 +94,6 @@ if(isset($_POST["Nom"]) && isset($_POST["plat"])){
    }
 
     $menu = new Menus; 
-
     $menu->setNom($_POST["Nom"]);
     $menu->setDescription($_POST["Description"]);
     if(!empty($Total)){
@@ -113,8 +112,7 @@ if(isset($_POST["Nom"]) && isset($_POST["plat"])){
         VALUES (:Nom, :Description, :Prix, :Deleted, :Id_Entree, :Id_Plat, :Id_Dessert, :Id_Boisson)");
         $request->execute(dismountMenu($menu));
         header("Location: ..\Admin\admin_menu.php");
-        $db = null;
-        break;
+
         }catch(Exception $ex)
         {
             echo $ex;

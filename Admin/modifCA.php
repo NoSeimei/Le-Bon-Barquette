@@ -23,8 +23,6 @@ if (isset($_GET["iduser"])) {
         $mailC= $lesClient->getEmail();
         $identC= $lesClient->getIdentifiant();
         $telephoneC= $lesClient->getTelephone();
-        echo $leClient;
-        break;
         }
 
      if (isset($_POST['nom'])){

@@ -13,10 +13,4 @@ try{
     {
     echo $ex;
     }
-
-function query($sql, $data = array()){
-        $req = $db->prepare($sql);
-        $req->execute($data);
-        return $req->fetchAll(PDO::FETCH_OBJ);
-    }
 session_start();

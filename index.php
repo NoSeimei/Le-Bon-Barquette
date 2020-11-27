@@ -1,5 +1,4 @@
 <?php
-
 include('Class/Clients.php');
 include('Class/Commandes.php');
 include('Class/Dessert.php');
@@ -9,7 +8,7 @@ include('Class/Menus.php');
 include('Class/Plats.php');
 include('connexion.php');
 include("Function/Function.php");
-
+$_SESSION['panier'] = array();
 
 	try {
 	$requete = $db->query("SELECT * from menus");
@@ -297,7 +296,7 @@ include("Function/Function.php");
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $entree->getPrix_entree() ?> €
-								<a href="addpanier.php?id=<?php echo $entree->getId_entree(); ?>"><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<a <?php array_push($_SESSION['panier'], $entree->getId_entree(), 'entree') ?>"><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 
@@ -326,7 +325,7 @@ include("Function/Function.php");
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $boisson->getprix_boisson() ?> €
-								<a href="addpanier.php?id=<?php echo $boisson->getId_boisson(); ?>"><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<a href="addpanier.php?id=<?php echo $boisson->getId_boisson(); ?>&type=boisson"><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 
@@ -356,7 +355,7 @@ include("Function/Function.php");
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $plat->getprix_plat() ?> €
-								<a href="addpanier.php?id=<?php echo $plat->getId_plat(); ?>"><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<a href="addpanier.php?id=<?php echo $plat->getId_plat(); ?>&type=plat"><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 

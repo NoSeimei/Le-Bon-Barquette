@@ -16,7 +16,7 @@ if(!isset($leClient)){
           $identC="";
           $telephoneC="";
 }
-var_dump($_SESSION['panier']);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

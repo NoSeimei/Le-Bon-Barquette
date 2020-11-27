@@ -128,9 +128,7 @@ $_SESSION['panier'] = array();
 									<li>
 										<a href="inscription.php">Se connecter</a>
 									</li>
-									<li>
-									<a href="panier.php"> <i class="fas fa-shopping-cart fa-2x"></i></a>
-									</li>
+									
 								</ul>
 							</nav>
 						</div>
@@ -200,6 +198,9 @@ $_SESSION['panier'] = array();
 									</li>
 									<li>
 										<a href="deco.php">Déconnexion</a>
+									</li>
+									<li>
+									<a href="panier.php"> <i class="fas fa-shopping-cart fa-2x"></i></a>
 									</li>
 								</ul>
 							</nav>

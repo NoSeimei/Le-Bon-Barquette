@@ -8,16 +8,6 @@ include("../Class/Boisson.php");
 include("../Class/Menus.php");
 include("../Class/Admin.php");
 include("../Function/Function.php");
-
-if(isset($_GET["idMenuD"])){
-
-    $idMenuD = $_GET["idMenuD"];
-    $request = $db->prepare("UPDATE menus SET Deleted = :Deleted WHERE Id_Menu = $id");
-    $request->execute(dismountMenu($menu));
-
-    header("Location: ..\Admin\admin_menu.php");	
-}
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -42,7 +32,7 @@ if(isset($_GET["idMenuD"])){
     <div class="left">
 <?php try {
     $request = $db->prepare("SELECT * FROM menus WHERE Deleted = :Deleted");
-    $request->execute(array('Deleted' => 0));
+    $request->execute(array('Deleted' => 1));
     $request->setFetchMode(PDO::FETCH_CLASS, 'Menus');
     $lesMenus = $request->fetchAll();
 
@@ -130,8 +120,7 @@ foreach($lesMenus as $leMenu){
                                     </li>
                                 </ul>
                                 <div class="card-body" style="text-align: center;">
-                                    <a href="../Modifications/modification_menu.php?idMenu=<?php echo $leMenu->getId_Menu(); ?>" class="far fa-edit"></a>
-                                    <a href="admin_menu.php?idMenuD=<?php echo $leMenu->getId_Menu(); ?>" style="color:red; padding-left:10%;" class="far fa-trash-alt"></a>
+                                    <a href="../Modifications/modification_menu.php?idMenu=<?php echo $leMenu->getId_Menu(); ?>" class="far fa-share-square"></a>
                                     </tr>
                    
                                 </div>

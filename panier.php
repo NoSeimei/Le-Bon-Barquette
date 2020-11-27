@@ -48,8 +48,6 @@ else
 {
 	$_SESSION['ok']="";
 	$message = "Veuillez vous connecter.";
-    echo "<script type='text/javascript'>alert('$message');</script>";
-    header('location: index.php');
 }
 if(!isset($leClient)){
     $leClient = "";

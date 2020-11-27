@@ -199,9 +199,6 @@ if(isset($_POST["idEntree"]))
 						<input type="reset" class="btn3 flex-c-m size13 txt11 trans-0-4" style="margin-left: 30px;" name="Annuler" value="Effacer">
                         <input type="hidden" value="<?php echo $id; ?>" name="<?php echo $idName; ?>">
 					</div>
-					<div class="wrap-btn-booking flex-c-m m-t-6" style="margin-top: 60px;">
-					<button type="submit" href="../Admin/admin.php" class="btn3 flex-c-m size13 txt11 trans-0-4">Retour</button>
-					</div>
 				</div>
 				</form>
 			</div>

@@ -332,7 +332,7 @@ if(!isset($_SESSION['nom'])){
 						<div class="wrap-btn-booking flex-c-m m-t-6">
 							<!-- Button3 -->
 							<button type="submit" name="insc" class="btn3 flex-c-m size13 txt11 trans-0-4">
-								S'inscrire
+								Modifier
 							</button>
 						</div>
 					</form>

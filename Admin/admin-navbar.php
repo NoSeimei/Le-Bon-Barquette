@@ -29,8 +29,14 @@
           <a class="dropdown-item" href="../Ajouter_manger/ajouter.php?idBoisson=4">Ajouter une boisson</a>
         </div>
       </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="utilisateurC.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Utilisateurs
+        </a>
+        
+      </li>
     </ul>
     <div class="form-inline my-2 my-lg-0">
-        <a name="" id="" class="btn btn-outline-danger my-2 my-sm-0" href="#" role="button">Deconnexion</a>
+        <a name="" id="" class="btn btn-outline-danger my-2 my-sm-0" href="../deco.php" role="button">Deconnexion</a>
   </div>
 </nav>

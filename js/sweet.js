@@ -37,7 +37,7 @@ function mafonction(){
       
       Toast.fire({
         icon: 'success',
-        title: 'Signed in successfully'
+        title: "c'est un succés"
       })
     };
       function mafonction3(){

@@ -181,9 +181,9 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 				<div class="wrap_header trans-0-3">
 					<!-- Logo -->
 					<div class="logo">
-						<a href="index.html">
-							<img src="images/icons/logo.png" alt="IMG-LOGO" data-logofixed="images/icons/logo2.png">
-						</a>
+					<span class="tit2 t-center">
+                            Le Bon Barquette
+                        </span>
 					</div>
 
 					<!-- Menu -->
@@ -221,7 +221,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 
 		<br>	<li class="t-center">
 				<!-- Button3 -->
-				<a href="formulaire_connexion.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
+				<a href="inscription.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
 					Se connecter
 				</a>
 			</li>

@@ -29,18 +29,20 @@ if(isset($_GET["idEntree"])){
 /***********************************************/ 
 
 /****************** INSERT ********************/  
-if(isset($_POST["idEntree"]) && isset($_POST["Image"]))
+
+
+
+if(isset($_POST["idEntree"]))
 {
     $entree = new Entree();
 
-    $entree->setImage($_POST["Image"]);
     $entree->setNom($_POST["Nom"]);
     $entree->setDescription($_POST["Description"]);
     $entree->setPrix_Entree($_POST["Prix"]);
     $entree->setDeleted(0);
     try{
-    $request = $db->prepare("INSERT INTO entree (Image, Nom, Description, Prix_Entree, Deleted)
-    VALUES (:Image, :Nom, :Description, :Prix_Entree, :Deleted)");
+    $request = $db->prepare("INSERT INTO entree (Nom, Description, Prix_Entree, Deleted)
+    VALUES (:Nom, :Description, :Prix_Entree, :Deleted)");
     $request->execute(dismount($entree));
     header("Location: ../Admin/admin.php");
     }catch(Exception $ex)
@@ -48,17 +50,16 @@ if(isset($_POST["idEntree"]) && isset($_POST["Image"]))
       echo $ex;
     }
 
-}else if(isset($_POST["idPlat"]) && isset($_POST["Image"])){
+}else if(isset($_POST["idPlat"])){
     $plat = new Plats();
 
-    $plat->setImage($_POST["Image"]);
     $plat->setNom($_POST["Nom"]);
     $plat->setDescription($_POST["Description"]);
     $plat->setPrix_Plat($_POST["Prix"]);
     $plat->setDeleted(0);
     try{
-    $request = $db->prepare("INSERT INTO plats (Image, Nom, Description, Prix_Plat, Deleted)
-    VALUES (:Image, :Nom, :Description, :Prix_Plat, :Deleted)");
+    $request = $db->prepare("INSERT INTO plats (Nom, Description, Prix_Plat, Deleted)
+    VALUES (:Nom, :Description, :Prix_Plat, :Deleted)");
     $request->execute(dismount($plat));
     header("Location: ../Admin/admin.php");
     }catch(Exception $ex)
@@ -66,35 +67,33 @@ if(isset($_POST["idEntree"]) && isset($_POST["Image"]))
         echo $ex;
     }
 
-}else if(isset($_POST["idDessert"]) && isset($_POST["Image"])){
+}else if(isset($_POST["idDessert"])){
     $dessert = new Dessert();
 
-    $dessert->setImage($_POST["Image"]);
     $dessert->setNom($_POST["Nom"]);
     $dessert->setDescription($_POST["Description"]);
     $dessert->setPrix_Dessert($_POST["Prix"]);
     $dessert->setDeleted(0);
     try{
 
-    $request = $db->prepare("INSERT INTO dessert (Image, Nom, Description, Prix_Dessert, Deleted)
-    VALUES (:Image, :Nom, :Description, :Prix_Dessert, :Deleted)");
+    $request = $db->prepare("INSERT INTO dessert (Nom, Description, Prix_Dessert, Deleted)
+    VALUES (:Nom, :Description, :Prix_Dessert, :Deleted)");
     $request->execute(dismount($dessert));
     header("Location: ../Admin/admin.php");
     }catch(Exception $ex)
     {
         echo $ex;
     }
-}else if(isset($_POST["idBoisson"]) && isset($_POST["Image"])){
+}else if(isset($_POST["idBoisson"])){
     $boisson = new Boisson();
 
-    $boisson->setImage($_POST["Image"]);
     $boisson->setNom($_POST["Nom"]);
     $boisson->setDescription($_POST["Description"]);
     $boisson->setPrix_Boisson($_POST["Prix"]);
     $boisson->setDeleted(0);
     try{
-    $request = $db->prepare("INSERT INTO boisson (Image, Nom, Description, Prix_Boisson, Deleted)
-    VALUES (:Image, :Nom, :Description, :Prix_Boisson, :Deleted)");
+    $request = $db->prepare("INSERT INTO boisson (Nom, Description, Prix_Boisson, Deleted)
+    VALUES (:Nom, :Description, :Prix_Boisson, :Deleted)");
     $request->execute(dismount($boisson));
     header("Location: ../Admin/admin.php");
     }catch(Exception $ex)
@@ -102,6 +101,8 @@ if(isset($_POST["idEntree"]) && isset($_POST["Image"]))
         echo $ex;
     }
 }
+
+
 /**********************************************/ 
 
 ?>
@@ -170,13 +171,6 @@ if(isset($_POST["idEntree"]) && isset($_POST["Image"]))
 
 					<form class="wrap-form-reservation size22 m-l-r-auto" method="POST" action="ajouter.php">
 						<div class="row">
-								<!-- Image -->
-								<span class="txt9">
-									Image
-								</span>
-								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="Image" placeholder="Image">
-								</div>
 								<!-- Nom -->
 								<span class="txt9">
 									Nom
@@ -196,7 +190,7 @@ if(isset($_POST["idEntree"]) && isset($_POST["Image"]))
 									Prix
 								</span>
 								<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="Prix" required="required" placeholder="Prix" step="any">
+									<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" step="0.01" name="Prix" required="required" placeholder="Prix" >
 								</div>
 						</div>
 					<div class="wrap-btn-booking flex-c-m m-t-6">

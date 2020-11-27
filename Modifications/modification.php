@@ -62,7 +62,6 @@ if(!empty($lesEntree)){
 	$title = "Entrée";
 	foreach ($lesEntree as $lEntree) { 
 		$EntreeId = $lEntree->getId_Entree();
-		$Image = $lEntree->getImage();
 		$Nom = $lEntree->getNom();
 		$Description = $lEntree->getDescription();
 		$Prix = $lEntree->getPrix_Entree();
@@ -71,7 +70,6 @@ if(!empty($lesEntree)){
 	$title = "Plat";
 	foreach ($lesPlats as $lePlat) { 
 		$PlatId = $lePlat->getId_Plat();
-		$Image = $lePlat->getImage();
 		$Nom = $lePlat->getNom();
 		$Description = $lePlat->getDescription();
 		$Prix = $lePlat->getPrix_Plat();
@@ -80,7 +78,6 @@ if(!empty($lesEntree)){
 	$title = "Dessert";
 	foreach ($lesDesserts as $leDessert) { 
 		$DessertId = $leDessert->getId_Dessert();
-		$Image = $leDessert->getImage();
 		$Nom = $leDessert->getNom();
 		$Description = $leDessert->getDescription();
 		$Prix = $leDessert->getPrix_Dessert();
@@ -89,7 +86,6 @@ if(!empty($lesEntree)){
 	$title = "Boisson";
 	foreach ($lesBoissons as $laBoisson) { 
 		$BoissonId = $laBoisson->getId_Boisson();
-		$Image = $laBoisson->getImage();
 		$Nom = $laBoisson->getNom();
 		$Description = $laBoisson->getDescription();
 		$Prix = $laBoisson->getPrix_Boisson();
@@ -114,16 +110,15 @@ if(!empty($EntreeId)){
 
 
 // -------------------------UPDATE--------------------------------
-if (isset($_POST["Image"]) && isset($_POST["idEntree"])) {
+if (isset($_POST["idEntree"])) {
 	try {
 		$id = $_POST["idEntree"];
 		$entree = new Entree();
-		$entree->setImage($_POST["Image"]);
 		$entree->setNom($_POST["Nom"]);
 		$entree->setDescription($_POST["Description"]);
 		$entree->setPrix_Entree($_POST["Prix"]);
 		$entree->setDeleted(0);
-		$request = $db->prepare("UPDATE entree SET Image = :Image, Nom = :Nom, Description = :Description, Prix_Entree = :Prix_Entree, Deleted = :Deleted WHERE Id_Entree = $id");
+		$request = $db->prepare("UPDATE entree SET Nom = :Nom, Description = :Description, Prix_Entree = :Prix_Entree, Deleted = :Deleted WHERE Id_Entree = $id");
 		$request->execute(dismount($entree));
 
 		header("Location: ..\admin.php");	
@@ -131,16 +126,15 @@ if (isset($_POST["Image"]) && isset($_POST["idEntree"])) {
 		} catch (Exception $ex) {
 		echo $ex;
 		}
-}else if (isset($_POST["Image"]) && isset($_POST["idPlat"])) {
+}else if (isset($_POST["idPlat"])) {
 	try {
 		$id = $_POST["idPlat"];
 		$plat = new Plats();
-		$plat->setImage($_POST["Image"]);
 		$plat->setNom($_POST["Nom"]);
 		$plat->setDescription($_POST["Description"]);
 		$plat->setPrix_Plat($_POST["Prix"]);
 		$plat->setDeleted(0);
-		$request = $db->prepare("UPDATE plats SET Image = :Image, Nom = :Nom, Description = :Description, Prix_Plat = :Prix_Plat, Deleted = :Deleted WHERE Id_Plat = $id");
+		$request = $db->prepare("UPDATE plats SET Nom = :Nom, Description = :Description, Prix_Plat = :Prix_Plat, Deleted = :Deleted WHERE Id_Plat = $id");
 		$request->execute(dismount($plat));
 
 		header("Location: ..\admin.php");	
@@ -150,16 +144,15 @@ if (isset($_POST["Image"]) && isset($_POST["idEntree"])) {
 		echo $ex;
 
 		}
-}else if (isset($_POST["Image"]) && isset($_POST["idDessert"])) {
+}else if (isset($_POST["idDessert"])) {
 	try {
 		$id = $_POST["idDessert"];
 		$dessert = new Dessert();
-		$dessert->setImage($_POST["Image"]);
 		$dessert->setNom($_POST["Nom"]);
 		$dessert->setDescription($_POST["Description"]);
 		$dessert->setPrix_Dessert($_POST["Prix"]);
 		$dessert->setDeleted(0);
-		$request = $db->prepare("UPDATE dessert SET Image = :Image, Nom = :Nom, Description = :Description, Prix_Dessert = :Prix_Dessert, Deleted = :Deleted WHERE Id_Dessert = $id");
+		$request = $db->prepare("UPDATE dessert SET Nom = :Nom, Description = :Description, Prix_Dessert = :Prix_Dessert, Deleted = :Deleted WHERE Id_Dessert = $id");
 		$request->execute(dismount($dessert));
 
 		header("Location: ..\admin.php");	
@@ -169,16 +162,15 @@ if (isset($_POST["Image"]) && isset($_POST["idEntree"])) {
 		echo $ex;
 
 		}
-}else if (isset($_POST["Image"]) && isset($_POST["idBoisson"])) {
+}else if (isset($_POST["idBoisson"])) {
 	try {
 		$id = $_POST["idBoisson"];
 		$boisson = new Boisson();
-		$boisson->setImage($_POST["Image"]);
 		$boisson->setNom($_POST["Nom"]);
 		$boisson->setDescription($_POST["Description"]);
 		$boisson->setPrix_Boisson($_POST["Prix"]);
 		$boisson->setDeleted(0);
-		$request = $db->prepare("UPDATE boisson SET Image = :Image, Nom = :Nom, Description = :Description, Prix_Boisson = :Prix_Boisson, Deleted = :Deleted WHERE Id_Boisson = $id");
+		$request = $db->prepare("UPDATE boisson SET Nom = :Nom, Description = :Description, Prix_Boisson = :Prix_Boisson, Deleted = :Deleted WHERE Id_Boisson = $id");
 		$request->execute(dismount($boisson));
 
 		header("Location: ..\admin.php");	
@@ -257,13 +249,6 @@ if (isset($_POST["Image"]) && isset($_POST["idEntree"])) {
 
 					<form class="wrap-form-reservation size22 m-l-r-auto" method="POST" action="modification.php">
 						<div class="row">
-								<!-- Image -->
-								<span class="txt9">
-									Image
-								</span>
-								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="Image" placeholder="Image" value="<?php echo $Image; ?>">
-								</div>
 								<!-- Nom -->
 								<span class="txt9">
 									Nom
@@ -283,13 +268,17 @@ if (isset($_POST["Image"]) && isset($_POST["idEntree"])) {
 									Prix
 								</span>
 								<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="Prix" required="required" placeholder="Prix" step="any" value="<?php echo $Prix; ?>">
+									<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="Prix" required="required" placeholder="Prix" step="0.01" value="<?php echo $Prix; ?>">
 								</div>
 						</div>
 					<div class="wrap-btn-booking flex-c-m m-t-6">
 						<!-- Button3 -->
 						<input type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4" value="Modifier"></input>
+						<input type="reset" class="btn3 flex-c-m size13 txt11 trans-0-4" style="margin-left: 30px;" name="Annuler" value="Effacer">
 						<input type="hidden"  value="<?php echo $id;?>" name="<?php echo $idName; ?>"></input>
+						<div class="wrap-btn-booking flex-c-m m-t-6" style="margin-top: 60px;">
+					<button type="submit" href="../Admin/admin.php" class="btn3 flex-c-m size13 txt11 trans-0-4">Retour</button>
+					</div>
 					</div>
 				</div>
 				</form>

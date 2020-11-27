@@ -165,12 +165,7 @@ include("Function/Function.php");
 							BON BARQUETTE
 						</h2>
 
-						<div class="wrap-btn-slide1 animated visible-false" data-appear="zoomIn">
-							<!-- Button1 -->
-							<a href="menu.html" class="btn1 flex-c-m size1 txt3 trans-0-4">
-								Voir le menu
-							</a>
-						</div>
+
 					</div>
 				</div>
 
@@ -184,12 +179,7 @@ include("Function/Function.php");
 							BON BARQUETTE
 						</h2>
 
-						<div class="wrap-btn-slide1 animated visible-false" data-appear="slideInUp">
-							<!-- Button1 -->
-							<a href="menu.html" class="btn1 flex-c-m size1 txt3 trans-0-4">
-								Voir le menu
-							</a>
-						</div>
+
 					</div>
 				</div>
 

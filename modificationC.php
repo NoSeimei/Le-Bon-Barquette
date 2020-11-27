@@ -63,7 +63,7 @@ if(!isset($_SESSION['nom'])){
 
              if($passw === $confpass){
                 $phone= $_POST["phone"];
-                $request2 = $db->prepare("UPDATE clients SET Telephone = :Telephone, Password = :Password
+                $request2 = $db->prepare("UPDATE clients SET Telephone = :Telephone, Password = MD5(:Password)
                 WHERE Id_Client= :IdClient");
                 $request2->execute(array('Telephone'=>$phone,'Password'=>$passw,'IdClient'=>$leClient));
                 $_SESSION['telephone2'] = $phone;

@@ -9,10 +9,22 @@ include("../Class/Menus.php");
 include("../Class/Admin.php");
 include("../Function/Function.php");
 
+if(isset($_GET["idMenu"])){
+
+$idMenu = $_GET["idMenu"];
 try {
-    $request = $db->query("SELECT * FROM entree");
-    $request->setFetchMode(PDO::FETCH_CLASS, 'Entree');
-    $lesEntree = $request->fetchAll();
+    $request = $db->query("SELECT * FROM menus WHERE Id_Menu = $idMenu");
+    $request->setFetchMode(PDO::FETCH_CLASS, 'Menus');
+    $lesMenus = $request->fetchAll();
+}catch(Exception $ex){
+
+    echo $ex;
+}
+
+try {
+    $request1 = $db->query("SELECT * FROM entree ");
+    $request1->setFetchMode(PDO::FETCH_CLASS, 'Entree');
+    $lesEntrees = $request1->fetchAll();
 } catch (Exception $exE) {
     echo $exE;
 }
@@ -21,29 +33,31 @@ try {
     $request2 = $db->query("SELECT * FROM plats");
     $request2->setFetchMode(PDO::FETCH_CLASS, 'Plats');
     $lesPlats = $request2->fetchAll();
-} catch (Exception $exP) {
-    echo $exP;
+} catch (Exception $exE) {
+    echo $exE;
 }
 
 try {
     $request3 = $db->query("SELECT * FROM dessert");
     $request3->setFetchMode(PDO::FETCH_CLASS, 'Dessert');
     $lesDesserts = $request3->fetchAll();
-} catch (Exception $exD) {
-    echo $exD;
+} catch (Exception $exE) {
+    echo $exE;
 }
 
 try {
     $request4 = $db->query("SELECT * FROM boisson");
     $request4->setFetchMode(PDO::FETCH_CLASS, 'Boisson');
     $lesBoissons = $request4->fetchAll();
-} catch (Exception $exB) {
-    echo $exB;
+} catch (Exception $exE) {
+    echo $exE;
 }
 
-if(isset($_POST["Nom"]) && isset($_POST["plat"])){
+}
 
-   if(isset($_POST["Calcule"])){
+if(isset($_POST["modifMenu"]) && isset($_POST["Nom"])){
+
+    if(isset($_POST["Calcule"])){
         $idEntree = $_POST["entree"];
         $idPlat = $_POST["plat"];
         $idDessert = $_POST["dessert"];
@@ -93,31 +107,32 @@ if(isset($_POST["Nom"]) && isset($_POST["plat"])){
         $Total = ($PrixE + $PrixP + $PrixD + $PrixB);
    }
 
-    $menu = new Menus; 
-    $menu->setNom($_POST["Nom"]);
-    $menu->setDescription($_POST["Description"]);
-    if(!empty($Total)){
-        $menu->setPrix($Total);
-    }else{
-        $menu->setPrix($_POST["Prix"]);
-    }   
-    $menu->setId_Entree($_POST["entree"]);
-    $menu->setDeleted(0);
-    $menu->setId_Plat($_POST["plat"]);
-    $menu->setId_Dessert($_POST["dessert"]);
-    $menu->setId_Boisson($_POST["boisson"]);
-    
-    try{
-        $request = $db->prepare("INSERT INTO menus (Nom, Description, Prix, Deleted, Id_Entree, Id_Plat, Id_Dessert, Id_Boisson)
-        VALUES (:Nom, :Description, :Prix, :Deleted, :Id_Entree, :Id_Plat, :Id_Dessert, :Id_Boisson)");
-        $request->execute(dismountMenu($menu));
-        header("Location: ..\Admin\admin_menu.php");
-
-        }catch(Exception $ex)
-        {
-            echo $ex;
+    try {
+		$id = $_POST["modifMenu"];
+		$menu = new Menus();
+		$menu->setNom($_POST["Nom"]);
+        $menu->setDescription($_POST["Description"]);
+        if(!empty($Total)){
+            $menu->setPrix($Total);
+        }else{
+            $menu->setPrix($_POST["Prix"]);
         }
+        $menu->setDeleted(0);
+        $menu->setId_Entree($_POST["entree"]);
+        $menu->setId_Plat($_POST["plat"]);
+        $menu->setId_Dessert($_POST["dessert"]);
+        $menu->setId_Boisson($_POST["boisson"]);
+		$request = $db->prepare("UPDATE menus SET Nom = :Nom, Description = :Description, Prix = :Prix, Deleted = :Deleted, Id_Entree = :Id_Entree, Id_Plat = :Id_Plat, Id_Dessert = :Id_Dessert, Id_Boisson = :Id_Boisson WHERE Id_Menu = $id");
+		$request->execute(dismountMenu($menu));
+
+		header("Location: ..\Admin\admin_menu.php");	
         
+		} catch (Exception $ex) {
+
+		echo $ex;
+
+		}
+
 }
 
 ?>
@@ -164,7 +179,7 @@ if(isset($_POST["Nom"]) && isset($_POST["plat"])){
     <!-- Title Page -->
     <section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url(../images/bg-title-page-02.jpg);">
         <h2 class="tit6 t-center">
-            Création
+            Modification
         </h2>
     </section>
 
@@ -175,7 +190,7 @@ if(isset($_POST["Nom"]) && isset($_POST["plat"])){
 
             <div class="t-center">
                 <span class="tit2 t-center">
-                    Création
+                    Modification
                 </span>
 
                 <h3 class="tit3 t-center m-b-35 m-t-2">
@@ -187,29 +202,30 @@ if(isset($_POST["Nom"]) && isset($_POST["plat"])){
 
             <div class="col-lg-12 p-b-30">
 
-                <form class="wrap-form-reservation size22 m-l-r-auto" method="POST" action="ajouter_menu.php">
+                <form class="wrap-form-reservation size22 m-l-r-auto" method="POST" action="modification_menu.php">
+                <?php foreach ($lesMenus as $leMenu) { ?>
                     <div class="row">
                         <!-- Nom -->
                         <span class="txt9">
                             Nom
                         </span>
                         <div class="wrap-inputphone size12 bo2 bo-rad-10 m-t-3 m-b-23">
-                            <input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="Nom" required="required" placeholder="Nom">
+                        <input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="Nom" required="required" placeholder="Nom" value="<?php echo $leMenu->getNom(); ?>" >
                         </div>
                         <!-- Description -->
                         <span class="txt9">
                             Description
                         </span>
                         <div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-                            <input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="Description" placeholder="Description">
+                            <input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="Description" placeholder="Description" value="<?php echo $leMenu->getDescription(); ?>">
                         </div>
-                        <div class="col-md-4" style="padding-left: 0px;">
                         <!-- Prix -->
+                        <div class="col-md-4" style="padding-left: 0px;">
                         <span class="txt9">
                             Prix
                         </span>
                         <div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-                            <input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="Prix" placeholder="Prix"  id="Prix" step="0.01">
+                            <input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="Prix" required="required" placeholder="Prix" step="0.01" id="Prix" value="<?php echo $leMenu->getPrix(); ?>">
                         </div>
                         </div>
                         <div class="col-md-4" style="margin-left:auto; margin-right:auto;">
@@ -227,6 +243,7 @@ if(isset($_POST["Nom"]) && isset($_POST["plat"])){
                         </span>
                         </div>
                         </div>
+                    
                    
 
                     
@@ -239,13 +256,13 @@ if(isset($_POST["Nom"]) && isset($_POST["plat"])){
                                 <!-- Select2 -->
 
                                 <select class="selection-1" name="entree">
-                                    <?php foreach ($lesEntree as $lEntree) { ?> <option value="<?php echo $lEntree->getId_Entree(); ?>"> <?php echo $lEntree->getNom(); ?></option> <?php } ?>
+                                    <?php foreach ($lesEntrees as $lEntree) { ?> <option value="<?php echo $lEntree->getId_Entree(); ?>"> <?php echo $lEntree->getNom(); ?></option> <?php } ?>
                                 </select>
 
                             </div>
                         </div>
 
-                        <div class="col-md-">
+                        <div class="col-md-4">
                             <!-- Time -->
                             <span class="txt9">
                                 Plat
@@ -254,8 +271,7 @@ if(isset($_POST["Nom"]) && isset($_POST["plat"])){
                                 <!-- Select2 -->
 
                                 <select class="selection-1" name="plat">
-                                    <?php foreach ($lesPlats as $lePlat) { ?> <option value="<?php echo $lePlat->getId_Plat(); ?>"> <?php echo $lePlat->getNom(); ?></option>
-                                        <?php } ?>
+                                    <?php foreach ($lesPlats as $lePlat) { ?> <option value="<?php echo $lePlat->getId_Plat(); ?>"> <?php echo $lePlat->getNom(); ?></option> <?php } ?>
                                 </select>
 
                             </div>
@@ -294,9 +310,9 @@ if(isset($_POST["Nom"]) && isset($_POST["plat"])){
                     </div>
                     <div class="wrap-btn-booking flex-c-m m-t-6">
                         <!-- Button3 -->
-                        <button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
-                            commander
-                        </button>
+                        <input type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4" value="Modifier" >
+                        <input type="hidden"  name="modifMenu" value="<?php echo $leMenu->getId_Menu();  ?>">
+                        <?php }?>
                 </form>
             </div>
         </div>

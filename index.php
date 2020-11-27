@@ -18,7 +18,7 @@ include('Class/Boisson.php');
 include('Class/Menus.php');
 include('Class/Plats.php');
 include("Function/Function.php");
-
+$_SESSION['panier'] = array();
 
 	//var_dump($lesmenus);
 	try {
@@ -72,6 +72,7 @@ include("Function/Function.php");
 	<title>Accueil</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="fontawesome-free-5.15.1-web/css/all.css" rel="stylesheet">
 <!--===============================================================================================-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
 <!--===============================================================================================-->
@@ -362,8 +363,8 @@ include("Function/Function.php");
 								<div class="line-item-mainmenu bg3-pattern"></div>
 
 								<div class="price-item-mainmenu txt22">
-								<?php echo $entree->getPrix_entree()." €" ?>
-								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<?php echo $entree->getPrix_entree() ?> €
+								<a <?php array_push($_SESSION['panier'], $entree->getId_entree(), 'entree') ?>"><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 
@@ -391,8 +392,8 @@ include("Function/Function.php");
 								<div class="line-item-mainmenu bg3-pattern"></div>
 
 								<div class="price-item-mainmenu txt22">
-								<?php echo $boisson->getprix_boisson()." €" ?>
-								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<?php echo $boisson->getprix_boisson() ?> €
+								<a href="addpanier.php?id=<?php echo $boisson->getId_boisson(); ?>&type=boisson"><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 
@@ -422,8 +423,8 @@ include("Function/Function.php");
 								<div class="line-item-mainmenu bg3-pattern"></div>
 
 								<div class="price-item-mainmenu txt22">
-								<?php echo $plat->getPrix_Plat() ?>
-								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<?php echo $plat->getprix_plat() ?> €
+								<a href="addpanier.php?id=<?php echo $plat->getId_plat(); ?>&type=plat"><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 
@@ -450,8 +451,8 @@ include("Function/Function.php");
 								<div class="line-item-mainmenu bg3-pattern"></div>
 
 								<div class="price-item-mainmenu txt22">
-								<?php echo $dessert->getPrix_dessert()." €"  ?>
-								<a href=""><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<?php echo $dessert->getPrix_dessert()  ?> €	
+								<a href="addpanier.php?id=<?php echo $dessert->getId_dessert(); ?>&type=dessert"><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 

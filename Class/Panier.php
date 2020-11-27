@@ -1,5 +1,5 @@
 <?php
-class panier{
+class Panier{
 
     public function __construct(){
         if(!isset($_SESSION)){
@@ -8,4 +8,9 @@ class panier{
             $_SESSION['panier'] = array();
         }
     }
+
+    public function add($product_id){
+        $_SESSION['panier'][$product_id] = 1;
+    }
 }
+?>

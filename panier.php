@@ -1,3 +1,22 @@
+<?php 
+include('addpanier.php');
+if(isset($_SESSION['ident2'])&& isset($_SESSION['nom2']) && isset($_SESSION['prenom2'])){
+    $_SESSION['ok']="tuesco";
+}
+else
+{
+    $_SESSION['ok']="";
+    //header('location: index.php');
+}
+if(!isset($leClient)){
+    $leClient = "";
+          $nomC ="";
+          $prenomC="";
+          $mailC="";
+          $identC="";
+          $telephoneC="";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,10 +67,11 @@
 				<div class="wrap_header trans-0-3">
 					<!-- Logo -->
 					<div class="logo">
-						<a href="index.html">
+						<a href="index.php">
 							<img src="images/icons/logo.png" alt="IMG-LOGO" data-logofixed="images/icons/logo2.png">
 						</a>
 					</div>
+
 
 					<!-- Menu -->
 					<div class="wrap_menu p-l-45 p-l-0-xl">
@@ -114,7 +134,6 @@
 		<h2 class="tit6 t-center">
 			Panier
 		</h2>
-        
 	</section>
 <div class="container mb-4">
     <div class="row">

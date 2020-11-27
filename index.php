@@ -243,8 +243,7 @@ include("Function/Function.php");
 						</h3>
 
 						<p class="t-center m-b-22 size3 m-l-r-auto">
-						Le bon barquette, Un restaurant traditionnel qui vous propose une cuisine conviviale et familiale à base de produits en général, locaux et régionaux. Ce dernier vous permet de déguster les meilleurs mets issus de la gastronomie traditionnelle afin de retrouver les saveurs d'antan. Le tout avec un service irréprochable.						</p>
-				<?php	var_dump($lesLignes); ?>
+						Le bon barquette, Un restaurant traditionnel qui vous propose une cuisine conviviale et familiale à base de produits en général, locaux et régionaux. Ce dernier vous permet de déguster les meilleurs mets issus de la gastronomie traditionnelle afin de retrouver les saveurs d'antan. Le tout avec un service irréprochable.</p>
 						<a href="about.html" class="txt4">
 							En savoir davantage
 							<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
@@ -459,8 +458,8 @@ include("Function/Function.php");
 		} catch (Exception $exE) {
 			echo $exE;
 		}
-	}
-					 foreach($lesMenusduJour as $Menus) { ?>
+		?>
+	
 						<?php foreach($Entrees as $entree) { ?>
 							<?php foreach($Plats as $Plat) { ?>
 								<?php foreach($Desserts as $dessert) { ?>
@@ -472,11 +471,11 @@ include("Function/Function.php");
 
 						<div class="text-blo3 size21 flex-col-l-m">
 							<span class="txt21 m-b-3">
-								<?php echo $Menus->getNom() ?>
+								<?php echo $leMenu->getNom() ?>
 							</span>
 
 							<span class="txt23">
-							<?php echo $Menus->getDescription() ?> 
+							<?php echo $leMenu->getDescription() ?> 
 								<?php echo $entree->getNom()?>
 								<?php echo $Plat->getNom()?>
 								<?php echo $dessert->getNom()?>
@@ -485,16 +484,17 @@ include("Function/Function.php");
 							</span>
 
 							<span class="txt22 m-t-20">
-							<?php echo $Menus->getprix()." €"  ?>
+							<?php echo $leMenu->getprix()." €"  ?>
 							</span>
 						</div>
 					</div>
 					<?php } ?>
-						<?php } ?>
-						<?php } ?>
-						<?php } ?>
-						<?php } 				
-					}catch (Exception $exE) {
+					<?php } ?>
+				<?php } ?>
+			<?php } ?>
+		<?php } ?>		
+<?php				
+	}catch (Exception $exE) {
     echo $exE;
 } ?>
 				</div>

@@ -8,7 +8,11 @@ if(!isset($_SESSION['identAd'])){
 include("../Class/Clients.php");
 include("../Class/Admin.php");
 include("../Function/Function.php");
+if(!isset($_GET["iduser"])) {
+    $_GET["iduser"] = $_POST['idCli'];
+}
 if (isset($_GET["iduser"])) {
+
     try {
         $uncli = $_GET["iduser"];
         $requete = $db->prepare("SELECT * FROM `clients` WHERE Id_Client = :IdClient");
@@ -17,12 +21,12 @@ if (isset($_GET["iduser"])) {
         $client = $requete->fetchAll();
 
         foreach ($client as $lesClient) { 
-        $leClient = $lesClient->getId_Client();
-        $nomC= $lesClient->getNom();
-        $prenomC= $lesClient->getPrenom();
-        $mailC= $lesClient->getEmail();
-        $identC= $lesClient->getIdentifiant();
-        $telephoneC= $lesClient->getTelephone();
+            $leClient = $lesClient->getId_Client();
+            $nomC= $lesClient->getNom();
+            $prenomC= $lesClient->getPrenom();
+            $mailC= $lesClient->getEmail();
+            $identC= $lesClient->getIdentifiant();
+            $telephoneC= $lesClient->getTelephone();
         }
 
      if (isset($_POST['nom'])){
@@ -34,11 +38,11 @@ if (isset($_GET["iduser"])) {
         $Email= $_POST["email"];
         $Identifiant= $_POST["ident"];
         $Password= $_POST["pass2"];
-       $request = $db->prepare("UPDATE clients SET `Nom`=:Nom,`Prenom`=:Prenom,`Telephone`=:Telephone,
-       `Email`=:Email,`Identifiant`=:Identifiant,`Password`=:Password
-       WHERE Id_Client= :IdClient");
-       $request->execute(array('Nom'=>$Nom,'Prenom'=>$Prenom,'Telephone'=>$phone,'Email'=>$Email,'Identifiant'=>$Identifiant,'Password'=>$Password,'IdClient'=>$leClient));
-       header("Location: utilisateurC.php");
+        $request = $db->prepare("UPDATE clients SET `Nom`=:Nom,`Prenom`=:Prenom,`Telephone`=:Telephone,
+        `Email`=:Email,`Identifiant`=:Identifiant,`Password`=:Password
+        WHERE Id_Client= :IdClient");
+        $request->execute(array('Nom'=>$Nom,'Prenom'=>$Prenom,'Telephone'=>$phone,'Email'=>$Email,'Identifiant'=>$Identifiant,'Password'=>$Password,'IdClient'=>$leClient));
+        header("Location: utilisateurC.php");
      }
          else{
             echo  " <script>
@@ -251,9 +255,9 @@ if (isset($_GET["iduser"])) {
 
 						<div class="wrap-btn-booking flex-c-m m-t-6">
 							<!-- Button3 -->
-							<button type="submit" name="insc" class="btn3 flex-c-m size13 txt11 trans-0-4">
-								Modifier
-							</button>
+                            <input type="hidden" value=" <?php echo $leClient;?>" name="idCli">
+							<input type="submit" name="insc" class="btn3 flex-c-m size13 txt11 trans-0-4" value="Modifier">
+							
 						</div>
 					</form>
 				</div>

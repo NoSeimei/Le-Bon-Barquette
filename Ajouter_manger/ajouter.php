@@ -42,7 +42,7 @@ if(isset($_POST["idEntree"]) && isset($_POST["Image"]))
     $request = $db->prepare("INSERT INTO entree (Image, Nom, Description, Prix_Entree, Deleted)
     VALUES (:Image, :Nom, :Description, :Prix_Entree, :Deleted)");
     $request->execute(dismount($entree));
-    header("Location: ..\admin.php");
+    header("Location: ../Admin/admin.php");
     }catch(Exception $ex)
     {
       echo $ex;
@@ -60,7 +60,7 @@ if(isset($_POST["idEntree"]) && isset($_POST["Image"]))
     $request = $db->prepare("INSERT INTO plats (Image, Nom, Description, Prix_Plat, Deleted)
     VALUES (:Image, :Nom, :Description, :Prix_Plat, :Deleted)");
     $request->execute(dismount($plat));
-    header("Location: ..\admin.php");
+    header("Location: ../Admin/admin.php");
     }catch(Exception $ex)
     {
         echo $ex;
@@ -79,7 +79,7 @@ if(isset($_POST["idEntree"]) && isset($_POST["Image"]))
     $request = $db->prepare("INSERT INTO dessert (Image, Nom, Description, Prix_Dessert, Deleted)
     VALUES (:Image, :Nom, :Description, :Prix_Dessert, :Deleted)");
     $request->execute(dismount($dessert));
-    header("Location: ..\admin.php");
+    header("Location: ../Admin/admin.php");
     }catch(Exception $ex)
     {
         echo $ex;
@@ -96,7 +96,7 @@ if(isset($_POST["idEntree"]) && isset($_POST["Image"]))
     $request = $db->prepare("INSERT INTO boisson (Image, Nom, Description, Prix_Boisson, Deleted)
     VALUES (:Image, :Nom, :Description, :Prix_Boisson, :Deleted)");
     $request->execute(dismount($boisson));
-    header("Location: ..\admin.php");
+    header("Location: ../Admin/admin.php");
     }catch(Exception $ex)
     {
         echo $ex;
@@ -202,7 +202,11 @@ if(isset($_POST["idEntree"]) && isset($_POST["Image"]))
 					<div class="wrap-btn-booking flex-c-m m-t-6">
 						<!-- Button3 -->
 						<input type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4" value="Ajouter">
+						<input type="reset" class="btn3 flex-c-m size13 txt11 trans-0-4" style="margin-left: 30px;" name="Annuler" value="Effacer">
                         <input type="hidden" value="<?php echo $id; ?>" name="<?php echo $idName; ?>">
+					</div>
+					<div class="wrap-btn-booking flex-c-m m-t-6" style="margin-top: 60px;">
+					<button type="submit" href="../Admin/admin.php" class="btn3 flex-c-m size13 txt11 trans-0-4">Retour</button>
 					</div>
 				</div>
 				</form>

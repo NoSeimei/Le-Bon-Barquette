@@ -369,7 +369,7 @@ $_SESSION['entree'] = array();
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $entree->getPrix_entree() ?> €
-								<a href='panier.php' <?php $_SESSION['entree'] = $entree->getId_entree() ?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<a href='panier.php' <?php $_SESSION['panier'][] = $entree->getId_entree() ?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 
@@ -398,7 +398,7 @@ $_SESSION['entree'] = array();
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $boisson->getprix_boisson() ?> €
-								<a href='panier.php' <?php $_SESSION['boisson'] = $boisson->getId_boisson() ?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<a href='panier.php' <?php $_SESSION['panier'][] = $boisson->getId_boisson() ?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 
@@ -429,7 +429,7 @@ $_SESSION['entree'] = array();
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $plat->getprix_plat() ?> €
-								<a href='panier.php' <?php $_SESSION['plat'] = $plat->getId_plat() ?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"></img></a>
+								<a href='panier.php' <?php $_SESSION['panier'][] = $plat->getId_plat() ?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"></img></a>
 								</div>
 							</div>
 
@@ -457,7 +457,7 @@ $_SESSION['entree'] = array();
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $dessert->getPrix_dessert()  ?> €	
-								<a href='panier.php' <?php $_SESSION['dessert'] = $dessert->getId_dessert() ?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<a href='panier.php' <?php $_SESSION['panier'][]= $dessert->getId_dessert() ?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 

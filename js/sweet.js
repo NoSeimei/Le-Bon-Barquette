@@ -46,21 +46,85 @@ function mafonction(){
         
       };
       function verif(){
-        Swal.fire({
-          title: 'Do you want to save the changes?',
-          showDenyButton: true,
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+          },
+          buttonsStyling: false
+        })
+        
+        swalWithBootstrapButtons.fire({
+          title: 'êtes vous sûre?',
+          text: "vous ne pourrez pas retourner en arrière!",
+          icon: 'warning',
           showCancelButton: true,
-          confirmButtonText: `Save`,
-          denyButtonText: `Don't save`,
+          confirmButtonText: 'Oui, modifier!',
+          cancelButtonText: 'Non, annuler!',
+          reverseButtons: true
         }).then((result) => {
-          /* Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {
-            Swal.fire('Saved!', '', 'success')
-          } else if (result.isDenied) {
-            Swal.fire('Changes are not saved', '', 'info')
-            
+            swalWithBootstrapButtons.fire(
+              'modifier!',
+              'le client a été modifié.',
+              'succès'
+            );
+            var form = document.getElementById("insc");
+            form.submit()
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            swalWithBootstrapButtons.fire(
+              'action avortée',
+              'vos données sont intactes :)'
+              
+            )
           }
         })
       }
+
+
+      function verif2(IdClient){
+        supp = document.getElementById("SuppClient");
+       
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+          },
+          buttonsStyling: false
+        })
+        
+        swalWithBootstrapButtons.fire({
+          title: 'êtes vous sûre?',
+          text: "le client pourra toujours être récupéré!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Oui, le supprimer!',
+          cancelButtonText: 'Non, annuler!',
+          reverseButtons: true
+        }).then((result) => {
+          if (result.isConfirmed) {
+            swalWithBootstrapButtons.fire(
+              'effacé!',
+              'le client a été modifié.',
+              'succès'
+            );
+            // supp.href=`sup_Cli.php?iduser=${IdClient}`;
+            supp.setAttribute("onclick", `location.href='sup_Cli.php?iduser=${IdClient}'`);
+            supp.click();
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            swalWithBootstrapButtons.fire(
+              'annulé',
+              'les données son intactes :)'
+            )
+          }
+        })
+      }
+      
     
  

@@ -69,7 +69,7 @@ try {
                                 <td><?php echo $lesClient->getEmail(); ?></td>
                                 
                                 <td><a href="modifCA.php?iduser=<?php echo $lesClient->getId_Client();?>" class="far fa-edit"></a> 
-                                <a onclick="verif();" href="sup_Cli.php?iduser=<?php echo $lesClient->getId_Client();?>" style="color:red" class="far fa-trash-alt"  ></a></td>
+                                <a id="SuppClient" onclick="verif2(<?php echo $lesClient->getId_Client();?>);"  style="color:red" class="far fa-trash-alt" href="#" ></a></td>
                             </tr>
                         <?php
                         }

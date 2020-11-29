@@ -191,30 +191,7 @@ if(isset($_GET["idArray"])){
 	
 	}
 	?>
-	</header>
-
-	<!-- Sidebar -->
-	<aside class="sidebar trans-0-4">
-		<!-- Button Hide sidebar -->
-		<button class="btn-hide-sidebar ti-close color0-hov trans-0-4"></button>
-
-		<!-- - -->
-		<ul class="menu-sidebar p-t-95 p-b-70">
-			<li class="t-center m-b-13">
-				<a href="index.html" class="txt19">Acceuil</a>
-			</li>
-			
-			<li class="t-center">
-				<!-- Button3 -->
-				<a href="formulaire_connexion.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-					Se connecter
-				</a>
-			</li>
-
-		</ul>
-
-		<!-- - -->
-	</aside>
+	
     <section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url(images/bg-title-page-01.jpg);">
 		<h2 class="tit6 t-center">
 			Panier

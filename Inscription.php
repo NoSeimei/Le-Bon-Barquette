@@ -24,9 +24,6 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
   $pass = $_POST["password"];
 
 
-  /*$request = $db->prepare("SELECT * FROM admin WHERE userAdmin = :userAdmin AND pass = :pass");
-    $request->execute(array(':userAdmin' => $user, ':pass' => $pass));
-    $resultat = $request->fetch();*/
     
 	try {
 		$requete = $db->query("SELECT * FROM `clients` WHERE Deleted =0 ");

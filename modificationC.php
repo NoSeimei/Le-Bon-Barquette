@@ -48,7 +48,7 @@ if(!isset($_SESSION['nom'])){
             $identC= $_SESSION['ident2'];
             $telephoneC= $_SESSION['telephone2'] ;
 
-         if (isset($_POST['insc'])&& isset($_POST['phone']) && !isset($_POST['pass2'])){
+         if (isset($_POST['phone']) && !isset($_POST['pass2'])){
              
             $phone= $_POST["phone"];
            $request = $db->prepare("UPDATE clients SET Telephone = :Telephone
@@ -57,7 +57,7 @@ if(!isset($_SESSION['nom'])){
            $_SESSION['telephone2'] = $phone;
            $telephoneC= $_SESSION['telephone2'] ;
          }
-         elseif(isset($_POST['insc']) && isset($_POST['pass2']) && isset($_POST['confpass'])){
+         elseif(isset($_POST['pass2']) && isset($_POST['confpass'])){
              $confpass=$_POST['confpass'];
              $passw= $_POST['pass2'];
 
@@ -71,10 +71,7 @@ if(!isset($_SESSION['nom'])){
              }
              else{
                 echo  " <script>
-                window.onload = function() 
-                  {
                     mafonction3();
-                  }; 
                 </script>";
              }
             
@@ -247,7 +244,7 @@ if(!isset($_SESSION['nom'])){
     <!-- Booking -->
 
 	<section class="section-booking bg1-pattern p-t-100 p-b-110" style="margin-top:auto; margin-bottom:auto;" >
-		<form nom="insc" action="modificationC.php" method="post">
+		<form nom="insc" action="modificationC.php" method="post" id="insc">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 p-b-30">
@@ -323,7 +320,7 @@ if(!isset($_SESSION['nom'])){
 								</span>
 
 								<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<input  class="bo-rad-10 sizefull txt10 p-l-20" type="password" name="confpass" placeholder="Mot de passe">
+									<input  class="bo-rad-10 sizefull txt10 p-l-20" type="password" name="confpass" placeholder="Mot de passe" >
 								</div>
 
 							</div>
@@ -331,7 +328,7 @@ if(!isset($_SESSION['nom'])){
 
 						<div class="wrap-btn-booking flex-c-m m-t-6">
 							<!-- Button3 -->
-							<button type="submit" name="insc" class="btn3 flex-c-m size13 txt11 trans-0-4">
+							<button type="button" name="insc" class="btn3 flex-c-m size13 txt11 trans-0-4" onclick="verif();">
 								Modifier
 							</button>
 						</div>

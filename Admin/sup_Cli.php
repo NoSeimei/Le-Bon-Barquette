@@ -5,17 +5,30 @@ if(!isset($_SESSION['identAd'])){
     session_destroy();
     header('location: ../index.php');
 }
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script> 
+        window.onload = function() 
+        {
+            verif();
+        };  
+    </script>
+</body>
+</html>
+<?php
 include("../Class/Clients.php");
 include("../Class/Admin.php");
 include("../Function/Function.php");
 
 if (isset($_GET["iduser"])) {
-    echo  " <script>
-    window.onload = function() 
-      {
-        verif();
-      }; 
-    </script>";
+    
     try {
         $IdClient = $_GET["iduser"];
         $Deleted = 1;

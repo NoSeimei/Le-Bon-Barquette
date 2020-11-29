@@ -45,7 +45,7 @@ if(isset($_GET["idMenu"])){
     
     <div class="left">
 <?php try {
-    $request = $db->prepare("SELECT * FROM menus WHERE Deleted = :Deleted");
+    $request = $db->prepare("SELECT * FROM menus WHERE Deleted = :Deleted ORDER BY 'Id_Menu'");
     $request->execute(array('Deleted' => 1));
     $request->setFetchMode(PDO::FETCH_CLASS, 'Menus');
     $lesMenus = $request->fetchAll();
@@ -60,7 +60,7 @@ foreach($lesMenus as $leMenu){
 
     try {
         $request1 = $db->prepare("SELECT * FROM menus INNER JOIN entree ON menus.Id_Entree = entree.Id_Entree 
-        WHERE entree.Id_Entree = :idEntree AND menus.Id_Menu = :idMenu");
+        WHERE entree.Id_Entree = :idEntree AND menus.Id_Menu = :idMenu ORDER BY 'Id_Menu'");
         $request1->execute(array('idEntree' => $idEntree, 'idMenu' => $idMenu));
         $request1->setFetchMode(PDO::FETCH_CLASS, 'Entree');
         $lesEntrees = $request1->fetchAll();
@@ -70,7 +70,7 @@ foreach($lesMenus as $leMenu){
     
     try {
         $request2 = $db->prepare("SELECT * FROM menus INNER JOIN plats ON menus.Id_Plat = plats.Id_Plat  
-        WHERE plats.Id_Plat = :idPlat AND menus.Id_Menu = :idMenu");
+        WHERE plats.Id_Plat = :idPlat AND menus.Id_Menu = :idMenu ORDER BY 'Id_Menu'");
         $request2->execute(array('idPlat' => $idPlat, 'idMenu' => $idMenu));
         $request2->setFetchMode(PDO::FETCH_CLASS, 'Plats');
         $lesPlats = $request2->fetchAll();
@@ -80,7 +80,7 @@ foreach($lesMenus as $leMenu){
     
     try {
         $request3 = $db->prepare("SELECT * FROM menus INNER JOIN dessert ON menus.Id_Dessert = dessert.Id_Dessert  
-        WHERE dessert.Id_Dessert = :idDessert AND menus.Id_Menu = :idMenu");
+        WHERE dessert.Id_Dessert = :idDessert AND menus.Id_Menu = :idMenu ORDER BY 'Id_Menu'");
         $request3->execute(array('idDessert' => $idDessert, 'idMenu' => $idMenu));
         $request3->setFetchMode(PDO::FETCH_CLASS, 'Dessert');
         $lesDesserts = $request3->fetchAll();
@@ -90,7 +90,7 @@ foreach($lesMenus as $leMenu){
     
     try {
         $request4 = $db->prepare("SELECT * FROM menus INNER JOIN boisson ON menus.Id_Boisson = boisson.Id_Boisson 
-        WHERE boisson.Id_Boisson = :idBoisson AND menus.Id_Menu = :idMenu");
+        WHERE boisson.Id_Boisson = :idBoisson AND menus.Id_Menu = :idMenu ORDER BY 'Id_Menu'");
         $request4->execute(array('idBoisson' => $idBoisson, 'idMenu' => $idMenu));
         $request4->setFetchMode(PDO::FETCH_CLASS, 'Boisson');
         $lesBoissons = $request4->fetchAll();

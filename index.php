@@ -256,16 +256,26 @@ if(isset($_GET["idEntree"]) && isset($_GET["nomEntree"])){
 	
 			<!-- - -->
 			<ul class="menu-sidebar p-t-95 p-b-70">
-				<li class="t-center m-b-13">
+			<br>	<li class="t-center m-b-13">
 					<a href="index.html" class="txt19">Acceuil</a>
 				</li>
 				
 	
 			<br>	<li class="t-center">
 					<!-- Button3 -->
-					<a href="formulaire_connexion.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-						Se connecter
+					<a href="modificationC.php" class="txt19">
+						Mon compte
 					</a>
+				</li>
+			<br>	<li class="t-center">
+					<!-- Button3 -->
+					<a href="deco.php" class="txt19">
+						Déconnexion
+					</a>
+				</li>
+			<br>	<li class="t-center">
+					<!-- Button3 -->
+					<a href="panier.php"> <i class="fas fa-shopping-cart fa-2x"></i></a>
 				</li>
 	
 			</ul>

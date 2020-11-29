@@ -23,42 +23,20 @@ if(!empty($_SESSION['ok'])){
 }
 
 if(isset($_GET["idEntree"]) && isset($_GET["nomEntree"])){
-	if(!empty($_SESSION["panier"])){
 		array_push($_SESSION["panier"],array('idEntree' => $_GET["idEntree"], 'nomEntree' => $_GET["nomEntree"], 'prixEntree' => $_GET["prixEntree"]));
 		header("Location: index.php#Entree");
-		
-	}else {
-		array_push($_SESSION["panier"],array('idEntree' => $_GET["idEntree"], 'nomEntree' => $_GET["nomEntree"], 'prixEntree' => $_GET["prixEntree"]));
-		header("Location: index.php#Entree");
-	}
- 
+
 }elseif(isset($_GET["idPlat"]) && isset($_GET["nomPlat"])){
-	if(!empty($_SESSION["panier"])){
 		array_push($_SESSION["panier"],array('idPlat' => $_GET["idPlat"], 'nomPlat' => $_GET["nomPlat"], 'prixPlat' => $_GET["prixPlat"]));
 		header("Location: index.php#Plat");
-	}else {
-		array_push($_SESSION["panier"],array('idPlat' => $_GET["idPlat"], 'nomPlat' => $_GET["nomPlat"], 'prixPlat' => $_GET["prixPlat"]));
-		header("Location: index.php#Plat");
-	}
-	
+
 }elseif(isset($_GET["idDessert"]) && isset($_GET["nomDessert"])){
-	if(!empty($_SESSION["panier"])){
 		array_push($_SESSION["panier"],array('idDessert' => $_GET["idDessert"], 'nomDessert' => $_GET["nomDessert"], 'prixDessert' => $_GET["prixDessert"]));
 		header("Location: index.php#Dessert");
-	}else {
-		array_push($_SESSION["panier"],array('idDessert' => $_GET["idDessert"], 'nomDessert' => $_GET["nomDessert"], 'prixDessert' => $_GET["prixDessert"]));
-		header("Location: index.php#Dessert");
-	}
 	
 }elseif(isset($_GET["idBoisson"]) && isset($_GET["idBoisson"])){
-	if(!empty($_SESSION["panier"])){
 		array_push($_SESSION["panier"],array('idBoisson' => $_GET["idBoisson"], 'nomBoisson' => $_GET["nomBoisson"], 'prixBoisson' => $_GET["prixBoisson"]));
 		header("Location: index.php#Boisson");
-	}else {
-		array_push($_SESSION["panier"],array('idBoisson' => $_GET["idBoisson"], 'nomBoisson' => $_GET["nomBoisson"], 'prixBoisson' => $_GET["prixBoisson"]));
-		header("Location: index.php#Boisson");
-	}
-	
 }
 	//var_dump($lesmenus);
 	try {

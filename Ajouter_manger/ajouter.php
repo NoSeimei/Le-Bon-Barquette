@@ -30,8 +30,6 @@ if(isset($_GET["idEntree"])){
 
 /****************** INSERT ********************/  
 
-
-
 if(isset($_POST["idEntree"]))
 {
     $entree = new Entree();

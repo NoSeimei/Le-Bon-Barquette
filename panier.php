@@ -1,5 +1,6 @@
 <?php 
 include("connexion.php");
+$total = 0;
 if(isset($_SESSION['ident2'])&& isset($_SESSION['nom2']) && isset($_SESSION['prenom2'])){
     $_SESSION['ok']="tuesco";
 }
@@ -8,16 +9,13 @@ else
     $_SESSION['ok']="";
     //header('location: index.php');
 }
-if(!empty($_SESSION["panier"])){
-	$LesPaniers = $_SESSION["panier"];
-    
-}
 
 if(isset($_GET["idArray"])){
 	$id = $_GET["idArray"];
-	unset($LesPaniers[$id]);
+	unset($_SESSION["panier"][$id]);
 
 }
+
 //var_dump($_SESSION['panier']);
 ?>
 <!DOCTYPE html>
@@ -143,9 +141,8 @@ if(isset($_GET["idArray"])){
                         </tr>
                     </thead>
                     <tbody>
-					<?php foreach($LesPaniers as $idArray => $lesValeurs){
+					<?php foreach($_SESSION["panier"] as $idArray => $lesValeurs){
 						if(isset($lesValeurs["prixEntree"])){
-							$total = 0;
 								$total = $total + $lesValeurs["prixEntree"];
 							}elseif(isset($lesValeurs["prixPlat"])){
 								$total = $total + $lesValeurs["prixPlat"];

@@ -1,5 +1,6 @@
 <?php 
 include("connexion.php");
+$total = 0;
 if(isset($_SESSION['ident2'])&& isset($_SESSION['nom2']) && isset($_SESSION['prenom2'])){
     $_SESSION['ok']="tuesco";
 }
@@ -8,16 +9,13 @@ else
     $_SESSION['ok']="";
     //header('location: index.php');
 }
-if(!empty($_SESSION["panier"])){
-	$LesPaniers = $_SESSION["panier"];
-    
-}
 
 if(isset($_GET["idArray"])){
 	$id = $_GET["idArray"];
-	unset($LesPaniers[$id]);
+	unset($_SESSION["panier"][$id]);
 
 }
+
 //var_dump($_SESSION['panier']);
 ?>
 <!DOCTYPE html>
@@ -65,64 +63,135 @@ if(isset($_GET["idArray"])){
 	<!-- Header -->
 	<header>
 		<!-- Header desktop -->
-		<div class="wrap-menu-header gradient1 trans-0-4">
-			<div class="container h-full">
-				<div class="wrap_header trans-0-3">
-					<!-- Logo -->
-					<div class="logo">
+		<?php 
+	if($_SESSION['ok']!=="tuesco"){
+			$img = "none";
+			echo ' <!-- Header desktop -->
+			<div class="wrap-menu-header gradient1 trans-0-4">
+				<div class="container h-full">
+					<div class="wrap_header trans-0-3">
+						<!-- Logo -->
+						<div class="logo">
 						<span class="tit2 t-center">
 								Le Bon Barquette
 							</span>
 						</div>
 
+						<!-- Menu -->
+						<div class="wrap_menu p-l-45 p-l-0-xl">
+							<nav class="menu">
+								<ul class="main_menu">
+									<li>
+										<a href="index.php">Accueil</a>
+									</li>
+									<li>
+										<a href="inscription.php">Se connecter</a>
+									</li>
+									
+								</ul>
+							</nav>
+						</div>
 
-					<!-- Menu -->
-					<div class="wrap_menu p-l-45 p-l-0-xl">
-						<nav class="menu">
-							<ul class="main_menu">
-								<li>
-									<a href="index.php">Accueil</a>
-								</li>
-								<li>
-									<a href="login.php">Se connecter</a>
-								</li>
-								<li>
-									<a href="panier.php"> <i class="fas fa-shopping-cart fa-2x"></i></a>
-								</li>
-							</ul>
-						</nav>
-					</div>
-
-					<div class="social flex-w flex-l-m p-r-20">
-						<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+						<div class="social flex-w flex-l-m p-r-20">
+							<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</header>
+		</header>
 
-	<!-- Sidebar -->
-	<aside class="sidebar trans-0-4">
-		<!-- Button Hide sidebar -->
-		<button class="btn-hide-sidebar ti-close color0-hov trans-0-4"></button>
+		<!-- Sidebar -->
+		<aside class="sidebar trans-0-4">
+			<!-- Button Hide sidebar -->
+			<button class="btn-hide-sidebar ti-close color0-hov trans-0-4"></button>
 
-		<!-- - -->
-		<ul class="menu-sidebar p-t-95 p-b-70">
-			<li class="t-center m-b-13">
-				<a href="index.html" class="txt19">Acceuil</a>
-			</li>
-			
-			<li class="t-center">
-				<!-- Button3 -->
-				<a href="formulaire_connexion.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-					Se connecter
-				</a>
-			</li>
+			<!-- - -->
+			<ul class="menu-sidebar p-t-95 p-b-70">
+				<li class="t-center m-b-13">
+					<a href="index.html" class="txt19">Acceuil</a>
+				</li>
+		<li class="t-center">
+					<!-- Button3 -->
+					<a href="inscription.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
+						Se connecter
+					</a>
+				</li>
+		
 
-		</ul>
+			</ul>
 
-		<!-- - -->
-	</aside>
+			<!-- - -->
+		</aside>';
+		
+	}
+	else{
+		$img = "show";
+		echo '<!-- Header desktop -->
+		<div class="wrap-menu-header gradient1 trans-0-4">
+				<div class="container h-full">
+					<div class="wrap_header trans-0-3">
+						<!-- Logo -->
+						<div class="logo">
+						<span class="tit2 t-center">
+								Le Bon Barquette
+							</span>
+						</div>
+	
+						<!-- Menu -->
+						<div class="wrap_menu p-l-45 p-l-0-xl">
+							<nav class="menu">
+								<ul class="main_menu">
+									<li>
+										<a href="index.php">Accueil</a>
+									</li>
+									<li>
+										<a href="modificationC.php">mon compte</a>
+									</li>
+									<li>
+										<a href="deco.php">Déconnexion</a>
+									</li>
+									<li>
+									<a href="panier.php"> <i class="fas fa-shopping-cart fa-2x"></i></a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+	
+						<div class="social flex-w flex-l-m p-r-20">
+							<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+	
+		<!-- Sidebar -->
+		<aside class="sidebar trans-0-4">
+			<!-- Button Hide sidebar -->
+			<button class="btn-hide-sidebar ti-close color0-hov trans-0-4"></button>
+	
+			<!-- - -->
+			<ul class="menu-sidebar p-t-95 p-b-70">
+				<li class="t-center m-b-13">
+					<a href="index.html" class="txt19">Acceuil</a>
+				</li>
+				
+	
+			<br>	<li class="t-center">
+					<!-- Button3 -->
+					<a href="formulaire_connexion.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
+						Se connecter
+					</a>
+				</li>
+	
+			</ul>
+	
+			<!-- - -->
+		</aside>';
+	
+	}
+	?>
+	
     <section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url(images/bg-title-page-01.jpg);">
 		<h2 class="tit6 t-center">
 			Panier
@@ -143,9 +212,8 @@ if(isset($_GET["idArray"])){
                         </tr>
                     </thead>
                     <tbody>
-					<?php foreach($LesPaniers as $idArray => $lesValeurs){
+					<?php foreach($_SESSION["panier"] as $idArray => $lesValeurs){
 						if(isset($lesValeurs["prixEntree"])){
-							$total = 0;
 								$total = $total + $lesValeurs["prixEntree"];
 							}elseif(isset($lesValeurs["prixPlat"])){
 								$total = $total + $lesValeurs["prixPlat"];

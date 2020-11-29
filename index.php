@@ -429,7 +429,12 @@ $_SESSION['entree'] = array();
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $plat->getprix_plat() ?> €
-								<a href='panier.php' <?php $_SESSION['panier'][] = $plat->getId_plat() ?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"></img></a>
+								<a href='panier.php' <?php
+								$id = $plat->getId_dessert();
+								$plat = array(
+									'Id'=>$id,
+        							'Type'=>'plat');
+								$_SESSION['panier'][]= $plat?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a> ?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"></img></a>
 								</div>
 							</div>
 
@@ -457,7 +462,12 @@ $_SESSION['entree'] = array();
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $dessert->getPrix_dessert()  ?> €	
-								<a href='panier.php' <?php $_SESSION['panier'][]= $dessert->getId_dessert() ?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<a href='panier.php' <?php 
+								$id = $dessert->getId_dessert();
+								$dessert = array(
+									'Id'=>$id,
+        							'Type'=>'dessert');
+								$_SESSION['panier'][]= $dessert?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 

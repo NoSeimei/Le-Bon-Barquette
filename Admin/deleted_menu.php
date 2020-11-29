@@ -5,22 +5,18 @@ if(!isset($_SESSION['identAd'])){
     session_destroy();
     header('location: ../index.php');
 }
-include("../Class/Clients.php");
-include("../Class/Entree.php");
-include("../Class/Plats.php");
-include("../Class/Dessert.php");
-include("../Class/Boisson.php");
-include("../Class/Menus.php");
+include("../Class/Menu_Complet.php");
 include("../Class/Admin.php");
 include("../Function/Function.php");
 
-if(isset($_GET["idMenu"])){
-    $idMenu = $_GET["idMenu"];
-    $Deleted = 0;
-    $request = $db->prepare("UPDATE menus SET Deleted = :Deleted WHERE Id_Menu = :IdMenu");
-    $request->execute(array('Deleted' => $Deleted,'IdMenu' => $idMenu));
-    header("Location: deleted_menu.php");	
+if(isset($_GET["idMenuD"])){
+    $idMenuD = $_GET["idMenuD"];
+    $Deleted = 1;
+    $request = $db->prepare("UPDATE menus SET Deleted = :Deleted WHERE Id_Menu = :IdMenuD");
+    $request->execute(array('Deleted' => $Deleted,'IdMenuD' => $idMenuD));
+    header("Location: ..\Admin\admin_menu.php");	
 }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -34,99 +30,42 @@ if(isset($_GET["idMenu"])){
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" media="screen" href="../css/main.css">
     <link rel="stylesheet" media="screen" href="../css/admin.css">
-    <link rel="stylesheet" media="screen" href="../css/admin_footer.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="../fontawesome-free-5.15.1-web/css/all.css" rel="stylesheet">
 </head>
 
 <body >
 
-    <?php include("../Admin/admin-navbar.php"); ?>
+    <?php include("admin-navbar.php"); ?>
     
     <div class="left">
 <?php try {
-    $request = $db->prepare("SELECT * FROM menus WHERE Deleted = :Deleted ORDER BY 'Id_Menu'");
-    $request->execute(array('Deleted' => 1));
-    $request->setFetchMode(PDO::FETCH_CLASS, 'Menus');
+    $request = $db->query("SELECT * FROM menu_complet ORDER BY Id_Menu");
+    $request->setFetchMode(PDO::FETCH_CLASS, 'Menu_Complet');
     $lesMenus = $request->fetchAll();
-
-foreach($lesMenus as $leMenu){
-
-       $idMenu = $leMenu->getId_Menu();
-       $idEntree = $leMenu->getId_Entree();
-       $idPlat = $leMenu->getId_Plat();
-       $idDessert = $leMenu->getId_Dessert();
-       $idBoisson = $leMenu->getId_Boisson();
-
-    try {
-        $request1 = $db->prepare("SELECT * FROM menus INNER JOIN entree ON menus.Id_Entree = entree.Id_Entree 
-        WHERE entree.Id_Entree = :idEntree AND menus.Id_Menu = :idMenu ORDER BY 'Id_Menu'");
-        $request1->execute(array('idEntree' => $idEntree, 'idMenu' => $idMenu));
-        $request1->setFetchMode(PDO::FETCH_CLASS, 'Entree');
-        $lesEntrees = $request1->fetchAll();
-    } catch (Exception $exE) {
-        echo $exE;
-    }
-    
-    try {
-        $request2 = $db->prepare("SELECT * FROM menus INNER JOIN plats ON menus.Id_Plat = plats.Id_Plat  
-        WHERE plats.Id_Plat = :idPlat AND menus.Id_Menu = :idMenu ORDER BY 'Id_Menu'");
-        $request2->execute(array('idPlat' => $idPlat, 'idMenu' => $idMenu));
-        $request2->setFetchMode(PDO::FETCH_CLASS, 'Plats');
-        $lesPlats = $request2->fetchAll();
-    } catch (Exception $exE) {
-        echo $exE;
-    }
-    
-    try {
-        $request3 = $db->prepare("SELECT * FROM menus INNER JOIN dessert ON menus.Id_Dessert = dessert.Id_Dessert  
-        WHERE dessert.Id_Dessert = :idDessert AND menus.Id_Menu = :idMenu ORDER BY 'Id_Menu'");
-        $request3->execute(array('idDessert' => $idDessert, 'idMenu' => $idMenu));
-        $request3->setFetchMode(PDO::FETCH_CLASS, 'Dessert');
-        $lesDesserts = $request3->fetchAll();
-    } catch (Exception $exE) {
-        echo $exE;
-    }
-    
-    try {
-        $request4 = $db->prepare("SELECT * FROM menus INNER JOIN boisson ON menus.Id_Boisson = boisson.Id_Boisson 
-        WHERE boisson.Id_Boisson = :idBoisson AND menus.Id_Menu = :idMenu ORDER BY 'Id_Menu'");
-        $request4->execute(array('idBoisson' => $idBoisson, 'idMenu' => $idMenu));
-        $request4->setFetchMode(PDO::FETCH_CLASS, 'Boisson');
-        $lesBoissons = $request4->fetchAll();
-    } catch (Exception $exE) {
-        echo $exE;
-    }
-      
-?>
-        <?php foreach ($lesEntrees as $lEntree) { ?>
-            <?php foreach ($lesPlats as $lePlat) { ?>
-                <?php foreach ($lesDesserts as $leDessert) { ?>
-                    <?php foreach ($lesBoissons as $laBoisson) { ?>
-                        
+    foreach($lesMenus as $leMenu){
+    ?>
                         <div class="container-fluid" style="width: auto; display: inline-block;">
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
                                     <h4 class="card-title" style="text-align: center;"><u>Menu</u></h4>
                                     <h5 class="card-title"><?php echo $leMenu->getNom(); ?></h5>
-                                    <p class="card-text"><?php echo $leMenu->getDescription(); ?></p>
+                                    <p class="card-text"><?php echo $leMenu->getdescription(); ?></p>
                                 </div>
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
-                                        <h6 class="card-title">Entrée</h6><?php echo $lEntree->getNom(); ?>
+                                        <h6 class="card-title">Entrée</h6><?php echo $leMenu->getEntree(); ?>
                                     </li>
                                     <li class="list-group-item">
-                                        <h6 class="card-title">Plat</h6><?php echo $lePlat->getNom(); ?>
+                                        <h6 class="card-title">Plat</h6><?php echo $leMenu->getPlat(); ?>
                                     </li>
 
-
                                     <li class="list-group-item">
-                                        <h6 class="card-title">Dessert</h6><?php echo $leDessert->getNom(); ?>
+                                        <h6 class="card-title">Dessert</h6><?php echo $leMenu->getDessert(); ?>
                                     </li>
 
-
                                     <li class="list-group-item">
-                                        <h6 class="card-title">Boisson</h6><?php echo $laBoisson->getNom(); ?>
+                                        <h6 class="card-title">Boisson</h6><?php echo $leMenu->getBoisson(); ?>
                                     </li>
 
                                     <li class="list-group-item" style="text-align: center;">
@@ -134,25 +73,21 @@ foreach($lesMenus as $leMenu){
                                     </li>
                                 </ul>
                                 <div class="card-body" style="text-align: center;">
-                                    <a href="../Modifications/modification_menu.php?idMenu=<?php echo $leMenu->getId_Menu(); ?>" class="far fa-share-square"></a>
+                                    <a href="../Modifications/modification_menu.php?idMenu=<?php echo $leMenu->getId_Menu(); ?>" class="far fa-edit"></a>
+                                    <a href="admin_menu.php?idMenuD=<?php echo $leMenu->getId_Menu(); ?>" style="color:red; padding-left:10%;" class="far fa-trash-alt"></a>
                                     </tr>
                    
                                 </div>
                             </div>
                         </div>
-                    <?php } ?>
-                <?php } ?>
-            <?php } ?>
-        <?php } ?>
-    <?php } ?>
-<?php 
-   
+<?php   
+    }
 }catch (Exception $exE) {
     echo $exE;
 } ?>
 </div>
    
-    <?php include("../admin-footer.php"); ?>
+    <?php include("admin-footer.php"); ?>
   
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

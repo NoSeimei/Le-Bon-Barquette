@@ -118,7 +118,7 @@ try {
                             <tr>
                                 <th scope="row"><?php echo $entree->getNom(); ?></th>
                                 <td><?php echo $entree->getDescription(); ?></td>
-                                <td><?php echo $entree->getPrix_Entree(); ?></td>
+                                <td><?php echo $entree->getPrix_Entree(); ?>€</td>
                                 <td><a href="../Modifications/modification.php?idEntree=<?php echo $entree->getId_Entree();?>" class="far fa-edit"></a> 
                                 <a href="admin.php?idEntree=<?php echo $entree->getId_Entree();?>" style="color:red" class="far fa-trash-alt"></a></td>
                             </tr>
@@ -149,7 +149,7 @@ try {
                             <tr>
                                 <th scope="row"><?php echo $plat->getNom(); ?></th>
                                 <td><?php echo $plat->getDescription(); ?></td>
-                                <td><?php echo $plat->getPrix_Plat(); ?></td>
+                                <td><?php echo $plat->getPrix_Plat(); ?>€</td>
                                 <td><a href="../Modifications/modification.php?idPlat=<?php echo $plat->getId_Plat();?>" class="far fa-edit"></a> 
                                 <a href="admin.php?idPlat=<?php echo $plat->getId_Plat();?>" style="color:red" class="far fa-trash-alt"></a></td>
                             </tr>
@@ -180,7 +180,7 @@ try {
                             <tr>
                                 <th scope="row"><?php echo $dessert->getNom(); ?></th>
                                 <td><?php echo $dessert->getDescription(); ?></td>
-                                <td><?php echo $dessert->getPrix_Dessert(); ?></td>
+                                <td><?php echo $dessert->getPrix_Dessert(); ?>€</td>
                                 <td><a href="../Modifications/modification.php?idDessert=<?php echo $dessert->getId_Dessert();?>" class="far fa-edit"></a>
                                 <a href="admin.php?idDessert=<?php echo $dessert->getId_Dessert();?>" style="color:red" class="far fa-trash-alt"></a></td>
                             </tr>
@@ -211,7 +211,7 @@ try {
                             <tr>
                                 <th scope="row"><?php echo $boisson->getNom(); ?></th>
                                 <td><?php echo $boisson->getDescription(); ?></td>
-                                <td><?php echo $boisson->getPrix_Boisson(); ?></td>
+                                <td><?php echo $boisson->getPrix_Boisson(); ?>€</td>
                                 <td><a href="../Modifications/modification.php?idBoisson=<?php echo $boisson->getId_Boisson();?>" class="far fa-edit"></a> 
                                 <a href="admin.php?idBoisson=<?php echo $boisson->getId_Boisson();?>" style="color:red" class="far fa-trash-alt"></a></td>
                             </tr>

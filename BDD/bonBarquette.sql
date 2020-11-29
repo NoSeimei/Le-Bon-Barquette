@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 27 nov. 2020 à 09:43
+-- Généré le :  Dim 29 nov. 2020 à 18:50
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -97,15 +97,14 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `Password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Deleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`Id_Client`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `clients`
 --
 
 INSERT INTO `clients` (`Id_Client`, `Nom`, `Prenom`, `Telephone`, `Email`, `Identifiant`, `Password`, `Deleted`) VALUES
-(1, 'payet', 'monsieur', '0692345678', 'monsieur.payet@barquette.re', 'mPayet', 'df91f42cda8b1946a1dfaafdd2207c8b', 0),
-(2, 'dfgdfg', 'sdfsdf', '05651', 'ssfsf@dsfs.fr', 'test', 'test', 0);
+(3, 'test', 'test', '05651', 'ssfsf@dsfs.fr', 'test', '098f6bcd4621d373cade4e832627b4f6', 0);
 
 -- --------------------------------------------------------
 
@@ -166,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `entree` (
   `Prix_Entree` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Deleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`Id_Entree`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `entree`
@@ -199,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `menus` (
   KEY `Id_Plat` (`Id_Plat`),
   KEY `Id_Dessert` (`Id_Dessert`),
   KEY `Id_Boisson` (`Id_Boisson`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `menus`
@@ -207,8 +206,8 @@ CREATE TABLE IF NOT EXISTS `menus` (
 
 INSERT INTO `menus` (`Id_Menu`, `Nom`, `Description`, `Prix`, `Deleted`, `Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) VALUES
 (12, 'menu20', 'non2', '56.60', 1, 4, 4, 1, 1),
-(11, 'Menu10', 'non2', '31.90', 0, 3, 3, 4, 3),
-(10, 'test', 'non2', '50.00', 0, 3, 4, 5, 1);
+(11, 'Menu d\'hiver', 'Chaud', '31.90', 0, 1, 1, 1, 1),
+(10, 'Menu complet', 'Spécialité du chef', '50.00', 0, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -223,6 +222,24 @@ CREATE TABLE IF NOT EXISTS `menu_boisson` (
   PRIMARY KEY (`Id_Menu`,`Id_Boisson`),
   KEY `Id_Boisson` (`Id_Boisson`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Doublure de structure pour la vue `menu_complet`
+-- (Voir ci-dessous la vue réelle)
+--
+DROP VIEW IF EXISTS `menu_complet`;
+CREATE TABLE IF NOT EXISTS `menu_complet` (
+`Id_Menu` int(11)
+,`Nom` varchar(255)
+,`description` varchar(255)
+,`prix` decimal(15,2)
+,`entree` varchar(255)
+,`plat` varchar(255)
+,`dessert` varchar(255)
+,`boisson` varchar(255)
+);
 
 -- --------------------------------------------------------
 
@@ -368,6 +385,15 @@ INSERT INTO `plats` (`Id_Plat`, `Nom`, `Description`, `Prix_Plat`, `Deleted`) VA
 (4, 'coq massalé', 'au massalé fait maison', '8.99', 0),
 (5, 'cabris massalé', 'cabris de la cours au massalé fait maison', '8.99', 0),
 (6, 'boeuf carotte', 'façon grand mère', '8.99', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la vue `menu_complet`
+--
+DROP TABLE IF EXISTS `menu_complet`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `menu_complet`  AS  select `menus`.`Id_Menu` AS `Id_Menu`,`menus`.`Nom` AS `Nom`,`menus`.`Description` AS `description`,`menus`.`Prix` AS `prix`,`entree`.`Nom` AS `entree`,`plats`.`Nom` AS `plat`,`dessert`.`Nom` AS `dessert`,`boisson`.`Nom` AS `boisson` from ((((`menus` join `entree` on(`menus`.`Id_Entree` = `entree`.`Id_Entree`)) join `plats` on(`menus`.`Id_Plat` = `plats`.`Id_Plat`)) join `dessert` on(`menus`.`Id_Dessert` = `dessert`.`Id_Dessert`)) join `boisson` on(`menus`.`Id_Boisson` = `boisson`.`Id_Boisson`)) where `menus`.`Deleted` = 0 ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

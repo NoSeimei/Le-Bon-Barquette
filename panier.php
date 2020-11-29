@@ -1,5 +1,5 @@
 <?php 
-include('addpanier.php');
+include("connexion.php");
 if(isset($_SESSION['ident2'])&& isset($_SESSION['nom2']) && isset($_SESSION['prenom2'])){
     $_SESSION['ok']="tuesco";
 }
@@ -8,13 +8,15 @@ else
     $_SESSION['ok']="";
     //header('location: index.php');
 }
-if(!isset($leClient)){
-    $leClient = "";
-          $nomC ="";
-          $prenomC="";
-          $mailC="";
-          $identC="";
-          $telephoneC="";
+if(!empty($_SESSION["panier"])){
+	$LesPaniers = $_SESSION["panier"];
+    
+}
+
+if(isset($_GET["idArray"])){
+	$id = $_GET["idArray"];
+	unset($LesPaniers[$id]);
+
 }
 //var_dump($_SESSION['panier']);
 ?>
@@ -58,7 +60,7 @@ if(!isset($leClient)){
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-<body class="animsition">
+<body class="animsition" style="display:grid">
 
 	<!-- Header -->
 	<header>
@@ -68,10 +70,10 @@ if(!isset($leClient)){
 				<div class="wrap_header trans-0-3">
 					<!-- Logo -->
 					<div class="logo">
-						<a href="index.php">
-							<img src="images/icons/logo.png" alt="IMG-LOGO" data-logofixed="images/icons/logo2.png">
-						</a>
-					</div>
+						<span class="tit2 t-center">
+								Le Bon Barquette
+							</span>
+						</div>
 
 
 					<!-- Menu -->
@@ -80,9 +82,6 @@ if(!isset($leClient)){
 							<ul class="main_menu">
 								<li>
 									<a href="index.php">Accueil</a>
-								</li>
-								<li>
-									<a href="reservation.php">Reservation</a>
 								</li>
 								<li>
 									<a href="login.php">Se connecter</a>
@@ -115,13 +114,6 @@ if(!isset($leClient)){
 			
 			<li class="t-center">
 				<!-- Button3 -->
-				<a href="reservation.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-					Reservation
-				</a>
-			</li>
-
-		<br>	<li class="t-center">
-				<!-- Button3 -->
 				<a href="formulaire_connexion.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
 					Se connecter
 				</a>
@@ -143,7 +135,6 @@ if(!isset($leClient)){
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col"> </th>
                             <th scope="col">Produits</th>
                             
                             <th scope="col" class="text-center">Quantité</th>
@@ -152,20 +143,63 @@ if(!isset($leClient)){
                         </tr>
                     </thead>
                     <tbody>
+					<?php foreach($LesPaniers as $idArray => $lesValeurs){
+						if(isset($lesValeurs["prixEntree"])){
+							$total = 0;
+								$total = $total + $lesValeurs["prixEntree"];
+							}elseif(isset($lesValeurs["prixPlat"])){
+								$total = $total + $lesValeurs["prixPlat"];
+						}elseif(isset($lesValeurs["prixDessert"])){
+							$total = $total + $lesValeurs["prixDessert"];
+					}elseif(isset($lesValeurs["prixBoisson"])){
+						$total = $total + $lesValeurs["prixBoisson"];
+				}
+					//echo $lesValeurs["idEntree"]; ?>
+						<?php if(isset($lesValeurs["idEntree"])) { 
+							$countE =+ 1;
+							?>
                         <tr>
+                            <td><?php echo $lesValeurs["nomEntree"]; ?></td>
+                            <td><?php echo $countE ?></td>
+                            <td class="text-right"><?php echo $lesValeurs["prixEntree"]; ?> €</td>
+                            <td class="text-right"><a href="panier.php?idArray=<?php echo $idArray ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </a> </td>
+						</tr>
+						<?php } ?>
+						<?php if(isset($lesValeurs["idPlat"])) {
+								$countP += 1;
+								?>
+						<tr>
                             <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                            <td>Product Name Dada</td>
-                            <td><input class="form-control" type="text" value="1" /></td>
-                            <td class="text-right">124,90 €</td>
-                            <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
-                        </tr>
+                            <td><?php echo $lesValeurs["nomPlat"]; ?></td>
+                            <td>1</td>
+                            <td class="text-right"><?php echo $lesValeurs["prixPlat"]; ?> €</td>
+                            <td class="text-right"><a href="panier.php?idArray=<?php echo $idArray ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </a> </td>
+						</tr>
+						<?php } ?>
+						<?php if(isset($lesValeurs["idDessert"])) {
+								$countD =+ 1;?>
+						<tr>
+                            <td><?php echo $lesValeurs["nomDessert"]; ?></td>
+                            <td><?php echo $countD ?></td>
+                            <td class="text-right"><?php echo $lesValeurs["prixDessert"]; ?> €</td>
+                            <td class="text-right"><a href="panier.php?idArray=<?php echo $idArray ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </a> </td>
+						</tr>
+						<?php } ?>
+						<?php if(isset($lesValeurs["idBoisson"])) {
+								$countB =+ 1;?>
+						<tr>
+                            <td><?php echo $lesValeurs["nomBoisson"]; ?></td>
+                            <td><?php echo $countB ?></td>
+                            <td class="text-right"><?php echo $lesValeurs["prixBoisson"]; ?> €</td>
+                            <td class="text-right"><a href="panier.php?idArray=<?php echo $idArray ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </a> </td>
+						</tr>
+						<?php } ?>
+					<?php } ?>
                         <tr>
-                            <td></td>
-                            <td></td>
                             <td></td>
                             <td></td>
                             <td><strong>Total</strong></td>
-                            <td class="text-right"><strong>346,90 €</strong></td>
+                            <td class="text-right"><strong><?php echo $total?> €</strong></td>
                         </tr>
                     </tbody>
                 </table>

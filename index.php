@@ -15,7 +15,10 @@ include('Class/Boisson.php');
 include('Class/Menus.php');
 include('Class/Plats.php');
 include("Function/Function.php");
-$_SESSION['panier'] = array();
+$_SESSION['plat'] = array();
+$_SESSION['boisson'] = array();
+$_SESSION['dessert'] = array();
+$_SESSION['entree'] = array();
 
 	//var_dump($lesmenus);
 	try {
@@ -355,7 +358,7 @@ $_SESSION['panier'] = array();
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $entree->getPrix_entree() ?> €
-								<a <?php array_push($_SESSION['panier'], $entree->getId_entree(), 'entree') ?>"><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<a href='panier.php' <?php $_SESSION['panier'][] = $entree->getId_entree() ?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 
@@ -384,7 +387,7 @@ $_SESSION['panier'] = array();
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $boisson->getprix_boisson() ?> €
-								<a <?php array_push($_SESSION['panier'], $boisson->getId_boisson(), 'boisson')?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<a href='panier.php' <?php $_SESSION['panier'][] = $boisson->getId_boisson() ?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 
@@ -415,9 +418,12 @@ $_SESSION['panier'] = array();
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $plat->getprix_plat() ?> €
-								<form class="row container">
-								<button type="submit" <?php array_push($_SESSION['panier'], $plat->getId_plat(), 'plat') ?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"></img></button>
-								</form>
+								<a href='panier.php' <?php
+								$id = $plat->getId_dessert();
+								$plat = array(
+									'Id'=>$id,
+        							'Type'=>'plat');
+								$_SESSION['panier'][]= $plat?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a> ?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"></img></a>
 								</div>
 							</div>
 
@@ -445,7 +451,12 @@ $_SESSION['panier'] = array();
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $dessert->getPrix_dessert()  ?> €	
-								<a <?php array_push($_SESSION['panier'], $dessert->getId_dessert(), 'dessert') ?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<a href='panier.php' <?php 
+								$id = $dessert->getId_dessert();
+								$dessert = array(
+									'Id'=>$id,
+        							'Type'=>'dessert');
+								$_SESSION['panier'][]= $dessert?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
 								</div>
 							</div>
 

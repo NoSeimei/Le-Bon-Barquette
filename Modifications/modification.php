@@ -126,7 +126,7 @@ if (isset($_POST["idEntree"])) {
 		$request = $db->prepare("UPDATE entree SET Nom = :Nom, Description = :Description, Prix_Entree = :Prix_Entree, Deleted = :Deleted WHERE Id_Entree = $id");
 		$request->execute(dismount($entree));
 
-		header("Location: ..\admin.php");	
+		header("Location: ../Admin/admin.php");	
 
 		} catch (Exception $ex) {
 		echo $ex;
@@ -142,7 +142,7 @@ if (isset($_POST["idEntree"])) {
 		$request = $db->prepare("UPDATE plats SET Nom = :Nom, Description = :Description, Prix_Plat = :Prix_Plat, Deleted = :Deleted WHERE Id_Plat = $id");
 		$request->execute(dismount($plat));
 
-		header("Location: ..\admin.php");	
+		header("Location: ../Admin/admin.php");	
 
 		} catch (Exception $ex) {
 
@@ -160,7 +160,7 @@ if (isset($_POST["idEntree"])) {
 		$request = $db->prepare("UPDATE dessert SET Nom = :Nom, Description = :Description, Prix_Dessert = :Prix_Dessert, Deleted = :Deleted WHERE Id_Dessert = $id");
 		$request->execute(dismount($dessert));
 
-		header("Location: ..\admin.php");	
+		header("Location: ../Admin/admin.php");	
 
 		} catch (Exception $ex) {
 
@@ -178,7 +178,7 @@ if (isset($_POST["idEntree"])) {
 		$request = $db->prepare("UPDATE boisson SET Nom = :Nom, Description = :Description, Prix_Boisson = :Prix_Boisson, Deleted = :Deleted WHERE Id_Boisson = $id");
 		$request->execute(dismount($boisson));
 
-		header("Location: ..\admin.php");	
+		header("Location: ../Admin/admin.php");	
 
 		} catch (Exception $ex) {
 

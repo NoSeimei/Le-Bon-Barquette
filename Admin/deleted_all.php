@@ -41,7 +41,7 @@ if(isset($_GET["idEntree"])){
 $Deleted = 1;
 
 try {
-    $request = $db->prepare("SELECT * FROM entree WHERE Deleted = :Deleted");
+    $request = $db->prepare("SELECT * FROM entree WHERE Deleted = :Deleted ORDER BY 'Id_Entree'");
     $request->execute(array('Deleted' => $Deleted));
     $request->setFetchMode(PDO::FETCH_CLASS, 'Entree');
     $lesEntree = $request->fetchAll();
@@ -50,7 +50,7 @@ try {
 }
 
 try {
-    $request2 = $db->prepare("SELECT * FROM plats WHERE Deleted = :Deleted");
+    $request2 = $db->prepare("SELECT * FROM plats WHERE Deleted = :Deleted ORDER BY 'Id_Plat'");
     $request2->execute(array('Deleted' => $Deleted));
     $request2->setFetchMode(PDO::FETCH_CLASS, 'Plats');
     $lesPlats = $request2->fetchAll();
@@ -59,7 +59,7 @@ try {
 }
 
 try {
-    $request3 = $db->prepare("SELECT * FROM dessert WHERE Deleted = :Deleted");
+    $request3 = $db->prepare("SELECT * FROM dessert WHERE Deleted = :Deleted ORDER BY 'Id_Dessert'");
     $request3->execute(array('Deleted' => $Deleted));
     $request3->setFetchMode(PDO::FETCH_CLASS, 'Dessert');
     $lesDesserts = $request3->fetchAll();
@@ -68,7 +68,7 @@ try {
 }
 
 try {
-    $request4 = $db->prepare("SELECT * FROM boisson WHERE Deleted = :Deleted");
+    $request4 = $db->prepare("SELECT * FROM boisson WHERE Deleted = :Deleted ORDER BY 'Id_Boisson'");
     $request4->execute(array('Deleted' => $Deleted));
     $request4->setFetchMode(PDO::FETCH_CLASS, 'Boisson');
     $lesBoissons = $request4->fetchAll();

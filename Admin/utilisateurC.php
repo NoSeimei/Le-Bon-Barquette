@@ -69,7 +69,7 @@ try {
                                 <td><?php echo $lesClient->getEmail(); ?></td>
                                 
                                 <td><a href="modifCA.php?iduser=<?php echo $lesClient->getId_Client();?>" class="far fa-edit"></a> 
-                                <a href="sup_Cli.php?iduser=<?php echo $lesClient->getId_Client();?>" style="color:red" class="far fa-trash-alt"></a></td>
+                                <a id="SuppClient" onclick="verif2(<?php echo $lesClient->getId_Client();?>);"  style="color:red" class="far fa-trash-alt" href="#" ></a></td>
                             </tr>
                         <?php
                         }
@@ -89,10 +89,11 @@ try {
 </script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 </script>
-<script src="js/main.js"></script>
-    <script src="sweetalert2.all.min.js"></script>
+<script src="../js/main.js"></script>
+    <script src="../sweetalert2.all.min.js"></script>
   	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  	<script src="js/sweet.js"></script>
+  	<script src="../js/sweet.js"></script>
+   
 </body>
 
 </html>

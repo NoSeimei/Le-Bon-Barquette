@@ -67,7 +67,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 		  //on verifie que l'identifiant du client n'existe pas avent de l'inscrire
 		  $ident = $_POST["ident"];
 		  $requete = $db->prepare("SELECT * FROM `clients` WHERE Identifiant = :Identifiant");
-		  $request3->execute(array('Identifiant' => $ident));
+		  $requete->execute(array('Identifiant' => $ident));
 		  $requete->setFetchMode(PDO::FETCH_CLASS, 'Clients');
 		  $client = $requete->fetchAll();
 		  

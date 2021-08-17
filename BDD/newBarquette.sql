@@ -51,40 +51,25 @@ DECLARE hist_percent_ca_entree decimal(10,4) ;
 /*DECLARE hist_date_stat date ;*/
 DECLARE hist_date_add date ;
 
-/*SELECT * FROM `passer_commande` WHERE Date_Achat like CONCAT(date,'%')!*/
 
 SELECT SQL_CALC_FOUND_ROWS count(*) FROM `passer_commande` WHERE Date_Achat LIKE CONCAT(date,'%') GROUP BY Num_Commande;
-
 SET hist_nb_com = (SELECT FOUND_ROWS( )) ;
-
 SELECT hist_nb_com AS 'NombreCom';
 SET hist_ca_ttc = (SELECT SUM(Prix) FROM `passer_commande` WHERE Date_Achat LIKE CONCAT(date,'%'));
-
 SET hist_ca_ht = null;
-
-SET hist_ca_boiss = (SELECT SUM(Prix) FROM `passer_commande` WHERE Date_Achat LIKE CONCAT(date,'%') AND Id_Boisson > 0) ;
-
-SET hist_ca_dessert =(SELECT SUM(Prix) FROM `passer_commande` WHERE Date_Achat LIKE CONCAT(date,'%') AND Id_Dessert > 0)  ;
-
+SET hist_ca_boiss = (SELECT SUM(Prix) FROM `passer_commande` WHERE Date_Achat LIKE CONCAT(date,'%') AND Id_Boisson > 0);
+SET hist_ca_dessert =(SELECT SUM(Prix) FROM `passer_commande` WHERE Date_Achat LIKE CONCAT(date,'%') AND Id_Dessert > 0);
 SET hist_ca_plat = (SELECT SUM(Prix) FROM `passer_commande` WHERE Date_Achat LIKE CONCAT(date,'%') AND Id_Plat > 0);
-
 SET hist_ca_entree = (SELECT SUM(Prix) FROM `passer_commande` WHERE Date_Achat LIKE CONCAT(date,'%') AND Id_Entree > 0);
-
 SET hist_quant_tot = (SELECT COUNT(*) FROM passer_commande WHERE Date_Achat LIKE CONCAT(date,'%') ) ;
-
- 
 SET hist_quant_boiss = (SELECT COUNT(*) FROM `passer_commande` WHERE Date_Achat LIKE CONCAT(date,'%') AND Id_Boisson > 0);
-
 SET hist_quant_dessert = (SELECT COUNT(*) FROM `passer_commande` WHERE Date_Achat LIKE CONCAT(date,'%') AND Id_Entree > 0);
-
 SET hist_quant_plat = (SELECT COUNT(*) FROM `passer_commande` WHERE Date_Achat LIKE CONCAT(date,'%') AND Id_Plat > 0);
-
 SET hist_quant_entree = (SELECT COUNT(*) FROM `passer_commande` WHERE Date_Achat LIKE CONCAT(date,'%') AND Id_Entree > 0);
-
- SET hist_percent_ca_plat=(hist_ca_plat/hist_ca_ttc);
- SET hist_percent_ca_boiss=(hist_ca_boiss/hist_ca_ttc);
- SET hist_percent_ca_dessert=(hist_ca_dessert/hist_ca_ttc);
- SET hist_percent_ca_entree=(hist_ca_entree/hist_ca_ttc);
+SET hist_percent_ca_plat=(hist_ca_plat/hist_ca_ttc);
+SET hist_percent_ca_boiss=(hist_ca_boiss/hist_ca_ttc);
+SET hist_percent_ca_dessert=(hist_ca_dessert/hist_ca_ttc);
+SET hist_percent_ca_entree=(hist_ca_entree/hist_ca_ttc);
  
  INSERT INTO `stat_hist`(
      `ca_ttc`,
@@ -262,7 +247,7 @@ INSERT INTO `commande` (`Id_Commande`, `Num_Commande`, `Id_Menu`, `Id_Client`, `
 --
 DROP TRIGGER IF EXISTS `Triggerz_Notification`;
 DELIMITER $$
-CREATE TRIGGER `Triggerz_Notification` AFTER INSERT ON `commande` FOR EACH ROW INSERT INTO notification (`Type_Notification`, `Id_Client`, `Id_Commande`, `Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) VALUES ( 1, NEW.Id_Client, NEW.Id_Commande, NEW.Id_Entree, NEW.Id_Plat, NEW.Id_Dessert, NEW.Id_Boisson)
+CREATE TRIGGER `Triggerz_Notification` AFTER INSERT ON `commande` FOR EACH ROW INSERT INTO notification (`Type_Notification`, `Id_Client`, `Id_Commande`, `Id_Menu`,`Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) VALUES ( 1, NEW.Id_Client, NEW.Id_Commande, NEW.Id_Menu, NEW.Id_Entree, NEW.Id_Plat, NEW.Id_Dessert, NEW.Id_Boisson)
 $$
 DELIMITER ;
 DROP TRIGGER IF EXISTS `save_hist_Commande2`;
@@ -487,6 +472,7 @@ CREATE TABLE IF NOT EXISTS `notification` (
   `Type_Notification` int(11) NOT NULL,
   `Id_Client` int(11) DEFAULT NULL,
   `Id_Commande` int(11) DEFAULT NULL,
+  `Id_Menu` int(11) DEFAULT NULL,
   `Id_Entree` int(11) DEFAULT NULL,
   `Id_Plat` int(11) DEFAULT NULL,
   `Id_Dessert` int(11) DEFAULT NULL,
@@ -498,25 +484,11 @@ CREATE TABLE IF NOT EXISTS `notification` (
 -- Déchargement des données de la table `notification`
 --
 
-INSERT INTO `notification` (`Id_Notification`, `Type_Notification`, `Id_Client`, `Id_Commande`, `Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) VALUES
-(16, 1, 3, 147, NULL, NULL, NULL, NULL);
+INSERT INTO `notification` (`Id_Notification`, `Type_Notification`, `Id_Client`, `Id_Commande`, `Id_Menu`,`Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) VALUES
+(16, 1, 3, 147, 11,NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
---
--- Structure de la table `passer_commande`
---
-
-DROP TABLE IF EXISTS `passer_commande`;
-CREATE TABLE IF NOT EXISTS `passer_commande` (
-  `Id_Commande` int(11) NOT NULL,
-  `Id_Menu` int(11) NOT NULL,
-  `Quantitee` int(11) DEFAULT NULL,
-  PRIMARY KEY (`Id_Commande`,`Id_Menu`),
-  KEY `Id_Menu` (`Id_Menu`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
 
 --
 -- Structure de la table `plats`

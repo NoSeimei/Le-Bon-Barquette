@@ -47,14 +47,14 @@ if(isset($_GET["idEntree"]) && isset($_GET["nomEntree"])){
 	
 		echo $exE;
 	}
-	try {
-		$requete12 = $db->query("SELECT * FROM entree w");
-		$requete12->setFetchMode(PDO::FETCH_CLASS, 'Entree');
-		$lesEntree = $requete12->fetchAll();
-	} catch (Exception $exE) {
+	// try {
+	// 	$requete12 = $db->query("SELECT * FROM entree");
+	// 	$requete12->setFetchMode(PDO::FETCH_CLASS, 'Entree');
+	// 	$lesEntree = $requete12->fetchAll();
+	// } catch (Exception $exE) {
 	
-		echo $exE;
-	}
+	// 	echo $exE;
+	// }
 	try {
 		$requete2 = $db->query("SELECT * FROM plats");
 		$requete2->setFetchMode(PDO::FETCH_CLASS, 'Plats');

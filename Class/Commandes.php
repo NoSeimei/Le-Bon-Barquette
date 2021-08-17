@@ -7,7 +7,6 @@ private $dateCommande;
 private $PrixCommande;
 private $Id_Client;
 private $Id_Menu;
-private $Deleted;
 
 
 /**
@@ -98,25 +97,7 @@ public function getId_Commande()
 return $this->Id_Commande;
 }
 
-/**
- * Get the value of Deleted
- */ 
-public function getDeleted()
-{
-return $this->Deleted;
-}
 
-/**
- * Set the value of Deleted
- *
- * @return  self
- */ 
-public function setDeleted($Deleted)
-{
-$this->Deleted = $Deleted;
-
-return $this;
-}
 }
 
 ?>

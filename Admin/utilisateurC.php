@@ -11,7 +11,7 @@ include("../Function/Function.php");
 
 try {
     //on séléctionne tout les clients qui existent(non supprimés)
-    $requete = $db->query("SELECT * FROM `clients` WHERE Deleted=0");
+    $requete = $db->query("SELECT * FROM `clients`");
     $requete->setFetchMode(PDO::FETCH_CLASS, 'Clients');
     $client = $requete->fetchAll();
 } catch (Exception $ex) {

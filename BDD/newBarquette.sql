@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  Dim 29 nov. 2020 à 18:50
--- Version du serveur :  10.4.10-MariaDB
--- Version de PHP :  7.3.12
+-- Généré le : lun. 16 août 2021 à 15:20
+-- Version du serveur :  5.7.31
+-- Version de PHP : 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `bonbarquette`
+-- Base de données : `bonbarquette`
 --
 CREATE DATABASE IF NOT EXISTS `bonbarquette` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 USE `bonbarquette`;
@@ -45,6 +44,32 @@ CREATE TABLE IF NOT EXISTS `admin` (
 INSERT INTO `admin` (`Id_Admin`, `userAdmin`, `pass`) VALUES
 (1, 'admin', 'admin'),
 (2, 'admin', '21232f297a57a5a743894a0e4a801fc3');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `all_aliments_historique`
+--
+
+DROP TABLE IF EXISTS `all_aliments_historique`;
+CREATE TABLE IF NOT EXISTS `all_aliments_historique` (
+  `Id_Aliment` int(11) NOT NULL AUTO_INCREMENT,
+  `Nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Prix` decimal(15,2) DEFAULT NULL,
+  `Id_Entree` int(11) DEFAULT NULL,
+  `Id_Plat` int(11) DEFAULT NULL,
+  `Id_Dessert` int(11) DEFAULT NULL,
+  `Id_Boisson` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Id_Aliment`)
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `all_aliments_historique`
+--
+
+INSERT INTO `all_aliments_historique` (`Id_Aliment`, `Nom`, `Description`, `Prix`, `Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) VALUES
+(16, 'boeuf carotte', 'façon grand mère', '8.99', 0, 6, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -110,15 +135,50 @@ INSERT INTO `clients` (`Id_Client`, `Nom`, `Prenom`, `Telephone`, `Email`, `Iden
 -- Structure de la table `commandes`
 --
 
-DROP TABLE IF EXISTS `commandes`;
-CREATE TABLE IF NOT EXISTS `commandes` (
+DROP TABLE IF EXISTS `commande`;
+CREATE TABLE IF NOT EXISTS `commande` (
   `Id_Commande` int(11) NOT NULL AUTO_INCREMENT,
-  `dateCommande` date DEFAULT NULL,
-  `PrixCommande` decimal(15,2) DEFAULT NULL,
+  `Num_Commande` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
+  `Id_Menu` int(11) DEFAULT NULL,
   `Id_Client` int(11) NOT NULL,
-  PRIMARY KEY (`Id_Commande`),
-  KEY `Id_Client` (`Id_Client`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `Id_Entree` int(11) DEFAULT NULL,
+  `Id_Plat` int(11) DEFAULT NULL,
+  `Id_Dessert` int(11) DEFAULT NULL,
+  `Id_Boisson` int(11) DEFAULT NULL,
+  `Date_Achat` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Prix` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Date_Update` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Etat` int(1) NOT NULL,
+  `Quantitee` int(11) NOT NULL,
+  PRIMARY KEY (`Id_Commande`) USING BTREE,
+  KEY `Id_Menu` (`Id_Menu`),
+  KEY `Id_Client` (`Id_Client`),
+  KEY `Id_Entree` (`Id_Entree`),
+  KEY `Id_Plat` (`Id_Plat`),
+  KEY `Id_Dessert` (`Id_Dessert`),
+  KEY `Id_Boisson` (`Id_Boisson`)
+) ENGINE=MyISAM AUTO_INCREMENT=147 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déclencheurs `commande`
+--
+DROP TRIGGER IF EXISTS `save_hist_Commande2`;
+DELIMITER $$
+CREATE TRIGGER `save_hist_Commande2` AFTER UPDATE ON `commande` FOR EACH ROW begin
+if (new.Etat = 1) || (new.Etat = 4)
+Then
+insert into historique_commande( `Hist_Num_Commande`, `Hist_Id_Menu`, `Hist_Id_Client`, `Hist_Id_Entree`, `Hist_Id_Plat`, `Hist_Id_Dessert`, `Hist_Id_Boisson`, `Hist_Date`, `Hist_Prix`, `Hist_Etat`, `Hist_Quantitee`) values (new.Num_Commande, new.Id_Menu, new.Id_Client, new.Id_Entree, new.Id_Plat, new.Id_Dessert, new.Id_Boisson, new.Date_Update, new.Prix, new.Etat, new.Quantitee);
+end if; 	
+end
+$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `save_hist_commande`;
+DELIMITER $$
+CREATE TRIGGER `save_hist_commande` AFTER INSERT ON `commande` FOR EACH ROW begin
+insert into historique_commande( `Hist_Num_Commande`, `Hist_Id_Menu`, `Hist_Id_Client`, `Hist_Id_Entree`, `Hist_Id_Plat`, `Hist_Id_Dessert`, `Hist_Id_Boisson`, `Hist_Date`, `Hist_Prix`, `Hist_Etat`, `Hist_Quantitee`) values (new.Num_Commande, new.Id_Menu, new.Id_Client, new.Id_Entree, new.Id_Plat, new.Id_Dessert, new.Id_Boisson, new.Date_Achat, new.Prix, new.Etat, new.Quantitee);
+end
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -147,6 +207,16 @@ INSERT INTO `dessert` (`Id_Dessert`, `Nom`, `Description`, `Prix_Dessert`) VALUE
 (5, 'gateau manioc', 'au bon manioc de cilaos', '7.12'),
 (6, 'bonbon bananes', '10 bonbons aux bananes de saint andré', '5.90');
 
+--
+-- Déclencheurs `dessert`
+--
+DROP TRIGGER IF EXISTS `Triggerz_dessert_historique`;
+DELIMITER $$
+CREATE TRIGGER `Triggerz_dessert_historique` BEFORE DELETE ON `dessert` FOR EACH ROW INSERT INTO all_aliments_historique (`Nom`, `Description`, `Prix`, `Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) 
+Values(Old.Nom, Old.Description, Old.Prix_Dessert, 0, 0, Old.Id_Dessert, 0)
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -170,6 +240,45 @@ INSERT INTO `entree` (`Id_Entree`, `Nom`, `Description`, `Prix_Entree`) VALUES
 (1, 'salade museaux', 'pur porcs', '4.98'),
 (2, 'salade russe', 'légume de la cours', '4.90'),
 (3, 'salade poulet curry', 'poulet curry sur un lit de salade de choux et carotte vinaigrée', '8.90');
+
+--
+-- Déclencheurs `entree`
+--
+DROP TRIGGER IF EXISTS `Triggerz_entree_historique`;
+DELIMITER $$
+CREATE TRIGGER `Triggerz_entree_historique` BEFORE DELETE ON `entree` FOR EACH ROW INSERT INTO all_aliments_historique (`Nom`, `Description`, `Prix`, `Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) 
+Values(Old.Nom, Old.Description, Old.Prix_Entree, Old.Id_Entree, 0, 0, 0)
+$$
+DELIMITER ;
+
+--
+-- Structure de la table `historique_commande`
+--
+
+DROP TABLE IF EXISTS `historique_commande`;
+CREATE TABLE IF NOT EXISTS `historique_commande` (
+  `Hist_Id_Commande` int(11) NOT NULL AUTO_INCREMENT,
+  `Hist_Num_Commande` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
+  `Hist_Id_Menu` int(11) DEFAULT NULL,
+  `Hist_Id_Client` int(11) NOT NULL,
+  `Hist_Id_Entree` int(11) DEFAULT NULL,
+  `Hist_Id_Plat` int(11) DEFAULT NULL,
+  `Hist_Id_Dessert` int(11) DEFAULT NULL,
+  `Hist_Id_Boisson` int(11) DEFAULT NULL,
+  `Hist_Date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Hist_Prix` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Hist_Etat` int(1) NOT NULL,
+  `Hist_Quantitee` int(11) NOT NULL,
+  PRIMARY KEY (`Hist_Id_Commande`) USING BTREE,
+  KEY `Id_Menu` (`Hist_Id_Menu`),
+  KEY `Id_Client` (`Hist_Id_Client`),
+  KEY `Id_Entree` (`Hist_Id_Entree`),
+  KEY `Id_Plat` (`Hist_Id_Plat`),
+  KEY `Id_Dessert` (`Hist_Id_Dessert`),
+  KEY `Id_Boisson` (`Hist_Id_Boisson`)
+) ENGINE=MyISAM AUTO_INCREMENT=149 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
 
 -- --------------------------------------------------------
 
@@ -199,9 +308,44 @@ CREATE TABLE IF NOT EXISTS `menus` (
 --
 
 INSERT INTO `menus` (`Id_Menu`, `Nom`, `Description`, `Prix`, `Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) VALUES
-(12, 'menu20', 'non2', '56.60', 4, 4, 1, 1),
 (11, 'Menu d\'hiver', 'Chaud', '31.90', 1, 1, 1, 1),
-(10, 'Menu complet', 'Spécialité du chef', '50.00', 1, 1, 1, 1);
+(12, 'menu20', 'non2', '56.60', 4, 4, 1, 1);
+
+--
+-- Déclencheurs `menus`
+--
+DROP TRIGGER IF EXISTS `Triggerz_menu_historique`;
+DELIMITER $$
+CREATE TRIGGER `Triggerz_menu_historique` BEFORE DELETE ON `menus` FOR EACH ROW INSERT INTO menus_historique (`Nom`, `Description`, `Prix`, `Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) 
+Values(Old.Nom, Old.Description, Old.Prix, Old.Id_Entree, Old.Id_Plat, Old.Id_Dessert, Old.Id_Boisson)
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `menus_historique`
+--
+
+DROP TABLE IF EXISTS `menus_historique`;
+CREATE TABLE IF NOT EXISTS `menus_historique` (
+  `Id_Menu_Historique` int(11) NOT NULL AUTO_INCREMENT,
+  `Nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Prix` decimal(15,2) DEFAULT NULL,
+  `Id_Entree` int(11) NOT NULL,
+  `Id_Plat` int(11) NOT NULL,
+  `Id_Dessert` int(11) NOT NULL,
+  `Id_Boisson` int(11) NOT NULL,
+  PRIMARY KEY (`Id_Menu_Historique`)
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `menus_historique`
+--
+
+INSERT INTO `menus_historique` (`Id_Menu_Historique`, `Nom`, `Description`, `Prix`, `Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) VALUES
+(19, 'Menu complet', 'Spécialité du chef', '50.00', 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -220,6 +364,25 @@ CREATE TABLE IF NOT EXISTS `menu_complet` (
 ,`dessert` varchar(255)
 ,`boisson` varchar(255)
 );
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `notification`
+--
+
+DROP TABLE IF EXISTS `notification`;
+CREATE TABLE IF NOT EXISTS `notification` (
+  `Id_Notification` int(11) NOT NULL AUTO_INCREMENT,
+  `Type_Notification` int(11) NOT NULL,
+  `Id_Client` int(11) DEFAULT NULL,
+  `Id_Commande` int(11) DEFAULT NULL,
+  `Id_Entree` int(11) DEFAULT NULL,
+  `Id_Plat` int(11) DEFAULT NULL,
+  `Id_Dessert` int(11) DEFAULT NULL,
+  `Id_Boisson` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Id_Notification`)
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -260,8 +423,17 @@ INSERT INTO `plats` (`Id_Plat`, `Nom`, `Description`, `Prix_Plat`) VALUES
 (2, 'civet zouritte', 'au bon vin de cilaos', '8.99'),
 (3, 'civet canards', 'au vin royal', '8.90'),
 (4, 'coq massalé', 'au massalé fait maison', '8.99'),
-(5, 'cabris massalé', 'cabris de la cours au massalé fait maison', '8.99'),
-(6, 'boeuf carotte', 'façon grand mère', '8.99');
+(5, 'cabris massalé', 'cabris de la cours au massalé fait maison', '8.99');
+
+--
+-- Déclencheurs `plats`
+--
+DROP TRIGGER IF EXISTS `Triggerz_plat_historique`;
+DELIMITER $$
+CREATE TRIGGER `Triggerz_plat_historique` BEFORE DELETE ON `plats` FOR EACH ROW INSERT INTO all_aliments_historique (`Nom`, `Description`, `Prix`, `Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) 
+Values(Old.Nom, Old.Description, Old.Prix_Plat, 0, Old.Id_Plat, 0, 0)
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -270,7 +442,8 @@ INSERT INTO `plats` (`Id_Plat`, `Nom`, `Description`, `Prix_Plat`) VALUES
 --
 DROP TABLE IF EXISTS `menu_complet`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `menu_complet`  AS  select `menus`.`Id_Menu` AS `Id_Menu`,`menus`.`Nom` AS `Nom`,`menus`.`Description` AS `description`,`menus`.`Prix` AS `prix`,`entree`.`Nom` AS `entree`,`plats`.`Nom` AS `plat`,`dessert`.`Nom` AS `dessert`,`boisson`.`Nom` AS `boisson` from ((((`menus` join `entree` on(`menus`.`Id_Entree` = `entree`.`Id_Entree`)) join `plats` on(`menus`.`Id_Plat` = `plats`.`Id_Plat`)) join `dessert` on(`menus`.`Id_Dessert` = `dessert`.`Id_Dessert`)) join `boisson` on(`menus`.`Id_Boisson` = `boisson`.`Id_Boisson`));
+DROP VIEW IF EXISTS `menu_complet`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `menu_complet`  AS  select `menus`.`Id_Menu` AS `Id_Menu`,`menus`.`Nom` AS `Nom`,`menus`.`Description` AS `description`,`menus`.`Prix` AS `prix`,`entree`.`Nom` AS `entree`,`plats`.`Nom` AS `plat`,`dessert`.`Nom` AS `dessert`,`boisson`.`Nom` AS `boisson` from ((((`menus` join `entree` on((`menus`.`Id_Entree` = `entree`.`Id_Entree`))) join `plats` on((`menus`.`Id_Plat` = `plats`.`Id_Plat`))) join `dessert` on((`menus`.`Id_Dessert` = `dessert`.`Id_Dessert`))) join `boisson` on((`menus`.`Id_Boisson` = `boisson`.`Id_Boisson`))) ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -15,34 +15,28 @@ include("../Function/Function.php");
 
 if(isset($_GET["idEntree"])){
     $idEntree = $_GET["idEntree"];
-    $Deleted = 1;
-    $request = $db->prepare("UPDATE entree SET Deleted = :Deleted WHERE Id_Entree = :IdEntree");
-    $request->execute(array('Deleted' => $Deleted,'IdEntree' => $idEntree));
+    $request = $db->prepare("UPDATE entree WHERE Id_Entree = :IdEntree");
+    $request->execute(array('IdEntree' => $idEntree));
 }else if(isset($_GET["idPlat"])){
     $idPlat = $_GET["idPlat"];
-    $Deleted = 1;
-    $request = $db->prepare("UPDATE plats SET Deleted = :Deleted WHERE Id_Plat = :IdPlat");
-    $request->execute(array('Deleted' => $Deleted,'IdPlat' => $idPlat));
+    $request = $db->prepare("UPDATE plats WHERE Id_Plat = :IdPlat");
+    $request->execute(array('IdPlat' => $idPlat));
 }else if(isset($_GET["idDessert"])){
     $idDessert = $_GET["idDessert"];
-    $Deleted = 1;
-    $request = $db->prepare("UPDATE dessert SET Deleted = :Deleted WHERE Id_Dessert = :IdDessert");
-    $request->execute(array('Deleted' => $Deleted,'IdDessert' => $idDessert));
+    $request = $db->prepare("UPDATE dessert WHERE Id_Dessert = :IdDessert");
+    $request->execute(array('IdDessert' => $idDessert));
 }else if(isset($_GET["idBoisson"])){
     $idBoisson = $_GET["idBoisson"];
-    $Deleted = 1;
-    $request = $db->prepare("UPDATE boisson SET Deleted = :Deleted WHERE Id_Boisson = :idBoisson");
-    $request->execute(array('Deleted' => $Deleted,'idBoisson' => $idBoisson));
+    $request = $db->prepare("UPDATE boisson WHERE Id_Boisson = :idBoisson");
+    $request->execute(array('idBoisson' => $idBoisson));
 }
 ?>
 
 
 <?php
-$Deleted = 0;
 
 try {
-    $request = $db->prepare("SELECT * FROM entree WHERE Deleted = :Deleted ORDER BY 'Id_Entree' ");
-    $request->execute(array('Deleted' => $Deleted));
+    $request = $db->query("SELECT * FROM entree ORDER BY 'Id_Entree' ");
     $request->setFetchMode(PDO::FETCH_CLASS, 'Entree');
     $lesEntree = $request->fetchAll();
 } catch (Exception $exE) {
@@ -50,8 +44,7 @@ try {
 }
 
 try {
-    $request2 = $db->prepare("SELECT * FROM plats WHERE Deleted = :Deleted ORDER BY 'Id_Plat'");
-    $request2->execute(array('Deleted' => $Deleted));
+    $request2 = $db->query("SELECT * FROM plats ORDER BY 'Id_Plat'");
     $request2->setFetchMode(PDO::FETCH_CLASS, 'Plats');
     $lesPlats = $request2->fetchAll();
 } catch (Exception $exP) {
@@ -59,8 +52,7 @@ try {
 }
 
 try {
-    $request3 = $db->prepare("SELECT * FROM dessert WHERE Deleted = :Deleted ORDER BY 'Id_Dessert'");
-    $request3->execute(array('Deleted' => $Deleted));
+    $request3 = $db->query("SELECT * FROM dessert ORDER BY 'Id_Dessert'");
     $request3->setFetchMode(PDO::FETCH_CLASS, 'Dessert');
     $lesDesserts = $request3->fetchAll();
 } catch (Exception $exD) {
@@ -68,8 +60,7 @@ try {
 }
 
 try {
-    $request4 = $db->prepare("SELECT * FROM boisson WHERE Deleted = :Deleted ORDER BY 'Id_Boisson'");
-    $request4->execute(array('Deleted' => $Deleted));
+    $request4 = $db->query("SELECT * FROM boisson ORDER BY 'Id_Boisson'");
     $request4->setFetchMode(PDO::FETCH_CLASS, 'Boisson');
     $lesBoissons = $request4->fetchAll();
 } catch (Exception $exB) {

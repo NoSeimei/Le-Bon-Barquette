@@ -6,7 +6,6 @@ private $Id_Plat;
 private $Nom;
 private $Description;
 private $Prix_Plat;
-private $Deleted;
 
 
 /**
@@ -69,25 +68,6 @@ $this->Prix_Plat = $Prix_Plat;
 return $this;
 }
 
-/**
- * Get the value of Deleted
- */ 
-public function getDeleted()
-{
-return $this->Deleted;
-}
-
-/**
- * Set the value of Deleted
- *
- * @return  self
- */ 
-public function setDeleted($Deleted)
-{
-$this->Deleted = $Deleted;
-
-return $this;
-}
 
 /**
  * Get the value of Id_Plat

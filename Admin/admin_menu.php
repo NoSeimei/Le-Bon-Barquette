@@ -45,8 +45,7 @@ if(isset($_GET["idMenuD"])){
     
     <div class="left">
 <?php try {
-    $request = $db->prepare("SELECT * FROM menus WHERE Deleted = :Deleted");
-    $request->execute(array('Deleted' => 0));
+    $request = $db->query("SELECT * FROM menus");
     $request->setFetchMode(PDO::FETCH_CLASS, 'Menus');
     $lesMenus = $request->fetchAll();
 

@@ -1,7 +1,7 @@
 <?php
 
 
-
+//on teste la session 
 include('connexion.php');
 if(isset($_SESSION['ident2'])&& isset($_SESSION['nom2']) && isset($_SESSION['prenom2'])){
 	$_SESSION['ok']="tuesco";
@@ -34,7 +34,7 @@ if(!isset($_SESSION['nom'])){
 	
 		 
 		try{ 
-            /////////////////////////
+            //on selectionne le client qu'on veut modifier ici le client lui même
             $uncli = $_SESSION['leClient2'];
 		    $requete = $db->query("SELECT * FROM `clients` WHERE Identifiant = $uncli");
 		    $requete->setFetchMode(PDO::FETCH_CLASS, 'Clients');
@@ -47,7 +47,7 @@ if(!isset($_SESSION['nom'])){
             $mailC= $_SESSION['mail2'];
             $identC= $_SESSION['ident2'];
             $telephoneC= $_SESSION['telephone2'] ;
-
+			//si seul le numero de téléphone est modifier on fais en sorte de modifier seulemetn le téléphone dans la bdd
          if (isset($_POST['phone']) && !isset($_POST['pass2'])){
              
             $phone= $_POST["phone"];
@@ -56,7 +56,8 @@ if(!isset($_SESSION['nom'])){
            $request->execute(array('Telephone'=>$phone,'IdClient'=>$leClient));
            $_SESSION['telephone2'] = $phone;
            $telephoneC= $_SESSION['telephone2'] ;
-         }
+		 }
+		 //ici on vérifie que le mdp est bien renseigné puis on vérifie que les deux mdp soient egaux
          elseif(isset($_POST['pass2']) && isset($_POST['confpass'])){
              $confpass=$_POST['confpass'];
              $passw= $_POST['pass2'];
@@ -139,7 +140,9 @@ if(!isset($_SESSION['nom'])){
 <head>
 	<title>Accueil</title>
 	<meta charset="UTF-8">
+	
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="fontawesome-free-5.15.1-web/css/all.css" rel="stylesheet">
 <!--===============================================================================================-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
 <!--===============================================================================================-->
@@ -171,10 +174,8 @@ if(!isset($_SESSION['nom'])){
 </head>
 <body class="animsition" style="display:grid;">
 
-	<!-- Header -->
-	<header>
-		<!-- Header desktop -->
-		<div class="wrap-menu-header gradient1 trans-0-4">
+	<!-- Header desktop -->
+	<div class="wrap-menu-header gradient1 trans-0-4">
 				<div class="container h-full">
 					<div class="wrap_header trans-0-3">
 						<!-- Logo -->
@@ -192,13 +193,13 @@ if(!isset($_SESSION['nom'])){
 										<a href="index.php">Accueil</a>
 									</li>
 									<li>
-										<a href="reservation.php">Reservation</a>
-									</li>
-									<li>
 										<a href="modificationC.php">mon compte</a>
 									</li>
 									<li>
 										<a href="deco.php">Déconnexion</a>
+									</li>
+									<li>
+									<a href="panier.php"> <i class="fas fa-shopping-cart fa-2x"></i></a>
 									</li>
 								</ul>
 							</nav>
@@ -219,28 +220,32 @@ if(!isset($_SESSION['nom'])){
 	
 			<!-- - -->
 			<ul class="menu-sidebar p-t-95 p-b-70">
-				<li class="t-center m-b-13">
+			<br>	<li class="t-center m-b-13">
 					<a href="index.html" class="txt19">Acceuil</a>
 				</li>
 				
-				<li class="t-center">
-					<!-- Button3 -->
-					<a href="reservation.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-						Reservation
-					</a>
-				</li>
 	
 			<br>	<li class="t-center">
 					<!-- Button3 -->
-					<a href="Inscription.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-						Se connecter
+					<a href="modificationC.php" class="txt19">
+						Mon compte
 					</a>
+				</li>
+			<br>	<li class="t-center">
+					<!-- Button3 -->
+					<a href="deco.php" class="txt19">
+						Déconnexion
+					</a>
+				</li>
+			<br>	<li class="t-center">
+					<!-- Button3 -->
+					<a href="panier.php"> <i class="fas fa-shopping-cart fa-2x"></i></a>
 				</li>
 	
 			</ul>
 	
 			<!-- - -->
-		</aside>'
+		</aside>
     <!-- Booking -->
 
 	<section class="section-booking bg1-pattern p-t-100 p-b-110" style="margin-top:auto; margin-bottom:auto;" >

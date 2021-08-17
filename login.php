@@ -15,12 +15,13 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 
     
   try {
+	  //on test la connexion du client
     $requete = $db->query("SELECT * FROM admin");
     $requete->setFetchMode(PDO::FETCH_CLASS, 'Admin');
     $admin = $requete->fetchAll();
     $pass = MD5($pass);
     foreach ($admin as $theAdmin) {
-
+		//si il se connecte on initialise la varible de session sinon on l'averti
       if ($theAdmin->getUserAdmin() === $user && $theAdmin->getPass() === $pass) {
 		$_SESSION['identAd']=$theAdmin->getUserAdmin();
 

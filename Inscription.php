@@ -26,12 +26,13 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 
     
 	try {
+		//connexion de l'utilisateur
 		$requete = $db->query("SELECT * FROM `clients` WHERE Deleted =0 ");
 		$requete->setFetchMode(PDO::FETCH_CLASS, 'Clients');
 		$client = $requete->fetchAll();
 		$pass = MD5($pass);
 		foreach ($client as $theClient) {
-			
+		// s'il se connecte on initialise les varible de session
 		  if ($theClient->getIdentifiant() === $user && $theClient->getPassword() === $pass) {
 			$_SESSION['ident2']= $theClient->getIdentifiant();
 			$_SESSION['nom2']= $theClient->getNom();
@@ -45,6 +46,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 		  } 
 		  
 		  else {
+			  //si la connexion ne se fais pas correctement on le signal
 		  echo  " <script>
 					window.onload = function() 
 					  {
@@ -62,16 +64,17 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 	{
 		 
 		try{ 
-		  /////////////////////////
+		  //on verifie que l'identifiant du client n'existe pas avent de l'inscrire
 		  $ident = $_POST["ident"];
-		  $requete = $db->query("SELECT * FROM `clients` WHERE Identifiant = '$ident'");
+		  $requete = $db->prepare("SELECT * FROM `clients` WHERE Identifiant = :Identifiant");
+		  $request3->execute(array('Identifiant' => $ident));
 		  $requete->setFetchMode(PDO::FETCH_CLASS, 'Clients');
 		  $client = $requete->fetchAll();
 		  
 		  
 			  
 			if (empty($client) ) {
-				
+				//si il existe on rempli les l'objet client
 				$client = new Clients();
 				$client->setNom($_POST["nom"]);
 				$client->setPrenom($_POST["prenom"]);
@@ -84,6 +87,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 				$_SESSION['prenom']="";
 				$_SESSION['tel']="";
 				$_SESSION['mail']="";
+				
 			   $request = $db->prepare("INSERT INTO clients (Nom,Prenom,Telephone,Email,Identifiant,Password, Deleted)
 			   VALUES (:Nom,:Prenom,:Telephone,:Email,:Identifiant,MD5(:Password), :Deleted)");
 			   $request->execute(dismountC($client));
@@ -97,6 +101,8 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 				
 			}
 			else
+			//sinon on lui dis que sont identifiant est incorect et on rempli les champs avec les info remplis auparavant
+			//afin qu'il n'ai pas à le refaire
 			{	
 				$_SESSION['nom']=$_POST["nom"];
 				$_SESSION['prenom']=$_POST["prenom"];
@@ -170,64 +176,62 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 </head>
 <body class="animsition">
 
-	<!-- Header -->
-	<header>
-		<!-- Header desktop -->
-		<div class="wrap-menu-header gradient1 trans-0-4">
-			<div class="container h-full">
-				<div class="wrap_header trans-0-3">
-					<!-- Logo -->
-					<div class="logo">
-					<span class="tit2 t-center">
-                            Le Bon Barquette
-                        </span>
-					</div>
+	<!-- Header desktop -->
+	<div class="wrap-menu-header gradient1 trans-0-4">
+				<div class="container h-full">
+					<div class="wrap_header trans-0-3">
+						<!-- Logo -->
+						<div class="logo">
+						<span class="tit2 t-center">
+								Le Bon Barquette
+							</span>
+						</div>
 
-					<!-- Menu -->
-					<div class="wrap_menu p-l-45 p-l-0-xl">
-						<nav class="menu">
-							<ul class="main_menu">
-								<li>
-									<a href="index.php">Accueil</a>
-								</li>
-								<li>
-									<a href="inscription.php">Se connecter</a>
-								</li>
-							</ul>
-						</nav>
-					</div>
+						<!-- Menu -->
+						<div class="wrap_menu p-l-45 p-l-0-xl">
+							<nav class="menu">
+								<ul class="main_menu">
+									<li>
+										<a href="index.php">Accueil</a>
+									</li>
+									<li>
+										<a href="inscription.php">Se connecter</a>
+									</li>
+									
+								</ul>
+							</nav>
+						</div>
 
-					<div class="social flex-w flex-l-m p-r-20">
-						<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+						<div class="social flex-w flex-l-m p-r-20">
+							<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</header>
+		</header>
 
-	<!-- Sidebar -->
-	<aside class="sidebar trans-0-4">
-		<!-- Button Hide sidebar -->
-		<button class="btn-hide-sidebar ti-close color0-hov trans-0-4"></button>
+		<!-- Sidebar -->
+		<aside class="sidebar trans-0-4">
+			<!-- Button Hide sidebar -->
+			<button class="btn-hide-sidebar ti-close color0-hov trans-0-4"></button>
 
-		<!-- - -->
-		<ul class="menu-sidebar p-t-95 p-b-70">
-			<li class="t-center m-b-13">
-				<a href="index.html" class="txt19">Acceuil</a>
-			</li>
+			<!-- - -->
+			<ul class="menu-sidebar p-t-95 p-b-70">
+				<li class="t-center m-b-13">
+					<a href="index.html" class="txt19">Acceuil</a>
+				</li>
+		<li class="t-center">
+					<!-- Button3 -->
+					<a href="inscription.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
+						Se connecter
+					</a>
+				</li>
+		
 
-		<br>	<li class="t-center">
-				<!-- Button3 -->
-				<a href="Inscription.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-					Se connecter
-				</a>
-			</li>
+			</ul>
 
-		</ul>
-
-		<!-- - -->
-	</aside>
-    <!-- Booking -->
+			<!-- - -->
+		</aside>
 </br></br>
 	<section class="section-booking bg1-pattern p-t-100 p-b-110">
 	<form nom="conn" action="Inscription.php" method="post">

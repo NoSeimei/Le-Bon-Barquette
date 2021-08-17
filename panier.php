@@ -1,5 +1,6 @@
 <?php 
-include('addpanier.php');
+include("connexion.php");
+$total = 0;
 if(isset($_SESSION['ident2'])&& isset($_SESSION['nom2']) && isset($_SESSION['prenom2'])){
     $_SESSION['ok']="tuesco";
 }
@@ -8,15 +9,14 @@ else
     $_SESSION['ok']="";
     //header('location: index.php');
 }
-if(!isset($leClient)){
-    $leClient = "";
-          $nomC ="";
-          $prenomC="";
-          $mailC="";
-          $identC="";
-          $telephoneC="";
+
+if(isset($_GET["idArray"])){
+	$id = $_GET["idArray"];
+	unset($_SESSION["panier"][$id]);
+
 }
-var_dump($_SESSION['panier']);
+
+//var_dump($_SESSION['panier']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,79 +58,140 @@ var_dump($_SESSION['panier']);
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-<body class="animsition">
+<body class="animsition" style="display:grid">
 
 	<!-- Header -->
 	<header>
 		<!-- Header desktop -->
-		<div class="wrap-menu-header gradient1 trans-0-4">
-			<div class="container h-full">
-				<div class="wrap_header trans-0-3">
-					<!-- Logo -->
-					<div class="logo">
-						<a href="index.php">
-							<img src="images/icons/logo.png" alt="IMG-LOGO" data-logofixed="images/icons/logo2.png">
-						</a>
-					</div>
+		<?php 
+	if($_SESSION['ok']!=="tuesco"){
+			$img = "none";
+			echo ' <!-- Header desktop -->
+			<div class="wrap-menu-header gradient1 trans-0-4">
+				<div class="container h-full">
+					<div class="wrap_header trans-0-3">
+						<!-- Logo -->
+						<div class="logo">
+						<span class="tit2 t-center">
+								Le Bon Barquette
+							</span>
+						</div>
 
+						<!-- Menu -->
+						<div class="wrap_menu p-l-45 p-l-0-xl">
+							<nav class="menu">
+								<ul class="main_menu">
+									<li>
+										<a href="index.php">Accueil</a>
+									</li>
+									<li>
+										<a href="inscription.php">Se connecter</a>
+									</li>
+									
+								</ul>
+							</nav>
+						</div>
 
-					<!-- Menu -->
-					<div class="wrap_menu p-l-45 p-l-0-xl">
-						<nav class="menu">
-							<ul class="main_menu">
-								<li>
-									<a href="index.php">Accueil</a>
-								</li>
-								<li>
-									<a href="reservation.php">Reservation</a>
-								</li>
-								<li>
-									<a href="login.php">Se connecter</a>
-								</li>
-								<li>
-									<a href="panier.php"> <i class="fas fa-shopping-cart fa-2x"></i></a>
-								</li>
-							</ul>
-						</nav>
-					</div>
-
-					<div class="social flex-w flex-l-m p-r-20">
-						<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+						<div class="social flex-w flex-l-m p-r-20">
+							<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</header>
+		</header>
 
-	<!-- Sidebar -->
-	<aside class="sidebar trans-0-4">
-		<!-- Button Hide sidebar -->
-		<button class="btn-hide-sidebar ti-close color0-hov trans-0-4"></button>
+		<!-- Sidebar -->
+		<aside class="sidebar trans-0-4">
+			<!-- Button Hide sidebar -->
+			<button class="btn-hide-sidebar ti-close color0-hov trans-0-4"></button>
 
-		<!-- - -->
-		<ul class="menu-sidebar p-t-95 p-b-70">
-			<li class="t-center m-b-13">
-				<a href="index.html" class="txt19">Acceuil</a>
-			</li>
-			
-			<li class="t-center">
-				<!-- Button3 -->
-				<a href="reservation.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-					Reservation
-				</a>
-			</li>
+			<!-- - -->
+			<ul class="menu-sidebar p-t-95 p-b-70">
+				<li class="t-center m-b-13">
+					<a href="index.html" class="txt19">Acceuil</a>
+				</li>
+		<li class="t-center">
+					<!-- Button3 -->
+					<a href="inscription.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
+						Se connecter
+					</a>
+				</li>
+		
 
-		<br>	<li class="t-center">
-				<!-- Button3 -->
-				<a href="formulaire_connexion.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-					Se connecter
-				</a>
-			</li>
+			</ul>
 
-		</ul>
-
-		<!-- - -->
-	</aside>
+			<!-- - -->
+		</aside>';
+		
+	}
+	else{
+		$img = "show";
+		echo '<!-- Header desktop -->
+		<div class="wrap-menu-header gradient1 trans-0-4">
+				<div class="container h-full">
+					<div class="wrap_header trans-0-3">
+						<!-- Logo -->
+						<div class="logo">
+						<span class="tit2 t-center">
+								Le Bon Barquette
+							</span>
+						</div>
+	
+						<!-- Menu -->
+						<div class="wrap_menu p-l-45 p-l-0-xl">
+							<nav class="menu">
+								<ul class="main_menu">
+									<li>
+										<a href="index.php">Accueil</a>
+									</li>
+									<li>
+										<a href="modificationC.php">mon compte</a>
+									</li>
+									<li>
+										<a href="deco.php">Déconnexion</a>
+									</li>
+									<li>
+									<a href="panier.php"> <i class="fas fa-shopping-cart fa-2x"></i></a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+	
+						<div class="social flex-w flex-l-m p-r-20">
+							<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+	
+		<!-- Sidebar -->
+		<aside class="sidebar trans-0-4">
+			<!-- Button Hide sidebar -->
+			<button class="btn-hide-sidebar ti-close color0-hov trans-0-4"></button>
+	
+			<!-- - -->
+			<ul class="menu-sidebar p-t-95 p-b-70">
+				<li class="t-center m-b-13">
+					<a href="index.html" class="txt19">Acceuil</a>
+				</li>
+				
+	
+			<br>	<li class="t-center">
+					<!-- Button3 -->
+					<a href="formulaire_connexion.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
+						Se connecter
+					</a>
+				</li>
+	
+			</ul>
+	
+			<!-- - -->
+		</aside>';
+	
+	}
+	?>
+	
     <section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url(images/bg-title-page-01.jpg);">
 		<h2 class="tit6 t-center">
 			Panier
@@ -143,7 +204,6 @@ var_dump($_SESSION['panier']);
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col"> </th>
                             <th scope="col">Produits</th>
                             
                             <th scope="col" class="text-center">Quantité</th>
@@ -152,20 +212,62 @@ var_dump($_SESSION['panier']);
                         </tr>
                     </thead>
                     <tbody>
+					<?php foreach($_SESSION["panier"] as $idArray => $lesValeurs){
+						if(isset($lesValeurs["prixEntree"])){
+								$total = $total + $lesValeurs["prixEntree"];
+							}elseif(isset($lesValeurs["prixPlat"])){
+								$total = $total + $lesValeurs["prixPlat"];
+						}elseif(isset($lesValeurs["prixDessert"])){
+							$total = $total + $lesValeurs["prixDessert"];
+					}elseif(isset($lesValeurs["prixBoisson"])){
+						$total = $total + $lesValeurs["prixBoisson"];
+				}
+					//echo $lesValeurs["idEntree"]; ?>
+						<?php if(isset($lesValeurs["idEntree"])) { 
+							$countE =+ 1;
+							?>
                         <tr>
+                            <td><?php echo $lesValeurs["nomEntree"]; ?></td>
+                            <td><?php echo $countE ?></td>
+                            <td class="text-right"><?php echo $lesValeurs["prixEntree"]; ?> €</td>
+                            <td class="text-right"><a href="panier.php?idArray=<?php echo $idArray ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </a> </td>
+						</tr>
+						<?php } ?>
+						<?php if(isset($lesValeurs["idPlat"])) {
+								$countP += 1;
+								?>
+						<tr>
                             <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                            <td>Product Name Dada</td>
-                            <td><input class="form-control" type="text" value="1" /></td>
-                            <td class="text-right">124,90 €</td>
-                            <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
-                        </tr>
+                            <td><?php echo $lesValeurs["nomPlat"]; ?></td>
+                            <td>1</td>
+                            <td class="text-right"><?php echo $lesValeurs["prixPlat"]; ?> €</td>
+                            <td class="text-right"><a href="panier.php?idArray=<?php echo $idArray ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </a> </td>
+						</tr>
+						<?php } ?>
+						<?php if(isset($lesValeurs["idDessert"])) {
+								$countD =+ 1;?>
+						<tr>
+                            <td><?php echo $lesValeurs["nomDessert"]; ?></td>
+                            <td><?php echo $countD ?></td>
+                            <td class="text-right"><?php echo $lesValeurs["prixDessert"]; ?> €</td>
+                            <td class="text-right"><a href="panier.php?idArray=<?php echo $idArray ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </a> </td>
+						</tr>
+						<?php } ?>
+						<?php if(isset($lesValeurs["idBoisson"])) {
+								$countB =+ 1;?>
+						<tr>
+                            <td><?php echo $lesValeurs["nomBoisson"]; ?></td>
+                            <td><?php echo $countB ?></td>
+                            <td class="text-right"><?php echo $lesValeurs["prixBoisson"]; ?> €</td>
+                            <td class="text-right"><a href="panier.php?idArray=<?php echo $idArray ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </a> </td>
+						</tr>
+						<?php } ?>
+					<?php } ?>
                         <tr>
-                            <td></td>
-                            <td></td>
                             <td></td>
                             <td></td>
                             <td><strong>Total</strong></td>
-                            <td class="text-right"><strong>346,90 €</strong></td>
+                            <td class="text-right"><strong><?php echo $total?> €</strong></td>
                         </tr>
                     </tbody>
                 </table>

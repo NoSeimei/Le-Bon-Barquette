@@ -10,6 +10,7 @@ include("../Class/Admin.php");
 include("../Function/Function.php");
 
 try {
+    //on séléctionne les clients supprimés
     $requete = $db->query("SELECT * FROM `clients` WHERE Deleted=1");
     $requete->setFetchMode(PDO::FETCH_CLASS, 'Clients');
     $client = $requete->fetchAll();

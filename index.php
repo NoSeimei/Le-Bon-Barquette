@@ -15,8 +15,29 @@ include('Class/Boisson.php');
 include('Class/Menus.php');
 include('Class/Plats.php');
 include("Function/Function.php");
-$_SESSION['panier'] = array();
+if(!empty($_SESSION['ok'])){
+	if(!isset($_SESSION["panier"])){
+		$_SESSION["panier"] = array();
+	}
+	
+}
 
+if(isset($_GET["idEntree"]) && isset($_GET["nomEntree"])){
+		array_push($_SESSION["panier"],array('idEntree' => $_GET["idEntree"], 'nomEntree' => $_GET["nomEntree"], 'prixEntree' => $_GET["prixEntree"]));
+		header("Location: index.php#Entree");
+
+}elseif(isset($_GET["idPlat"]) && isset($_GET["nomPlat"])){
+		array_push($_SESSION["panier"],array('idPlat' => $_GET["idPlat"], 'nomPlat' => $_GET["nomPlat"], 'prixPlat' => $_GET["prixPlat"]));
+		header("Location: index.php#Plat");
+
+}elseif(isset($_GET["idDessert"]) && isset($_GET["nomDessert"])){
+		array_push($_SESSION["panier"],array('idDessert' => $_GET["idDessert"], 'nomDessert' => $_GET["nomDessert"], 'prixDessert' => $_GET["prixDessert"]));
+		header("Location: index.php#Dessert");
+	
+}elseif(isset($_GET["idBoisson"]) && isset($_GET["idBoisson"])){
+		array_push($_SESSION["panier"],array('idBoisson' => $_GET["idBoisson"], 'nomBoisson' => $_GET["nomBoisson"], 'prixBoisson' => $_GET["prixBoisson"]));
+		header("Location: index.php#Boisson");
+}
 	//var_dump($lesmenus);
 	try {
 		$requete1 = $db->query("SELECT * FROM entree");
@@ -106,7 +127,7 @@ $_SESSION['panier'] = array();
 		
 	<?php 
 	if($_SESSION['ok']!=="tuesco"){
-
+			$img = "none";
 			echo ' <!-- Header desktop -->
 			<div class="wrap-menu-header gradient1 trans-0-4">
 				<div class="container h-full">
@@ -124,9 +145,6 @@ $_SESSION['panier'] = array();
 								<ul class="main_menu">
 									<li>
 										<a href="index.php">Accueil</a>
-									</li>
-									<li>
-										<a href="reservation.php">Reservation</a>
 									</li>
 									<li>
 										<a href="inscription.php">Se connecter</a>
@@ -154,16 +172,7 @@ $_SESSION['panier'] = array();
 				<li class="t-center m-b-13">
 					<a href="index.html" class="txt19">Acceuil</a>
 				</li>
-
-				<li class="t-center">
-					<!-- Button3 -->
-					<a href="reservation.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-						Reservation
-					</a>
-				</li>
-	
-
-			<br>	<li class="t-center">
+		<li class="t-center">
 					<!-- Button3 -->
 					<a href="inscription.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
 						Se connecter
@@ -178,6 +187,7 @@ $_SESSION['panier'] = array();
 		
 	}
 	else{
+		$img = "show";
 		echo '<!-- Header desktop -->
 		<div class="wrap-menu-header gradient1 trans-0-4">
 				<div class="container h-full">
@@ -197,13 +207,13 @@ $_SESSION['panier'] = array();
 										<a href="index.php">Accueil</a>
 									</li>
 									<li>
-										<a href="reservation.php">Reservation</a>
-									</li>
-									<li>
 										<a href="modificationC.php">mon compte</a>
 									</li>
 									<li>
 										<a href="deco.php">Déconnexion</a>
+									</li>
+									<li>
+									<a href="panier.php"> <i class="fas fa-shopping-cart fa-2x"></i></a>
 									</li>
 								</ul>
 							</nav>
@@ -224,22 +234,26 @@ $_SESSION['panier'] = array();
 	
 			<!-- - -->
 			<ul class="menu-sidebar p-t-95 p-b-70">
-				<li class="t-center m-b-13">
+			<br>	<li class="t-center m-b-13">
 					<a href="index.html" class="txt19">Acceuil</a>
 				</li>
 				
-				<li class="t-center">
-					<!-- Button3 -->
-					<a href="reservation.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-						Reservation
-					</a>
-				</li>
 	
 			<br>	<li class="t-center">
 					<!-- Button3 -->
-					<a href="formulaire_connexion.php" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-						Se connecter
+					<a href="modificationC.php" class="txt19">
+						Mon compte
 					</a>
+				</li>
+			<br>	<li class="t-center">
+					<!-- Button3 -->
+					<a href="deco.php" class="txt19">
+						Déconnexion
+					</a>
+				</li>
+			<br>	<li class="t-center">
+					<!-- Button3 -->
+					<a href="panier.php"> <i class="fas fa-shopping-cart fa-2x"></i></a>
 				</li>
 	
 			</ul>
@@ -342,10 +356,12 @@ $_SESSION['panier'] = array();
 
 
 	<!-- Main menu -->
+	
 	<section class="section-mainmenu p-t-110 p-b-70 bg1-pattern">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-10 col-lg-6 p-r-35 p-r-15-lg m-l-r-auto">
+				<a id="Entree">
 					<div class="wrap-item-mainmenu p-b-22">
 						<h3 class="tit-mainmenu tit10 p-b-25">
 							ENTRÉE
@@ -364,7 +380,7 @@ $_SESSION['panier'] = array();
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $entree->getPrix_entree() ?> €
-								<a <?php array_push($_SESSION['panier'], $entree->getId_entree(), 'entree') ?>"><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<a href="index.php?idEntree=<?php echo $entree->getId_Entree()?>&nomEntree=<?php echo $entree->getNom()?>&prixEntree=<?php echo $entree->getPrix_Entree()?>"><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px; display:<?php echo $img ?>;" > </img></a>
 								</div>
 							</div>
 
@@ -375,12 +391,12 @@ $_SESSION['panier'] = array();
 						<?php } ?>
 
 					</div>
-
+				</a>
+				<a id="Boisson">
 					<div class="wrap-item-mainmenu p-b-22">
 						<h3 class="tit-mainmenu tit10 p-b-25">
 							Boissons
 						</h3>
-
 						<!-- Item mainmenu -->
 						<?php foreach($lesBoissons as $boisson) { ?>
 						<div class="item-mainmenu m-b-36">
@@ -393,7 +409,7 @@ $_SESSION['panier'] = array();
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $boisson->getprix_boisson() ?> €
-								<a <?php array_push($_SESSION['panier'], $boisson->getId_boisson(), 'boisson')?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<a href="index.php?idBoisson=<?php echo $boisson->getId_Boisson()?>&nomBoisson=<?php echo $boisson->getNom()?>&prixBoisson=<?php echo $boisson->getPrix_Boisson()?>"><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px; display:<?php echo $img ?>;"> </img></a>
 								</div>
 							</div>
 
@@ -404,10 +420,12 @@ $_SESSION['panier'] = array();
 						</div>
 						<?php } ?>
 					</div>
+					</a>
 				</div>
 
 				<div class="col-md-10 col-lg-6 p-l-35 p-l-15-lg m-l-r-auto">
 					<div class="wrap-item-mainmenu p-b-22">
+					<a id="Plat">
 						<h3 class="tit-mainmenu tit10 p-b-25">
 							PLATS
 						</h3>
@@ -424,9 +442,7 @@ $_SESSION['panier'] = array();
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $plat->getprix_plat() ?> €
-								<form class="row container">
-								<button type="submit" <?php array_push($_SESSION['panier'], $plat->getId_plat(), 'plat') ?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"></img></button>
-								</form>
+								<a href="index.php?idPlat=<?php echo $plat->getId_Plat()?>&nomPlat=<?php echo $plat->getNom()?>&prixPlat=<?php echo $plat->getPrix_Plat()?>"><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px; display:<?php echo $img ?>;"></img></a>
 								</div>
 							</div>
 
@@ -435,9 +451,11 @@ $_SESSION['panier'] = array();
 							</span>
 						</div>
 						<?php } ?>
+					</a>
 					</div>
 
 					<div class="wrap-item-mainmenu p-b-22">
+					<a id="Dessert">
 						<h3 class="tit-mainmenu tit10 p-b-25">
 							DESSERT
 						</h3>
@@ -454,7 +472,7 @@ $_SESSION['panier'] = array();
 
 								<div class="price-item-mainmenu txt22">
 								<?php echo $dessert->getPrix_dessert()  ?> €	
-								<a <?phparray_push($_SESSION['panier'], $dessert->getId_dessert(), 'dessert') ?>><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px"> </img></a>
+								<a href="index.php?idDessert=<?php echo $dessert->getId_Dessert()?>&nomDessert=<?php echo $dessert->getNom()?>&prixDessert=<?php echo $dessert->getPrix_Dessert()?>" ><img src=".\images\mettreaupanier.jpg" style = "width:30px; height:30px; display:<?php echo $img ?>;"> </img></a>
 								</div>
 							</div>
 
@@ -463,6 +481,7 @@ $_SESSION['panier'] = array();
 							</span>
 						</div>
 						<?php } ?>
+					</a>
 					</div>
 				</div>
 			</div>

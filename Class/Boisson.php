@@ -5,7 +5,7 @@ private $Id_Boisson;
 private $Nom;
 private $Description;
 private $Prix_Boisson;
-private $Deleted;
+
 
 
 
@@ -80,26 +80,6 @@ return $this;
 
 
 
-
-/**
- * Get the value of Deleted
- */ 
-public function getDeleted()
-{
-return $this->Deleted;
-}
-
-/**
- * Set the value of Deleted
- *
- * @return  self
- */ 
-public function setDeleted($Deleted)
-{
-$this->Deleted = $Deleted;
-
-return $this;
-}
 }
 
 

@@ -27,7 +27,7 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
     
 	try {
 		//connexion de l'utilisateur
-		$requete = $db->query("SELECT * FROM `clients` WHERE Deleted =0 ");
+		$requete = $db->query("SELECT * FROM `clients`");
 		$requete->setFetchMode(PDO::FETCH_CLASS, 'Clients');
 		$client = $requete->fetchAll();
 		$pass = MD5($pass);
@@ -82,14 +82,13 @@ if (isset($_POST["identifiant"]) && isset($_POST["password"])) {
 				$client->setEmail($_POST["email"]);
 				$client->setIdentifiant($_POST["ident"]);
 				$client->setPassword($_POST["pass"]);
-				$client->setDeleted(0);
 				$_SESSION['nom']="";
 				$_SESSION['prenom']="";
 				$_SESSION['tel']="";
 				$_SESSION['mail']="";
 				
-			   $request = $db->prepare("INSERT INTO clients (Nom,Prenom,Telephone,Email,Identifiant,Password, Deleted)
-			   VALUES (:Nom,:Prenom,:Telephone,:Email,:Identifiant,MD5(:Password), :Deleted)");
+			   $request = $db->prepare("INSERT INTO clients (Nom,Prenom,Telephone,Email,Identifiant,Password)
+			   VALUES (:Nom,:Prenom,:Telephone,:Email,:Identifiant,MD5(:Password))");
 			   $request->execute(dismountC($client));
 			   $_SESSION['ident']=$client->getIdentifiant();
 			   echo  " <script>

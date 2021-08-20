@@ -20,8 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `bonbarquette`
 --
-CREATE DATABASE IF NOT EXISTS `bonbarquette` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-USE `bonbarquette`;
+CREATE DATABASE IF NOT EXISTS `modifbonbarquette` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+USE `modifbonbarquette`;
 
 -- --------------------------------------------------------
 
@@ -130,13 +130,10 @@ INSERT INTO `admin` (`Id_Admin`, `userAdmin`, `pass`) VALUES
 DROP TABLE IF EXISTS `all_aliments_historique`;
 CREATE TABLE IF NOT EXISTS `all_aliments_historique` (
   `Id_Aliment` int(11) NOT NULL AUTO_INCREMENT,
+  `Type_Aliment` int(11) NOT NULL,
   `Nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Prix` decimal(15,2) DEFAULT NULL,
-  `Id_Entree` int(11) DEFAULT NULL,
-  `Id_Plat` int(11) DEFAULT NULL,
-  `Id_Dessert` int(11) DEFAULT NULL,
-  `Id_Boisson` int(11) DEFAULT NULL,
+  `Prix` decimal(15,2) NOT NULL,
   PRIMARY KEY (`Id_Aliment`)
 ) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -144,54 +141,8 @@ CREATE TABLE IF NOT EXISTS `all_aliments_historique` (
 -- Déchargement des données de la table `all_aliments_historique`
 --
 
-INSERT INTO `all_aliments_historique` (`Id_Aliment`, `Nom`, `Description`, `Prix`, `Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) VALUES
-(16, 'boeuf carotte', 'façon grand mère', '8.99', 0, 6, 0, 0);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `boisson`
---
-
-DROP TABLE IF EXISTS `boisson`;
-CREATE TABLE IF NOT EXISTS `boisson` (
-  `Id_Boisson` int(11) NOT NULL AUTO_INCREMENT,
-  `Nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Prix_Boisson` decimal(15,2) DEFAULT NULL,
-  PRIMARY KEY (`Id_Boisson`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Déchargement des données de la table `boisson`
---
-
-INSERT INTO `boisson` (`Id_Boisson`, `Nom`, `Description`, `Prix_Boisson`) VALUES
-(1, 'eau plate', 'provenant de la source de champs fleury', '24.99'),
-(2, 'coca-cola', 'bouteille 2L', '9.99'),
-(3, 'coca-cola', 'bouteille 1L', '9.98'),
-(4, 'coca-cola', 'bouteille 0.5L', '3.99'),
-(5, 'shwepps agrum', 'bouteille 0.5L', '2.99'),
-(6, 'shwepps coco', 'bouteille 0.5L', '2.99'),
-(7, 'shwepps tonic', 'bouteille 0.5L', '2.99'),
-(8, 'fanta passion', 'bouteille 0.5L', '2.99'),
-(9, 'fanta original', 'bouteille 0.5L', '2.99'),
-(10, 'desperado original', 'bouteille 0.5L', '5.99'),
-(11, 'desperado red', 'bouteille 0.5L', '6.99'),
-(12, '86', 'bouteille 0.33L', '3.99');
-
--- --------------------------------------------------------
-
---
--- Déclencheurs `boisson`
---
-DROP TRIGGER IF EXISTS `Triggerz_boisson_historique`;
-DELIMITER $$
-CREATE TRIGGER `Triggerz_boisson_historique` BEFORE DELETE ON `boisson` FOR EACH ROW 
-INSERT INTO all_aliments_historique (`Nom`, `Description`, `Prix`, `Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) 
-Values(Old.Nom, Old.Description, Old.Prix_Boisson, 0, 0, 0, Old.Id_Boisson)
-$$
-DELIMITER ;
+INSERT INTO `all_aliments_historique` (`Id_Aliment`, `Type_Aliment`, `Nom`, `Description`, `Prix`) VALUES
+(16, 2,'boeuf carotte', 'façon grand mère', '10.90');
 
 -- --------------------------------------------------------
 
@@ -229,32 +180,26 @@ DROP TABLE IF EXISTS `commande`;
 CREATE TABLE IF NOT EXISTS `commande` (
   `Id_Commande` int(11) NOT NULL AUTO_INCREMENT,
   `Num_Commande` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
-  `Id_Menu` int(11) DEFAULT NULL,
   `Id_Client` int(11) NOT NULL,
-  `Id_Entree` int(11) DEFAULT NULL,
-  `Id_Plat` int(11) DEFAULT NULL,
-  `Id_Dessert` int(11) DEFAULT NULL,
-  `Id_Boisson` int(11) DEFAULT NULL,
+  `Id_Menu` int(11) DEFAULT NULL,
+  `Id_Aliment` int(11) DEFAULT NULL,
   `Date_Achat` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Prix` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `Date_Update` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Etat` int(1) NOT NULL,
   `Quantitee` int(11) NOT NULL,
   PRIMARY KEY (`Id_Commande`) USING BTREE,
-  KEY `Id_Menu` (`Id_Menu`),
   KEY `Id_Client` (`Id_Client`),
-  KEY `Id_Entree` (`Id_Entree`),
-  KEY `Id_Plat` (`Id_Plat`),
-  KEY `Id_Dessert` (`Id_Dessert`),
-  KEY `Id_Boisson` (`Id_Boisson`)
+  KEY `Id_Menu` (`Id_Menu`),
+  KEY `Id_Aliment` (`Id_Aliment`)
 ) ENGINE=MyISAM AUTO_INCREMENT=148 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `commande`
 --
 
-INSERT INTO `commande` (`Id_Commande`, `Num_Commande`, `Id_Menu`, `Id_Client`, `Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`, `Date_Achat`, `Prix`, `Date_Update`, `Etat`, `Quantitee`) VALUES
-(147, '564fg5dfg', 11, 3, NULL, NULL, NULL, NULL, '2021-07-12 00:00:00', '12', '2021-07-12 00:00:00', 1, 17);
+INSERT INTO `commande` (`Id_Commande`, `Num_Commande`, `Id_Client`, `Id_Menu`, `Date_Achat`, `Prix`, `Date_Update`, `Etat`, `Quantitee`) VALUES
+(147, '564fg5dfg', 3, 11, '2021-07-12 00:00:00', '12', '2021-07-12 00:00:00', 1, 17);
 
 --
 -- Déclencheurs `commande`
@@ -262,103 +207,86 @@ INSERT INTO `commande` (`Id_Commande`, `Num_Commande`, `Id_Menu`, `Id_Client`, `
 DROP TRIGGER IF EXISTS `Triggerz_Notification`;
 DELIMITER $$
 CREATE TRIGGER `Triggerz_Notification` AFTER INSERT ON `commande` FOR EACH ROW 
-INSERT INTO notification (`Type_Notification`, `Id_Client`, `Id_Commande`, `Id_Menu`,`Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) 
-VALUES ( 1, NEW.Id_Client, NEW.Id_Commande, NEW.Id_Menu, NEW.Id_Entree, NEW.Id_Plat, NEW.Id_Dessert, NEW.Id_Boisson)
+INSERT INTO notification (`Type_Notification`, `Id_Commande`,`Id_Aliment`, `Id_Menu`) 
+VALUES ( 1, NEW.Id_Commande, NEW.Id_Aliment, NEW.Id_Menu)
 $$
 DELIMITER ;
-DROP TRIGGER IF EXISTS `save_hist_Commande2`;
-DELIMITER $$
-CREATE TRIGGER `save_hist_Commande2` AFTER UPDATE ON `commande` FOR EACH ROW begin
-if (new.Etat = 1) || (new.Etat = 4)
-Then
-insert into historique_commande( `Hist_Num_Commande`, `Hist_Id_Menu`, `Hist_Id_Client`, `Hist_Id_Entree`, `Hist_Id_Plat`, `Hist_Id_Dessert`, `Hist_Id_Boisson`, `Hist_Date`, `Hist_Prix`, `Hist_Etat`, `Hist_Quantitee`) values (new.Num_Commande, new.Id_Menu, new.Id_Client, new.Id_Entree, new.Id_Plat, new.Id_Dessert, new.Id_Boisson, new.Date_Update, new.Prix, new.Etat, new.Quantitee);
-end if; 	
-end
-$$
-DELIMITER ;
-DROP TRIGGER IF EXISTS `save_hist_commande`;
-DELIMITER $$
-CREATE TRIGGER `save_hist_commande` AFTER INSERT ON `commande` FOR EACH ROW begin
-insert into historique_commande( `Hist_Num_Commande`, `Hist_Id_Menu`, `Hist_Id_Client`, `Hist_Id_Entree`, `Hist_Id_Plat`, `Hist_Id_Dessert`, `Hist_Id_Boisson`, `Hist_Date`, `Hist_Prix`, `Hist_Etat`, `Hist_Quantitee`) values (new.Num_Commande, new.Id_Menu, new.Id_Client, new.Id_Entree, new.Id_Plat, new.Id_Dessert, new.Id_Boisson, new.Date_Achat, new.Prix, new.Etat, new.Quantitee);
-end
-$$
-DELIMITER ;
+
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `dessert`
+-- Structure de la table `type_aliment`
 --
 
-DROP TABLE IF EXISTS `dessert`;
-CREATE TABLE IF NOT EXISTS `dessert` (
-  `Id_Dessert` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `type_aliment`;
+CREATE TABLE IF NOT EXISTS `type_aliment` (
+  `Id_Type_Aliment` int(11) NOT NULL AUTO_INCREMENT,
   `Nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Prix_Dessert` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`Id_Dessert`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Déchargement des données de la table `dessert`
---
-
-INSERT INTO `dessert` (`Id_Dessert`, `Nom`, `Description`, `Prix_Dessert`) VALUES
-(1, 'Ramequins fondants au chocolat', 'fondant chocolat moelleux', '12.08'),
-(2, 'tiramisu', 'Il existe de nombreuses recettes de tiramisu. Celle-ci est la recette originale', '14.12'),
-(3, 'Tarte aux pommes à l\'Alsacienne', 'nos régions ont du talent', '4.12'),
-(4, 'gateau patate', 'au bonnes patate du jardin', '7.12'),
-(5, 'gateau manioc', 'au bon manioc de cilaos', '7.12'),
-(6, 'bonbon bananes', '10 bonbons aux bananes de saint andré', '5.90');
-
---
--- Déclencheurs `dessert`
---
-DROP TRIGGER IF EXISTS `Triggerz_dessert_historique`;
-DELIMITER $$
-CREATE TRIGGER `Triggerz_dessert_historique` BEFORE DELETE ON `dessert` FOR EACH ROW 
-INSERT INTO all_aliments_historique (`Nom`, `Description`, `Prix`, `Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) 
-Values(Old.Nom, Old.Description, Old.Prix_Dessert, 0, 0, Old.Id_Dessert, 0)
-$$
-DELIMITER ;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `entree`
---
-
-DROP TABLE IF EXISTS `entree`;
-CREATE TABLE IF NOT EXISTS `entree` (
-  `Id_Entree` int(11) NOT NULL AUTO_INCREMENT,
-  `Nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Prix_Entree` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`Id_Entree`)
+  PRIMARY KEY (`Id_type_Aliment`)
 ) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Déchargement des données de la table `entree`
+-- Déchargement des données de la table `aliments`
 --
 
-INSERT INTO `entree` (`Id_Entree`, `Nom`, `Description`, `Prix_Entree`) VALUES
-(1, 'salade museaux', 'pur porcs', '4.98'),
-(2, 'salade russe', 'légume de la cours', '4.90'),
-(3, 'salade poulet curry', 'poulet curry sur un lit de salade de choux et carotte vinaigrée', '8.90');
+INSERT INTO `type_aliment` (`Id_Type_Aliment`, `Nom`) VALUES
+(1, 'Entree'),
+(2, 'Plat'),
+(3, 'Dessert'),
+(4, 'Boisson');
 
 --
--- Déclencheurs `entree`
+-- Structure de la table `aliments`
 --
-DROP TRIGGER IF EXISTS `Triggerz_entree_historique`;
+
+DROP TABLE IF EXISTS `aliments`;
+CREATE TABLE IF NOT EXISTS `aliments` (
+  `Id_Aliment` int(11) NOT NULL AUTO_INCREMENT,
+  `Nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Prix_Aliment` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Id_Type_Aliment` int(11) NOT NULL,
+  PRIMARY KEY (`Id_Aliment`),
+  KEY `Id_Type_Aliment` (`Id_Type_Aliment`)
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `aliments`
+--
+
+INSERT INTO `aliments` (`Id_Aliment`, `Nom`, `Description`, `Prix_Aliment`, `Id_Type_Aliment`) VALUES
+(1, 'salade museaux', 'pur porcs', '4.98', 2),
+(2, 'salade russe', 'légume de la cours', '4.90', 1),
+(3, 'glace chocolat', 'lé bon', '4.90', 3),
+(4, 'coca', 'lé glacé', '8.90', 4);
+
+--
+-- Déclencheurs `aliments`
+--
+DROP TRIGGER IF EXISTS `Triggerz_aliments_historique`;
 DELIMITER $$
-CREATE TRIGGER `Triggerz_entree_historique` BEFORE DELETE ON `entree` FOR EACH ROW 
-INSERT INTO all_aliments_historique (`Nom`, `Description`, `Prix`, `Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) 
-Values(Old.Nom, Old.Description, Old.Prix_Entree, Old.Id_Entree, 0, 0, 0)
+CREATE TRIGGER `Triggerz_aliments_historique` BEFORE DELETE ON `aliments` FOR EACH ROW 
+INSERT INTO all_aliments_historique (`Nom`, `Description`, `Prix`, `Id_Type_Aliment`) 
+Values(Old.Nom, Old.Description, Old.Prix_Aliment, Old.Id_Type_Aliment)
 $$
 DELIMITER ;
 
 -- --------------------------------------------------------
 
+--
+-- Structure de la table `composition`
+--
+
+DROP TABLE IF EXISTS `composition`;
+CREATE TABLE IF NOT EXISTS `composition` (
+  `Id_Aliment` int(11) NOT NULL,
+  `Id_Menu` int(11) NOT NULL,
+  PRIMARY KEY (`Id_Aliment`,`Id_Menu`),
+  KEY `Id_Menu` (`Id_Menu`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
 
 --
 -- Structure de la table `historique_commande`
@@ -403,84 +331,21 @@ INSERT INTO `historique_commande` (`Hist_Id_Commande`, `Hist_Num_Commande`, `His
 DROP TABLE IF EXISTS `menus`;
 CREATE TABLE IF NOT EXISTS `menus` (
   `Id_Menu` int(11) NOT NULL AUTO_INCREMENT,
+  `Image_Menu` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Prix` decimal(15,2) DEFAULT NULL,
-  `Id_Entree` int(11) NOT NULL,
-  `Id_Plat` int(11) NOT NULL,
-  `Id_Dessert` int(11) NOT NULL,
-  `Id_Boisson` int(11) NOT NULL,
-  PRIMARY KEY (`Id_Menu`),
-  KEY `Id_Entree` (`Id_Entree`),
-  KEY `Id_Plat` (`Id_Plat`),
-  KEY `Id_Dessert` (`Id_Dessert`),
-  KEY `Id_Boisson` (`Id_Boisson`)
+  PRIMARY KEY (`Id_Menu`)
 ) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `menus`
 --
 
-INSERT INTO `menus` (`Id_Menu`, `Nom`, `Description`, `Prix`, `Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) VALUES
-(11, 'Menu d\'hiver', 'Chaud', '31.90', 1, 1, 1, 1),
-(12, 'menu20', 'non2', '56.60', 4, 4, 1, 1);
+INSERT INTO `menus` (`Id_Menu`, `Image_Menu`,`Nom`, `Description`, `Prix`) VALUES
+(11, 'test.png', 'Menu d\'hiver', 'Chaud', '31.90'),
+(12, 'test.png', 'menu20', 'non2', '56.60');
 
---
--- Déclencheurs `menus`
---
-DROP TRIGGER IF EXISTS `Triggerz_menu_historique`;
-DELIMITER $$
-CREATE TRIGGER `Triggerz_menu_historique` BEFORE DELETE ON `menus` FOR EACH ROW 
-INSERT INTO menus_historique (`Nom`, `Description`, `Prix`, `Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) 
-Values(Old.Nom, Old.Description, Old.Prix, Old.Id_Entree, Old.Id_Plat, Old.Id_Dessert, Old.Id_Boisson)
-$$
-DELIMITER ;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `menus_historique`
---
-
-DROP TABLE IF EXISTS `menus_historique`;
-CREATE TABLE IF NOT EXISTS `menus_historique` (
-  `Id_Menu_Historique` int(11) NOT NULL AUTO_INCREMENT,
-  `Nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Prix` decimal(15,2) DEFAULT NULL,
-  `Id_Entree` int(11) NOT NULL,
-  `Id_Plat` int(11) NOT NULL,
-  `Id_Dessert` int(11) NOT NULL,
-  `Id_Boisson` int(11) NOT NULL,
-  PRIMARY KEY (`Id_Menu_Historique`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Déchargement des données de la table `menus_historique`
---
-
-INSERT INTO `menus_historique` (`Id_Menu_Historique`, `Nom`, `Description`, `Prix`, `Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) VALUES
-(19, 'Menu complet', 'Spécialité du chef', '50.00', 1, 1, 1, 1);
-
--- --------------------------------------------------------
-
---
--- Doublure de structure pour la vue `menu_complet`
--- (Voir ci-dessous la vue réelle)
---
-DROP VIEW IF EXISTS `menu_complet`;
-CREATE TABLE IF NOT EXISTS `menu_complet` (
-`Id_Menu` int(11)
-,`Nom` varchar(255)
-,`description` varchar(255)
-,`prix` decimal(15,2)
-,`entree` varchar(255)
-,`plat` varchar(255)
-,`dessert` varchar(255)
-,`boisson` varchar(255)
-);
-
--- --------------------------------------------------------
 
 --
 -- Structure de la table `notification`
@@ -490,62 +355,14 @@ DROP TABLE IF EXISTS `notification`;
 CREATE TABLE IF NOT EXISTS `notification` (
   `Id_Notification` int(11) NOT NULL AUTO_INCREMENT,
   `Type_Notification` int(11) NOT NULL,
-  `Id_Client` int(11) DEFAULT NULL,
   `Id_Commande` int(11) DEFAULT NULL,
+  `Id_Aliment` int(11) DEFAULT NULL,
   `Id_Menu` int(11) DEFAULT NULL,
-  `Id_Entree` int(11) DEFAULT NULL,
-  `Id_Plat` int(11) DEFAULT NULL,
-  `Id_Dessert` int(11) DEFAULT NULL,
-  `Id_Boisson` int(11) DEFAULT NULL,
-  PRIMARY KEY (`Id_Notification`)
+  PRIMARY KEY (`Id_Notification`)USING BTREE,
+  KEY `Id_Commande` (`Id_Commande`),
+  KEY `Id_Aliment` (`Id_Aliment`),
+  KEY `Id_Menu` (`Id_Menu`)
 ) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Déchargement des données de la table `notification`
---
-
-INSERT INTO `notification` (`Id_Notification`, `Type_Notification`, `Id_Client`, `Id_Commande`, `Id_Menu`,`Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) VALUES
-(16, 1, 3, 147, 11,NULL, NULL, NULL, NULL);
-
--- --------------------------------------------------------
-
-
---
--- Structure de la table `plats`
---
-
-DROP TABLE IF EXISTS `plats`;
-CREATE TABLE IF NOT EXISTS `plats` (
-  `Id_Plat` int(11) NOT NULL AUTO_INCREMENT,
-  `Nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Prix_Plat` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`Id_Plat`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Déchargement des données de la table `plats`
---
-
-INSERT INTO `plats` (`Id_Plat`, `Nom`, `Description`, `Prix_Plat`) VALUES
-(1, 'salade museaux', 'pur porc', '4.90'),
-(2, 'civet zouritte', 'au bon vin de cilaos', '8.99'),
-(3, 'civet canards', 'au vin royal', '8.90'),
-(4, 'coq massalé', 'au massalé fait maison', '8.99'),
-(5, 'cabris massalé', 'cabris de la cours au massalé fait maison', '8.99');
-
---
--- Déclencheurs `plats`
---
-DROP TRIGGER IF EXISTS `Triggerz_plat_historique`;
-DELIMITER $$
-CREATE TRIGGER `Triggerz_plat_historique` BEFORE DELETE ON `plats` FOR EACH ROW 
-INSERT INTO all_aliments_historique (`Nom`, `Description`, `Prix`, `Id_Entree`, `Id_Plat`, `Id_Dessert`, `Id_Boisson`) 
-Values(Old.Nom, Old.Description, Old.Prix_Plat, 0, Old.Id_Plat, 0, 0)
-$$
-DELIMITER ;
-
--- --------------------------------------------------------
 
 --
 -- Structure de la table `stat`
@@ -826,14 +643,7 @@ DELIMITER ;
 
 -- --------------------------------------------------------
 
---
--- Structure de la vue `menu_complet`
---
-DROP TABLE IF EXISTS `menu_complet`;
 
-DROP VIEW IF EXISTS `menu_complet`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `menu_complet`  AS  select `menus`.`Id_Menu` AS `Id_Menu`,`menus`.`Nom` AS `Nom`,`menus`.`Description` AS `description`,`menus`.`Prix` AS `prix`,`entree`.`Nom` AS `entree`,`plats`.`Nom` AS `plat`,`dessert`.`Nom` AS `dessert`,`boisson`.`Nom` AS `boisson` from ((((`menus` join `entree` on((`menus`.`Id_Entree` = `entree`.`Id_Entree`))) join `plats` on((`menus`.`Id_Plat` = `plats`.`Id_Plat`))) join `dessert` on((`menus`.`Id_Dessert` = `dessert`.`Id_Dessert`))) join `boisson` on((`menus`.`Id_Boisson` = `boisson`.`Id_Boisson`))) ;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
